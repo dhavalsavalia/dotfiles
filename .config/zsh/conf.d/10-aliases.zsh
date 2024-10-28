@@ -1,0 +1,5 @@
+alias vim="lvim"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."

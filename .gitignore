@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+*.lock.json
+.idea/
+.vscode/
+lazy-lock.json
