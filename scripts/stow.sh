@@ -2,6 +2,9 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export DOTFILES_DIR
+
 setup_stow() {
     local profile="$1"
 
