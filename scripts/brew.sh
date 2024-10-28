@@ -38,9 +38,30 @@ install_homebrew() {
     log "Installing Homebrew..."
     execute '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
-    # Add Homebrew to PATH for Apple Silicon
+    # Setup shell environment
+    setup_shell_env
+
+    # Add Homebrew to current session
     if [ -f "/opt/homebrew/bin/brew" ]; then
         execute 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+    fi
+}
+
+setup_shell_env() {
+    local zprofile="$HOME/.zprofile"
+    local brew_env='eval "$(/opt/homebrew/bin/brew shellenv)"'
+
+    # Create .zprofile if it doesn't exist
+    if [ ! -f "$zprofile" ]; then
+        touch "$zprofile"
+    fi
+
+    # Add brew to PATH only if it's not already there
+    if ! grep -q "brew shellenv" "$zprofile"; then
+        log "Adding Homebrew to PATH in .zprofile"
+        echo >> "$zprofile"
+        echo '# Homebrew PATH' >> "$zprofile"
+        echo "$brew_env" >> "$zprofile"
     fi
 }
 
@@ -74,12 +95,10 @@ EOF"
 install_packages() {
     local profile="$1"
     local combined_file
-    combined_file=$(generate_combined_brewfile "$profile")
+    generate_combined_brewfile "$profile"
 
-    if [ -z "$combined_file" ]; then
-        error "Failed to generate combined Brewfile"
-        return 1
-    fi
+    local brew_dir="$DOTFILES_DIR/.data/homebrew"
+    combined_file="$brew_dir/Brewfile.combined"
 
     log "Installing Homebrew packages for profile: $profile"
 
@@ -93,12 +112,10 @@ install_packages() {
 cleanup_packages() {
     local profile="$1"
     local combined_file
-    combined_file=$(generate_combined_brewfile "$profile")
+    generate_combined_brewfile "$profile"
 
-    if [ -z "$combined_file" ]; then
-        error "Failed to generate combined Brewfile"
-        return 1
-    fi
+    local brew_dir="$DOTFILES_DIR/.data/homebrew"
+    combined_file="$brew_dir/Brewfile.combined"
 
     log "Cleaning up unused Homebrew packages..."
     execute "brew bundle cleanup --file='$combined_file'"
@@ -108,8 +125,8 @@ setup_homebrew() {
     local profile="$1"
 
     # Validate profile
-    if [ "$profile" != "home" ] && [ "$profile" != "1" ]; then
-        error "Profile must be either 'home' or '1'"
+    if [ "$profile" != "home" ] && [ "$profile" != "garda" ]; then
+        error "Profile must be either 'home' or 'garda'"
         return 1
     fi
 

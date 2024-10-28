@@ -1,6 +1,6 @@
 # Development Tools
 brew "cookiecutter"
-brew "chromedriver"
+cask "chromedriver"
 
 # Applications
 cask "1password"
