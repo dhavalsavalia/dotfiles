@@ -21,7 +21,6 @@ brew "unar"
 cask "iterm2"
 cask "kitty"
 brew "gnupg"
-cask "gpg-suite"
 brew "pinentry-mac"
 brew "fd"  # Alternative to find
 brew "fzf"  # Fuzzy finder
@@ -53,8 +52,6 @@ brew "neovim"
 brew "pipenv"
 cask "mongodb-compass"
 # brew "azure/functions/azure-functions-core-tools@4"
-cask "docker"
-brew "docker-compose"
 cask "github"
 cask "postman"
 cask "visual-studio-code"
@@ -65,7 +62,6 @@ brew "gh"
 cask "raycast"
 cask "rectangle"
 cask "itsycal"
-cask "logi-options+"
 
 # Fonts
 cask "font-fira-code-nerd-font"
@@ -89,3 +85,9 @@ cask "qlimagesize" # Display image size and resolution
 cask "webpquicklook" # Preview WebP images
 cask "suspicious-package" # Preview the contents of a standard Apple installer package
 cask "qlvideo" # Preview most types of video files
+
+# su required packages
+cask "gpg-suite"
+cask "docker"
+brew "docker-compose"
+cask "logi-options+"
