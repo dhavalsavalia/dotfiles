@@ -3,3 +3,4 @@
 *.lock.json
 .idea/
 .vscode/
+lazy-lock.json
