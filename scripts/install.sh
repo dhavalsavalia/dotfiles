@@ -75,6 +75,10 @@ log "Setting up dotfiles with stow..."
 source "$DOTFILES_DIR/scripts/stow.sh"
 setup_stow "$PROFILE"
 
+# Clone fzf-git.sh
+log "Cloning fzf-git.sh..."
+execute "git clone https://github.com/junegunn/fzf-git.sh $DOTFILES_DIR/.config/fzf-git.sh"
+
 # Install LunarVim if requested
 if [ "$INSTALL_LVIM" = "true" ]; then
     log "Installing LunarVim..."
