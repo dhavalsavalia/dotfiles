@@ -1,3 +1,5 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Source all configuration files
 for conf in "$ZDOTDIR"/conf.d/*.zsh(N); do
     source "$conf"
