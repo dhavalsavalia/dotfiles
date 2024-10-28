@@ -11,6 +11,7 @@ source "$DOTFILES_DIR/scripts/utils.sh"
 # Then source other scripts
 source "$DOTFILES_DIR/scripts/brew.sh"
 source "$DOTFILES_DIR/scripts/macos.sh"
+source "$DOTFILES_DIR/scripts/stow.sh"
 
 # Parse arguments
 while getopts "p:d" opt; do
@@ -38,3 +39,6 @@ setup_macos_defaults "$PROFILE"
 
 # Run Homebrew setup
 setup_homebrew "$PROFILE"
+
+# Setup stow symlinks
+setup_stow "$PROFILE"
