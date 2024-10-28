@@ -11,7 +11,7 @@ setup_macos_defaults() {
     if [ -z "$profile" ]; then
         error "Profile not specified"
         exit 1
-    }
+    fi
 
     log "Setting up macOS defaults"
 
@@ -535,9 +535,11 @@ setup_macos_defaults() {
     # Kill affected applications                                                   #
     ###############################################################################
 
-    for app in "Dock" "Finder" "SystemUIServer" "ActivityMonitor" "cfprefsd"; do
-        execute "killall \"${app}\" &> /dev/null"
-    done
+    killall "Dock"
+    killall "Finder"
+    killall "SystemUIServer"
+    killall "ActivityMonitor"
+    killall "cfprefsd"
 
     log "macOS defaults have been set. Some changes require a logout/restart to take effect."
 }

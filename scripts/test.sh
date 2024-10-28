@@ -20,7 +20,7 @@ check_command() {
     else
         error "✗ $1 is not installed"
         return 1
-    }
+    fi
 }
 
 # Function to check if a Homebrew package is installed
@@ -31,7 +31,7 @@ check_brew_package() {
     else
         error "✗ brew package $1 is not installed"
         return 1
-    }
+    fi
 }
 
 # Function to check if a Homebrew cask is installed
@@ -42,7 +42,7 @@ check_brew_cask() {
     else
         error "✗ brew cask $1 is not installed"
         return 1
-    }
+    fi
 }
 
 # Function to verify Homebrew installation
@@ -129,7 +129,7 @@ main() {
     if [ "$profile" != "home" ] && [ "$profile" != "1" ]; then
         error "Profile must be either 'home' or '1'"
         exit 1
-    }
+    fi
 
     log "Starting tests for profile: $profile"
 
