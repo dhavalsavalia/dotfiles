@@ -5,7 +5,10 @@ set -e
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export DOTFILES_DIR
 
-# Source the scripts
+# Source the utility functions first
+source "$DOTFILES_DIR/scripts/utils.sh"
+
+# Then source other scripts
 source "$DOTFILES_DIR/scripts/brew.sh"
 source "$DOTFILES_DIR/scripts/macos.sh"
 
@@ -24,6 +27,8 @@ if [ "$PROFILE" != "home" ] && [ "$PROFILE" != "garda" ]; then
     error "Profile must be either 'home' or 'garda'"
     exit 1
 fi
+
+log "Starting setup for profile: $PROFILE"
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR/scripts/"*.sh

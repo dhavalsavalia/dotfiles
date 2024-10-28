@@ -2,6 +2,9 @@
 
 set -e
 
+# Source utils if not already sourced
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
+
 setup_macos_defaults() {
 
     log "Setting up macOS defaults"
@@ -66,7 +69,7 @@ setup_macos_defaults() {
     # TODO: Wrap with $osx_product_version tests
 
     printf "Testing for Full Disk Access:\n\n"
-    errstr=$( /bin/ls /Users/admin/Library/Containers/com.apple.Safari 3>&1 1>&2 2>&3 3>&- )
+    errstr=$( /bin/ls /Users/$(whoami)/Library/Containers/com.apple.Safari 3>&1 1>&2 2>&3 3>&- )
     # ? Full disk access has only been in since Mojave, but which files were protected first?
     # TODO: Research if there is an older file to test.
 
@@ -372,9 +375,6 @@ setup_macos_defaults() {
     /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy kind" ~/Library/Preferences/com.apple.finder.plist
     /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy kind" ~/Library/Preferences/com.apple.finder.plist
     /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy kind" ~/Library/Preferences/com.apple.finder.plist
-
-    # Use Stack view
-    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:GroupBy Kind" ~/Library/Preferences/com.apple.finder.plist
 
     #================================================
     # *              SCREENSHOTS
