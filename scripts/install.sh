@@ -16,21 +16,24 @@ Options:
     -p <profile>    Specify profile (home or garda)
     -d             Dry run mode
     -m             Run macOS defaults setup
+    -l             Install LunarVim
     -h             Show this help message
 
 Example:
     $0 -p home         # Regular install for home profile
     $0 -p home -d      # Dry run for home profile
     $0 -p home -m      # Install and run macOS defaults
+    $0 -p home -l      # Install with LunarVim
 EOF
 }
 
 # Parse arguments
-while getopts "p:dmh" opt; do
+while getopts "p:dmlh" opt; do
     case $opt in
         p) PROFILE="$OPTARG";;
         d) export DRY_RUN="true";;
         m) MACOS_DEFAULTS="true";;
+        l) INSTALL_LVIM="true";;
         h) print_usage; exit 0;;
         *) print_usage; exit 1;;
     esac
@@ -71,5 +74,12 @@ setup_homebrew "$PROFILE"
 log "Setting up dotfiles with stow..."
 source "$DOTFILES_DIR/scripts/stow.sh"
 setup_stow "$PROFILE"
+
+# Install LunarVim if requested
+if [ "$INSTALL_LVIM" = "true" ]; then
+    log "Installing LunarVim..."
+    source "$DOTFILES_DIR/scripts/lunarvim.sh"
+    install_lunarvim
+fi
 
 log "Setup completed successfully!"
