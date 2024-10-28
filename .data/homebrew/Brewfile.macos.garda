@@ -1,0 +1,6 @@
+# Development tools
+cask "jetbrains-toolbox"
+
+# Applications
+cask "keeper-password-manager"
+cask "onedrive"

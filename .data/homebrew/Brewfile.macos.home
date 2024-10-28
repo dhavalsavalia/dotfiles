@@ -1,0 +1,18 @@
+# Development Tools
+brew "cookiecutter"
+brew "chromedriver"
+
+# Applications
+cask "1password"
+cask "1password-cli"
+cask "enpass"
+cask "discord"
+cask "telegram"
+cask "apparency" # Check the integrity of your apps
+cask "setapp"
+cask "whatsapp"
+cask "windscribe"
+
+# Games
+cask "steam"
+cask "minecraft"
