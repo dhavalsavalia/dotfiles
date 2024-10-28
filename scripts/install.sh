@@ -34,7 +34,7 @@ log "Starting setup for profile: $PROFILE"
 chmod +x "$DOTFILES_DIR/scripts/"*.sh
 
 # Setup macOS defaults first
-setup_macos_defaults
+setup_macos_defaults "$PROFILE"
 
 # Run Homebrew setup
 setup_homebrew "$PROFILE"

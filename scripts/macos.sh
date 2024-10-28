@@ -6,6 +6,12 @@ set -e
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 setup_macos_defaults() {
+    local profile="$1"
+
+    if [ -z "$profile" ]; then
+        error "Profile not specified"
+        exit 1
+    }
 
     log "Setting up macOS defaults"
 
@@ -537,4 +543,16 @@ setup_macos_defaults() {
 }
 
 # Main execution
-setup_macos_defaults
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Parse command line arguments
+    while getopts "p:d" opt; do
+        case $opt in
+            p) PROFILE="$OPTARG";;
+            d) DRY_RUN="true";;
+            *) echo "Usage: $0 [-p profile] [-d]" >&2
+               exit 1;;
+        esac
+    done
+
+    setup_macos_defaults "$PROFILE"
+fi

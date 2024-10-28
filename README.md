@@ -19,6 +19,8 @@ xcode-select --install
 sudo softwareupdate --install-rosetta
 ```
 
+3. Full Disk Access to Terminal.app
+
 Note: The installation process will require sudo access at various points. You'll be prompted for your password when needed.
 
 ## Setup Instructions
