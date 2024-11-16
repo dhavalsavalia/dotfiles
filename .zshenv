@@ -7,3 +7,4 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # PATH I am supposed to be adding
 export PATH="$HOME/.local/bin:$PATH"  # lvim
+export PATH="$HOME/.config/tmuxifier/bin:$PATH"  # tmuxifier
