@@ -40,6 +40,13 @@ chmod +x scripts/*.sh
 ./scripts/install.sh -h
 ```
 
+## App Specifics
+
+### tmux
+
+tmux and tmuxifier are installed, however plugins needs to installed in tmux manually.
+To  do that, start tmux and do <kbd><leader\>+I</kbd>
+
 ## Known issues
 
 * MacOS defaults script is not working with `install.sh` so it need to be run individually:
@@ -48,7 +55,7 @@ chmod +x scripts/*.sh
 ```
 
 * Some defaults are not behaving properly
-* kitty is not opening
+* ~~kitty is not opening~~ UTM Does not support OpenGL 3.3 drivers, so I can't test kitty on UTM
 * Custom taps are not working for brew.
 * Report?
 
