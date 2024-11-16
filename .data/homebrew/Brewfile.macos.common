@@ -66,7 +66,7 @@ cask "itsycal"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
-cast "font-victor-mono-nerd-font"
+cask "font-victor-mono-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-symbols-only-nerd-font"
 
