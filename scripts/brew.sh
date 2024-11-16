@@ -52,14 +52,25 @@ generate_combined_brewfile() {
     local combined_file="$brew_dir/Brewfile.combined"
 
     # Check if required files exist
-    if [ ! -f "$common_file" ] || [ ! -f "$profile_file" ]; then
-        error "Missing Brewfile(s): $common_file or $profile_file"
-        return 1
-    fi
-
-    # Generate combined Brewfile
-    log "Generating combined Brewfile..."
-    execute "cat > '$combined_file' << EOF
+    if [ "$profile" = "minimal" ]; then
+        if [ ! -f "$profile_file" ]; then
+            error "Missing Brewfile: $profile_file"
+            return 1
+        fi
+        # Use only the minimal Brewfile
+        log "Using minimal Brewfile..."
+        execute "cat > '$combined_file' << EOF
+# Generated minimal Brewfile
+$(cat "$profile_file")
+EOF"
+    else
+        if [ ! -f "$common_file" ] || [ ! -f "$profile_file" ]; then
+            error "Missing Brewfile(s): $common_file or $profile_file"
+            return 1
+        fi
+        # Generate combined Brewfile
+        log "Generating combined Brewfile..."
+        execute "cat > '$combined_file' << EOF
 # Generated combined Brewfile
 # Common packages
 $(cat "$common_file")
@@ -67,6 +78,7 @@ $(cat "$common_file")
 # Profile-specific packages ($profile)
 $(cat "$profile_file")
 EOF"
+    fi
 
     echo "$combined_file"
 }
@@ -104,8 +116,8 @@ setup_homebrew() {
     local profile="$1"
 
     # Validate profile
-    if [ "$profile" != "home" ] && [ "$profile" != "garda" ]; then
-        error "Profile must be either 'home' or 'garda'"
+    if [ "$profile" != "home" ] && [ "$profile" != "garda" ] && [ "$profile" != "minimal" ]; then
+        error "Profile must be either 'home', 'garda', or 'minimal'"
         return 1
     fi
 

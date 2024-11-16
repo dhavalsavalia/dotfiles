@@ -1,0 +1,56 @@
+# Package Managers and Taps
+tap "homebrew/bundle"
+tap "homebrew/services"
+# tap "azure/functions"
+# tap "oven-sh/bun"
+# tap "jesseduffield/lazygit"
+
+# Core Development Tools
+brew "git"
+brew "gcc"
+brew "gettext"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "bat" # A cat with syntax highlighting and Git integration
+brew "git-delta" # A viewer for git and diff output
+brew "eza" # A simple, fast, and modern editor
+
+# System Utilities
+brew "mas"
+brew "unar"
+cask "kitty"
+brew "gnupg"
+brew "pinentry-mac"
+brew "fd"  # Alternative to find
+brew "fzf"  # Fuzzy finder
+brew "ripgrep"  # Search tool like grep and The Silver Searcher
+brew "stow" # Manage symlinks in one place (dotfiles)
+brew "starship" # prompt
+brew "tree"
+brew "wget"
+brew "tmux"
+brew "zoxide" # A faster way to navigate your filesystem
+brew "zsh-history-substring-search"
+brew "zsh-syntax-highlighting"
+brew "tlrc"  # TLDR Rust Client
+brew "thefuck"
+
+# Programming Languages
+brew "go"
+brew "node"
+# brew "oven-sh/bun/bun"
+brew "python"
+brew "pyenv"
+brew "pipenv"
+
+# Development Tools
+# brew "jesseduffield/lazygit/lazygit"
+brew "lazygit"
+brew "neovim"
+brew "pipenv"
+
+# Fonts
+cask "font-fira-code-nerd-font"
+cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-symbols-only-nerd-font"
