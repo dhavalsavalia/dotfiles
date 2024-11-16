@@ -82,4 +82,9 @@ if [ "$INSTALL_LVIM" = "true" ]; then
     install_lunarvim
 fi
 
+# Setup tmux
+log "Setting up tmux..."
+source "$DOTFILES_DIR/scripts/tmux.sh"
+setup_tmux
+
 log "Setup completed successfully!"
