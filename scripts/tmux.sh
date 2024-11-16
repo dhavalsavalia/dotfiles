@@ -23,5 +23,27 @@ setup_tmux() {
     fi
 }
 
+
+setup_tmuxifier() {
+    # Install tmuxifier in $XDG_CONFIG_HOME/tmuxifier
+    local tmuxifier_dir="$XDG_CONFIG_HOME/tmuxifier"
+
+    if [ -d "$tmuxifier_dir" ]; then
+        log "Tmuxifier is already installed"
+        return 0
+    fi
+
+    log "Installing Tmuxifier..."
+    execute "git clone https://github.com/jimeh/tmuxifier.git $tmuxifier_dir"
+
+    if [ -d "$tmuxifier_dir" ]; then
+        log "Tmuxifier installed successfully!"
+    else
+        error "Tmuxifier installation failed"
+        exit 1
+    fi
+}
+
 # Main execution
 setup_tmux
+setup_tmuxifier
