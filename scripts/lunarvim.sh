@@ -13,10 +13,11 @@ install_lunarvim() {
 
     # Install LunarVim Nightly
     log "Installing LunarVim..."
-    execute 'bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)'
+    execute 'yes | bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)'
 
     # Source shell environment to make lvim available
     execute 'source $HOME/.zprofile'
+    execute 'source $HOME/.zshenv'
 
     # Verify installation
     if command_exists "lvim"; then
