@@ -30,7 +30,7 @@ brew "tree"
 brew "wget"
 brew "tmux"
 brew "zoxide" # A faster way to navigate your filesystem
-brew "zsh-history-substring-search"
+brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "tlrc"  # TLDR Rust Client
 brew "thefuck"
