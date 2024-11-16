@@ -81,7 +81,6 @@ cask "qlstephen" # Preview plain text files without a file extension
 cask "qlmarkdown" # Preview Markdown files
 cask "quicklook-json" # Preview JSON files
 cask "quicklook-csv" # Preview CSV files
-cask "qlimagesize" # Display image size and resolution
 cask "webpquicklook" # Preview WebP images
 cask "suspicious-package" # Preview the contents of a standard Apple installer package
 cask "qlvideo" # Preview most types of video files
