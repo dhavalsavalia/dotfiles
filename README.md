@@ -61,7 +61,5 @@ To  do that, start tmux and do <kbd><leader\>+I</kbd>
 
 ## TODO
 
-* More robust
-* Solve issues
-* More config
-* Checkout [xdg-ninja](https://github.com/b3nj5m1n/xdg-ninja)
+* Fix double calling functions
+* Add iterm2 config
