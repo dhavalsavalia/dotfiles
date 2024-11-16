@@ -46,8 +46,8 @@ if [ -z "$PROFILE" ]; then
     exit 1
 fi
 
-if [ "$PROFILE" != "home" ] && [ "$PROFILE" != "garda" ]; then
-    error "Profile must be either 'home' or 'garda'"
+if [ "$PROFILE" != "home" ] && [ "$PROFILE" != "garda" ] && [ "$PROFILE" != "minimal" ]; then
+    error "Profile must be either 'home', 'garda', or 'minimal'"
     exit 1
 fi
 
