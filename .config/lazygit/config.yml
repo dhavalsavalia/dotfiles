@@ -1,0 +1,12 @@
+gui:
+  nerdFontsVersion: "3"
+  scrollOffMargin: 10
+  mainPanelSplitMode: "horizontal"
+  theme:
+    selectedLineBgColor:
+      - bold
+      - underline
+    searchingActiveBorderColor:
+      - reverse
+os:
+  editPreset: "lvim"
