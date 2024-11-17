@@ -36,4 +36,7 @@ bindings = [
   { key = "Backspace", mods = "Alt", chars = "\u001B\u007F" },  # Alt + Backspace (Delete word before cursor)
   { key = "N", mods = "Alt", chars = "\u001BN" },  # Alt + N (Search forward through history)
   { key = "P", mods = "Alt", chars = "\u001BP" },  # Alt + P (Search backward through history)
+  { key = "Backspace", mods = "Command", chars = "\u0015" },  # Cmd + Delete (Delete whole line
+  { key = "Left", mods = "Command", chars = "\u0001" },  # Cmd + Left (Move to the beginning of the line)
+  { key = "Right", mods = "Command", chars = "\u0005" },  # Cmd + Right (Move to the end of the line)
 ]
