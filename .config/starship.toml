@@ -76,7 +76,7 @@ right_format = """$time"""
 [git_branch]
 disabled = false
 symbol = " "
-style = "fg:#b79999"
+style = "fg:#fd9353"
 # truncation_length = 5   # length == ABCDE
 # truncation_symbol = ""  ## this is to leave BLANK
 #format = 'on [$symbol$branch(:$remote_branch)]($style) '
@@ -103,7 +103,7 @@ am_or_rebase = "am/rebase"
 
 [git_status]
 disabled = false
-style= "fg:#5F8575"
+style= "fg:#7bd88f"
 stashed = " ${count} "
 ahead = "󰞙 ${count} "
 behind = "󰞒 ${count} "
@@ -120,7 +120,7 @@ untracked = "󱅘 ${count}"
 #*===================================
 
 [directory]
-style= "fg:#6A8AEA"
+style= "fg:#948ae3"
 truncation_length = 4
 truncate_to_repo = true
 fish_style_pwd_dir_length = 3
