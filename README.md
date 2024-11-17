@@ -68,3 +68,4 @@ To  do that, start tmux and do <kbd><leader\>+I</kbd>
 * yabai
 * skdh
 * make sure everything works on Corne keyboard
+* gitconfig
