@@ -65,3 +65,6 @@ To  do that, start tmux and do <kbd><leader\>+I</kbd>
 * Add sketchybar
 * Add neofetch or something
 * Add ranger
+* yabai
+* skdh
+* make sure everything works on Corne keyboard
