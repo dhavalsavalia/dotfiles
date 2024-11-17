@@ -42,10 +42,7 @@ chmod +x scripts/*.sh
 
 ## App Specifics
 
-### tmux
-
-tmux and tmuxifier are installed, however plugins needs to installed in tmux manually.
-To  do that, start tmux and do <kbd><leader\>+I</kbd>
+...
 
 ## Known issues
 

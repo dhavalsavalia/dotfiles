@@ -16,6 +16,9 @@ setup_tmux() {
     execute "git clone https://github.com/tmux-plugins/tpm $tpm_dir"
 
     if [ -d "$tpm_dir" ]; then
+        # Install TPM plugins
+        execute "$tpm_dir/bin/install_plugins"
+
         log "TPM installed successfully!"
     else
         error "TPM installation failed"
