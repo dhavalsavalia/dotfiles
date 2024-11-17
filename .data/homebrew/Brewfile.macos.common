@@ -20,6 +20,7 @@ brew "mas"
 brew "unar"
 cask "iterm2"
 cask "kitty"
+cask "alacritty"
 brew "gnupg"
 brew "pinentry-mac"
 brew "fd"  # Alternative to find
@@ -64,9 +65,9 @@ cask "rectangle"
 cask "itsycal"
 
 # Fonts
-cask "font-fira-code-nerd-font"
-cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
+cask "font-victor-mono-nerd-font"
+cask "font-jetbrains-mono"
 cask "font-symbols-only-nerd-font"
 
 # Applications
