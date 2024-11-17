@@ -4,3 +4,12 @@
 .idea/
 .vscode/
 lazy-lock.json
+__pycache__/
+
+# Post Install Directories and Files
+github-copilot/
+thefuck/
+,config/tmux/plugins/
+.zsh_sessions/
+.zsh_history
+Brewfile.combined
