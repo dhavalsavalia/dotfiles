@@ -11,7 +11,13 @@ This repository contains my configuration files and scripts for setting up my de
 sudo rm -rf /Library/Developer/CommandLineTools
 
 # Install Command Line Tools
-xcode-select --install
+sudo xcode-select --install
+```
+
+Make sure `Apple Clang` version is >16.
+
+```bash
+clang --version
 ```
 
 2. Install Rosetta 2 (required for some packages on Apple Silicon):
@@ -53,7 +59,7 @@ chmod +x scripts/*.sh
 
 * Some defaults are not behaving properly
 * ~~kitty is not opening~~ UTM Does not support OpenGL 3.3 drivers, so I can't test kitty on UTM
-* Custom taps are not working for brew.
+* ~~Custom taps are not working for brew.~~ Make sure Apple Clang version >16. (As of MacOS 15.1 Seqouia)
 * Report?
 
 ## TODO
