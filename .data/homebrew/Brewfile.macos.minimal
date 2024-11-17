@@ -1,9 +1,9 @@
 # Package Managers and Taps
 tap "homebrew/bundle"
 tap "homebrew/services"
-# tap "azure/functions"
-# tap "oven-sh/bun"
-# tap "jesseduffield/lazygit"
+tap "azure/functions"
+tap "oven-sh/bun"
+tap "jesseduffield/lazygit"
 
 # Core Development Tools
 brew "git"
@@ -39,14 +39,13 @@ brew "thefuck"
 # Programming Languages
 brew "go"
 brew "node"
-# brew "oven-sh/bun/bun"
+brew "oven-sh/bun/bun"
 brew "python"
 brew "pyenv"
 brew "pipenv"
 
 # Development Tools
-# brew "jesseduffield/lazygit/lazygit"
-brew "lazygit"
+brew "jesseduffield/lazygit/lazygit"
 brew "neovim"
 brew "pipenv"
 
