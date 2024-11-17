@@ -1,0 +1,10 @@
+[include]
+  path = gitconfig.d/alias.conf
+  path = gitconfig.d/apply.conf
+  path = gitconfig.d/branch.conf
+  path = gitconfig.d/color.conf
+  path = gitconfig.d/core.conf
+  path = gitconfig.d/diff.conf
+  path = gitconfig.d/merge.conf
+  path = gitconfig.d/push.conf
+  path = gitconfig.d/rerere.conf

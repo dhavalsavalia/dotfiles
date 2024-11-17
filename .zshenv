@@ -5,6 +5,9 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-# PATH I am supposed to be adding
-export PATH="$HOME/.local/bin:$PATH"  # lvim
-export PATH="$HOME/.config/tmuxifier/bin:$PATH"  # tmuxifier
+# PATH and vards I am supposed to be adding
+# Setting in .zshenv ensures that these variables are available to all programs
+# including in alacritty, tmux, etc.
+export PATH="$HOME/.local/bin:$PATH"                       # lvim
+export PATH="$HOME/.config/tmuxifier/bin:$PATH"            # tmuxifier
+export GIT_CONFIG_GLOBAL="$XDG_CONFIG_HOME/git/.gitconfig" # Git config
