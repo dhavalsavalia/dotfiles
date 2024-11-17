@@ -62,4 +62,6 @@ To  do that, start tmux and do <kbd><leader\>+I</kbd>
 ## TODO
 
 * Fix double calling functions
-* Add iterm2 config
+* Add sketchybar
+* Add neofetch or something
+* Add ranger
