@@ -109,7 +109,7 @@ cleanup_packages() {
     combined_file="$brew_dir/Brewfile.combined"
 
     log "Cleaning up unused Homebrew packages..."
-    execute "brew bundle cleanup --file='$combined_file'"
+    execute "brew bundle cleanup --file='$combined_file' --force"
 }
 
 setup_homebrew() {
