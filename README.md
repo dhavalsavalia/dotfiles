@@ -65,4 +65,3 @@ chmod +x scripts/*.sh
 * yabai
 * skdh
 * make sure everything works on Corne keyboard
-* gitconfig
