@@ -11,7 +11,13 @@ This repository contains my configuration files and scripts for setting up my de
 sudo rm -rf /Library/Developer/CommandLineTools
 
 # Install Command Line Tools
-xcode-select --install
+sudo xcode-select --install
+```
+
+Make sure `Apple Clang` version is >16.
+
+```bash
+clang --version
 ```
 
 2. Install Rosetta 2 (required for some packages on Apple Silicon):
