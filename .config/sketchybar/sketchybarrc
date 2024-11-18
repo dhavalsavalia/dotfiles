@@ -1,0 +1,44 @@
+#!/bin/bash
+
+source "$CONFIG_DIR/colors.sh"
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEMS_DIR="$CONFIG_DIR/items"
+
+FONT="JetBrainsMono Nerd Font"
+
+sketchybar --bar position=top height=37 blur_radius=30 color=$BAR_COLOR
+
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="$FONT:Bold:17.0"
+  label.font="$FONT:Bold:16.0"
+  icon.color=$WHITE
+  label.color=$WHITE
+  icon.padding_left=10
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=10
+  background.color=$BG_COLOR
+  background.corner_radius=5
+  background.height=30
+)
+sketchybar --default "${default[@]}"
+
+# -- Left Side Items --
+source "$ITEMS_DIR/spaces.sh"
+source "$ITEMS_DIR/front_app.sh"
+
+# -- Left Side Of Notch Items --
+
+# -- Right Side Of Notch Items --
+source "$ITEMS_DIR/media.sh"
+
+# -- Right Side Items --
+source "$ITEMS_DIR/calendar.sh"
+source "$ITEMS_DIR/volume.sh"
+source "$ITEMS_DIR/battery.sh"
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

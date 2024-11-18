@@ -87,4 +87,7 @@ log "Setting up tmux..."
 source "$DOTFILES_DIR/scripts/tmux.sh"
 setup_tmux
 
+# Setup sketchybar
+source "$DOTFILES_DIR/scripts/sketchybar.sh"
+
 log "Setup completed successfully!"
