@@ -48,7 +48,9 @@ chmod +x scripts/*.sh
 
 ## App Specifics
 
-...
+### sketchybar
+
+MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hide "Always" from `System Settings` > `Control Center`.
 
 ## Known issues
 
@@ -65,7 +67,6 @@ chmod +x scripts/*.sh
 ## TODO
 
 * Fix double calling functions
-* Add sketchybar
 * Add neofetch or something
 * Add ranger
 * yabai
