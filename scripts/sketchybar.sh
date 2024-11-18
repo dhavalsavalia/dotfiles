@@ -9,6 +9,7 @@ setup_sketchybar() {
   local items_dir="$sketchybar_dir/items"
   local colors_file="$sketchybar_dir/colors.sh"
   local temp_file
+  local LATEST_APP_FONT_VERSION="2.0.28"
 
   log "Setting up sketchybar..."
 
@@ -27,6 +28,18 @@ setup_sketchybar() {
   # Ensure sketchybar is installed
   if ! command -v sketchybar &> /dev/null; then
     error "sketchybar is not installed"
+    exit 1
+  fi
+
+  # Install sketchybar app fonts
+  log "Installing sketchybar app fonts..."
+  local font_url="https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v$LATEST_APP_FONT_VERSION/sketchybar-app-font.ttf"
+  local font_dest="$HOME/Library/Fonts/sketchybar-app-font.ttf"
+
+  if curl -L "$font_url" -o "$font_dest"; then
+    log "sketchybar app font installed successfully"
+  else
+    error "Failed to download sketchybar app font from $font_url"
     exit 1
   fi
 
