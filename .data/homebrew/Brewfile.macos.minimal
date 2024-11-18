@@ -57,4 +57,4 @@ cask "font-jetbrains-mono"
 cask "font-symbols-only-nerd-font"
 
 # Ricing
-brew "sketchybar"
+brew "FelixKratz/formulae/sketchybar"
