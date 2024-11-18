@@ -1,9 +1,28 @@
-# Dhaval's dotfiles
+# 🚀 Dhaval's Dotfiles
 
-## Description
+## 📄 Description
 This repository contains my configuration files and scripts for setting up my development environment.
 
-## Prerequisites
+## 🛠️ Tools Configured
+This script will configure the following tools:
+
+* **Homebrew**: Installs and manages packages through bundle.
+* **GNU Stow**: Manages symlinks seamlessly for painless dotfiles setup.
+* **Git**: Configures git aliases and settings.
+* **Zsh**: Sets up zsh with plugins like zoxide, eza, starship prompt, and its configurations.
+* **Alacritty**: Configures the alacritty terminal emulator for a minimal look.
+* **Tmux**: Sets up tmux with plugins and themes. Also installs tmuxifier for session management.
+* **LunarVim**: Configures the LunarVim editor.
+* **Lazygit**: My git client of choice with a beautiful TUI.
+* **Sketchybar**: Configures the macOS menu bar.
+* **macOS Defaults**: Sets macOS sane defaults.
+
+## 🎨 Personal Choices
+
+* **Colortheme**: Monokai Pro (Spectrum Filter).
+* **Fonts**: JetBrainsMono Nerd Fonts with VictorMono Nerd Fonts for cursive.
+
+## 🛠️ Prerequisites
 
 1. Install Command Line Tools:
 ```bash
@@ -14,7 +33,7 @@ sudo rm -rf /Library/Developer/CommandLineTools
 sudo xcode-select --install
 ```
 
-Make sure `Apple Clang` version is >16.
+Make sure `Apple Clang` version is >16. If not, run above steps again to fix.
 
 ```bash
 clang --version
@@ -52,7 +71,7 @@ chmod +x scripts/*.sh
 
 MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hide "Always" from `System Settings` > `Control Center`.
 
-## Known issues
+## 🐞 Known issues
 
 * MacOS defaults script is not working with `install.sh` so it need to be run individually:
 ```bash
@@ -64,7 +83,7 @@ MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hid
 * ~~Custom taps are not working for brew.~~ Make sure Apple Clang version >16. (As of MacOS 15.1 Seqouia)
 * Report?
 
-## TODO
+## 📝 TODO
 
 * Fix double calling functions
 * Add neofetch or something
