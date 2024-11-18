@@ -382,6 +382,8 @@ setup_macos_defaults() {
     /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy kind" ~/Library/Preferences/com.apple.finder.plist
     /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy kind" ~/Library/Preferences/com.apple.finder.plist
 
+    # Disable "Click wallpaper to reveal desktop" (default: true)
+    defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -int 0
     #================================================
     # *              SCREENSHOTS
     #================================================
