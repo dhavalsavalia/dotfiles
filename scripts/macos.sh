@@ -408,7 +408,7 @@ setup_macos_defaults() {
     defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
 
     # Hide Menubar for Sketchybar
-    defaults write "Apple Global Domain" "_HIHideMenuBar" -book true
+    defaults write "Apple Global Domain" "_HIHideMenuBar" "1"
 
     #================================================
     # *               APPEARANCE
