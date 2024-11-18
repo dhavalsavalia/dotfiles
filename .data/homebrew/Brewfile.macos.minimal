@@ -1,9 +1,9 @@
 # Package Managers and Taps
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "azure/functions"
 tap "oven-sh/bun"
 tap "jesseduffield/lazygit"
+tap "FelixKratz/formulae"
 
 # Core Development Tools
 brew "git"
@@ -14,6 +14,7 @@ brew "gnu-tar"
 brew "bat" # A cat with syntax highlighting and Git integration
 brew "git-delta" # A viewer for git and diff output
 brew "eza" # A simple, fast, and modern editor
+brew "jq"
 
 # System Utilities
 brew "mas"
@@ -54,3 +55,6 @@ cask "font-jetbrains-mono-nerd-font"
 cask "font-victor-mono-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-symbols-only-nerd-font"
+
+# Ricing
+brew "FelixKratz/formulae/sketchybar"
