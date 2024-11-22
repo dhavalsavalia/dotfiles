@@ -15,6 +15,7 @@ This script will configure the following tools:
 * **LunarVim**: Configures the LunarVim editor.
 * **Lazygit**: My git client of choice with a beautiful TUI.
 * **Sketchybar**: Configures the macOS menu bar.
+* **AeroSpace**: Tiling Window Manager. Similar to i3.
 * **macOS Defaults**: Sets macOS sane defaults.
 
 ## 🎨 Personal Choices
@@ -88,6 +89,4 @@ MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hid
 * Fix double calling functions
 * Add neofetch or something
 * Add ranger
-* yabai
-* skdh
 * make sure everything works on Corne keyboard
