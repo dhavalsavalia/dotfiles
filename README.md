@@ -47,24 +47,15 @@ sudo softwareupdate --install-rosetta
 
 3. Full Disk Access to Terminal.app
 
-Note: The installation process will require sudo access at various points. You'll be prompted for your password when needed.
+Note: The installation process will require  sudo access at various points. You'll be prompted for your password when needed.
 
 ## Setup Instructions
-1. Clone the repository:
+1. Run following command in Terminal:
 ```bash
-git clone https://github.com/dhavalsavalia/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)"
 ```
 
-2. Give executable permissions to scripts
-```bash
-chmod +x scripts/*.sh
-```
-
-3. See help and install acordingly
-```bash
-./scripts/install.sh -h
-```
+> Change `main` to branch name for alternate branch. This is mostly for testing.
 
 ## App Specifics
 
