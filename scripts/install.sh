@@ -90,4 +90,7 @@ setup_tmux
 # Setup sketchybar
 source "$DOTFILES_DIR/scripts/sketchybar.sh"
 
+# Setup AeroSpace
+source "$DOTFILES_DIR/scripts/aerospace.sh"
+
 log "Setup completed successfully!"
