@@ -153,3 +153,7 @@ run = 'move-node-to-workspace A'
 [[on-window-detected]]
 if.app-name-regex-substring = 'Spotify'
 run = 'move-node-to-workspace M'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '(Finder|Cisco Secure Client)'
+run = 'layout floating'
