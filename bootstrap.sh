@@ -8,7 +8,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 # Default values
 PROFILE="${DOTFILES_PROFILE:-minimal}"
 DRY_RUN="${DRY_RUN:-false}"
-MACOS_DEFAULTS="${MACOS_DEFAULTS:-false}"
+MACOS_DEFAULTS="${MACOS_DEFAULTS:-true}"
 INSTALL_LVIM="${INSTALL_LVIM:-true}"
 BRANCH="${DOTFILES_BRANCH:-main}"
 
@@ -30,7 +30,9 @@ fi
 
 # Navigate to the dotfiles directory and checkout the specified branch
 cd "$DOTFILES_DIR"
-git checkout "$BRANCH"
+if [ "$(git rev-parse --abbrev-ref HEAD)" != "$BRANCH" ]; then
+    git checkout "$BRANCH"
+fi
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR"/scripts/*.sh
