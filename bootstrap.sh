@@ -3,7 +3,7 @@
 set -e
 
 REPO_URL="https://github.com/dhavalsavalia/dotfiles.git"
-DOTFILES_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$HOME/dotfiles"
 
 # Default values
 PROFILE="${DOTFILES_PROFILE:-minimal}"
@@ -17,7 +17,15 @@ if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Cloning dotfiles repository..."
     git clone "$REPO_URL" "$DOTFILES_DIR"
 else
-    echo "Dotfiles repository already exists at $DOTFILES_DIR"
+    # Check if repository has right remote URL
+    if [ "$(git -C "$DOTFILES_DIR" remote get-url origin)" != "$REPO_URL" ]; then
+        echo "Changing remote URL to $REPO_URL..."
+        git -C "$DOTFILES_DIR" remote set-url origin "$REPO_URL"
+    fi
+
+    # Pull the latest changes
+    echo "Pulling latest changes..."
+    git -C "$DOTFILES_DIR" pull --ff-only
 fi
 
 # Navigate to the dotfiles directory and checkout the specified branch
