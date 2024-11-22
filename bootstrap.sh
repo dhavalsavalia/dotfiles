@@ -10,7 +10,7 @@ PROFILE="${DOTFILES_PROFILE:-minimal}"
 DRY_RUN="${DRY_RUN:-false}"
 MACOS_DEFAULTS="${MACOS_DEFAULTS:-false}"
 INSTALL_LVIM="${INSTALL_LVIM:-true}"
-# TODO: Add branch selection and tidy up defaults
+BRANCH="${DOTFILES_BRANCH:-main}"
 
 # Clone the repository if it doesn't exist
 if [ ! -d "$DOTFILES_DIR" ]; then
@@ -20,8 +20,9 @@ else
     echo "Dotfiles repository already exists at $DOTFILES_DIR"
 fi
 
-# Navigate to the dotfiles directory
+# Navigate to the dotfiles directory and checkout the specified branch
 cd "$DOTFILES_DIR"
+git checkout "$BRANCH"
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR"/scripts/*.sh
