@@ -4,6 +4,7 @@ tap "homebrew/services"
 tap "oven-sh/bun"
 tap "jesseduffield/lazygit"
 tap "FelixKratz/formulae"
+tap "nikitabobko/tap"
 
 # Core Development Tools
 brew "git"
@@ -36,6 +37,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "tlrc"  # TLDR Rust Client
 brew "thefuck"
+cask "nikitabobko/tap/aerospace"
 
 # Programming Languages
 brew "go"

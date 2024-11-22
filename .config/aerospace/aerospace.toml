@@ -1,0 +1,155 @@
+# Core settings
+after-login-command = []
+
+# Run sketchybar after startup
+# Don't worry about running it twice, sketchybar devs are smarter than me.
+after-startup-command = ['exec-and-forget sketchybar']
+start-at-login = true
+
+# TODO: Understand what normalizing containers does.
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 20
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+# I just wanted to remind myself
+# to use cmh+h more often and cmd+tab my way through getting it back.
+# TODO: Come back and reflect on this in a few weeks.
+automatically-unhide-macos-hidden-apps = false
+
+# Notify Sketchybar about aerospace change
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+]
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 0
+outer.bottom = 0
+outer.top = [
+  { monitor.'built-in' = 5 },
+  { monitor.'lg' = 37 },
+  37,                         # Rest of the monitors
+]
+outer.right = 0
+
+[mode.main.binding]
+# Workspace Navigation
+alt-b = 'workspace B' # Browser
+alt-c = 'workspace C' # Communication
+alt-d = 'workspace D' # Development
+alt-t = 'workspace T' # Terminal
+alt-a = 'workspace A' # API Tools
+alt-m = 'workspace M' # Music
+alt-x = 'workspace X' # Extra
+
+# Move windows to workspaces
+alt-shift-b = 'move-node-to-workspace B'
+alt-shift-c = 'move-node-to-workspace C'
+alt-shift-d = 'move-node-to-workspace D'
+alt-shift-t = 'move-node-to-workspace T'
+alt-shift-a = 'move-node-to-workspace A'
+alt-shift-m = 'move-node-to-workspace M'
+alt-shift-x = 'move-node-to-workspace X'
+
+# Window Navigation
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# Window Movement
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Fine-tuned resizing
+alt-minus = 'resize smart -128'
+alt-equal = 'resize smart +128'
+alt-shift-minus = 'resize smart -64'
+alt-shift-equal = 'resize smart +64'
+
+# Layout Controls
+alt-f = 'fullscreen'
+# Layout command finds the first argument that doesn't describe the currently active layout,
+# and applies it.
+# In this case, first argument is layout, so it will apply the layout if not already applied.
+# So if I am in tiles layout with horizontal orientation, and I press alt+comma,
+# it will switch to accordion layout with horizontal orientation. Then if I press alt+comma again,
+# it will switch to accordion layout with vertical orientation and so on
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# Workspace switching
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# Thirds, and quarters, and more
+# Only plays nice with my LG Ultrawide at 3440px width
+# TODO: Figure out per-monitor configuration
+# I can do like different mode for "different" monitors but meh its ugly as fuck
+# I am only using ultrawide so this is fine for now.
+alt-shift-2 = 'balance-sizes'
+alt-shift-3 = 'resize width 1146'
+alt-shift-4 = 'resize width 860'
+alt-shift-5 = 'resize width 2292'
+alt-shift-6 = 'resize width 2580'
+
+# Service mode
+alt-shift-semicolon = 'mode service'
+
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+
+# Use this if you mess the hell up with tree structure
+r = ['flatten-workspace-tree', 'mode main']
+
+# Use this to toggle between floating and tiling layout for focused window
+f = ['layout floating tiling', 'mode main']
+
+# Window joining
+# Workflow and usecase so far:
+# 1. Select a window
+# 2. Press alt+shift+h to join it with the window to the left [in service mode]
+# 3. join-with command will toggle between vertical and horizontal orientations
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# Auto-assignment of applications to workspaces
+[[on-window-detected]]
+if.app-name-regex-substring = '(Arc|Chrome|Safari)'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '(Microsoft Teams|Outlook|Mail)'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Code|GitHub'
+run = 'move-node-to-workspace D'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '(Alacritty|iTerm|Terminal)'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-name-regex-substring = '(Postman|MongoDB Compass)'
+run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Spotify'
+run = 'move-node-to-workspace M'

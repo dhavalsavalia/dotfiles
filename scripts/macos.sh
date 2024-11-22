@@ -191,6 +191,12 @@ setup_macos_defaults() {
     defaults write com.apple.dock wvous-br-corner -int 0
     defaults write com.apple.dock wvous-br-modifier -int 0
 
+    # Mission Control Group Apps
+    defaults write com.apple.dock expose-group-apps -bool true
+
+    # Disable Displays have separate Spaces | Never use multiple monitors with this setting enabled
+    defaults write com.apple.spaces spans-displays -bool true
+
     #================================================
     # *               FINDER GENERAL
     #================================================
