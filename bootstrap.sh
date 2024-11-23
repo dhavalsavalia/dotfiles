@@ -11,6 +11,22 @@ DRY_RUN="${DRY_RUN:-false}"
 MACOS_DEFAULTS="${MACOS_DEFAULTS:-true}"
 BRANCH="${DOTFILES_BRANCH:-main}"
 
+DEFAULT_GITAUTHORNAME="Dhaval Savalia"
+DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
+
+# Prompt for GITAUTHORNAME if not set
+if [ -z "$GITAUTHORNAME" ]; then
+  read -p "Enter your Git author name [${DEFAULT_NAME}]: " input_name
+  GITAUTHORNAME=${input_name:-$DEFAULT_NAME}
+fi
+
+# Prompt for GITAUTHOREMAIL if not set
+if [ -z "$GITAUTHOREMAIL" ]; then
+  read -p "Enter your Git author email [${DEFAULT_EMAIL}]: " input_email
+  GITAUTHOREMAIL=${input_email:-$DEFAULT_EMAIL}
+fi
+
+
 # Clone the repository if it doesn't exist
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Cloning dotfiles repository..."
@@ -53,6 +69,8 @@ warn "Configuration:"
 warn "  Profile: $PROFILE"
 warn "  Dry Run: $DRY_RUN"
 warn "  macOS Defaults: $MACOS_DEFAULTS"
+warn "  Git Author Name: $GITAUTHORNAME"
+warn "  Git Author Email: $GITAUTHOREMAIL"
 
 read -p "Proceed with these settings? (y/N) " CONFIRM
 if [[ "$CONFIRM" != "y" ]]; then
@@ -86,6 +104,11 @@ if ! test_stow; then
     error "Stow setup failed"
     exit 1
 fi
+
+# Setup name and email for git
+log "Setting up git author name and email..."
+source "$DOTFILES_DIR/scripts/git.sh"
+setup_git_author "$GITAUTHORNAME" "$GITAUTHOREMAIL"
 
 # Install LunarVim
 log "Installing LunarVim..."

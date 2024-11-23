@@ -31,6 +31,7 @@ command_exists() {
 }
 
 test_stow() {
+    # TODO: Check for app specific symlinks
     log "Testing stow setup..."
 
     # Ensure stow is installed
