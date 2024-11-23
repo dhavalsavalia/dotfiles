@@ -125,6 +125,21 @@ cleanup_packages() {
     execute "brew bundle cleanup --file='$combined_file' --force"
 }
 
+perform_brew_maintenance() {
+    log "Running Homebrew maintenance tasks..."
+
+    # Check system health
+    # execute "brew doctor"  # TODO: `brew doctor` doesn't work on MacOS Sequoia for now. Come back later.
+    execute "brew missing"
+
+    # Upgrade installed packages
+    execute "brew upgrade"
+    execute "brew upgrade --cask"
+
+    # Cleanup outdated versions
+    execute "brew cleanup"
+}
+
 setup_homebrew() {
     local profile="$1"
 
@@ -137,13 +152,14 @@ setup_homebrew() {
     fi
 
     install_homebrew
+
     install_packages "$profile"
-    cleanup_packages "$profile"
+    perform_brew_maintenance
 }
 
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    # Parse command line arguments
+
     while getopts "p:d" opt; do
         case $opt in
         p) PROFILE="$OPTARG" ;;
