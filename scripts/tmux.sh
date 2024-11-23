@@ -32,6 +32,7 @@ setup_tmux() {
 
 
 setup_tmuxifier() {
+    # TODO: Figureout git with tmuxifier
     # Install tmuxifier in $XDG_CONFIG_HOME/tmuxifier
     local tmuxifier_dir="$XDG_CONFIG_HOME/tmuxifier"
 
