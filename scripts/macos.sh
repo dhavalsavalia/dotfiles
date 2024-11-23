@@ -6,13 +6,6 @@ set -e
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 setup_macos_defaults() {
-    local profile="$1"
-
-    if [ -z "$profile" ]; then
-        error "Profile not specified"
-        exit 1
-    fi
-
     log "Setting up macOS defaults"
 
     # Ask for sudo upfront
@@ -513,15 +506,13 @@ setup_macos_defaults() {
 
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    # Parse command line arguments
-    while getopts "p:d" opt; do
-        case $opt in
-            p) PROFILE="$OPTARG";;
-            d) DRY_RUN="true";;
-            *) echo "Usage: $0 [-p profile] [-d]" >&2
-               exit 1;;
-        esac
-    done
-
-    setup_macos_defaults "$PROFILE"
+    if [[ "$1" == "-y" ]]; then
+        setup_macos_defaults
+    else
+        read -p "This script will set macOS defaults. Do you want to continue? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            setup_macos_defaults
+        fi
+    fi
 fi

@@ -9,7 +9,6 @@ DOTFILES_DIR="$HOME/dotfiles"
 PROFILE="${DOTFILES_PROFILE:-minimal}"
 DRY_RUN="${DRY_RUN:-false}"
 MACOS_DEFAULTS="${MACOS_DEFAULTS:-true}"
-INSTALL_LVIM="${INSTALL_LVIM:-true}"
 BRANCH="${DOTFILES_BRANCH:-main}"
 
 # Clone the repository if it doesn't exist
@@ -24,6 +23,7 @@ else
     fi
 
     # Pull the latest changes
+    # TODO: Make Git Great Again
     echo "Pulling latest changes..."
     git -C "$DOTFILES_DIR" pull --ff-only
 fi
@@ -53,9 +53,8 @@ warn "Configuration:"
 warn "  Profile: $PROFILE"
 warn "  Dry Run: $DRY_RUN"
 warn "  macOS Defaults: $MACOS_DEFAULTS"
-warn "  Install LunarVim: $INSTALL_LVIM"
 
-read -p "Proceed with these settings? (y/n) " CONFIRM
+read -p "Proceed with these settings? (y/N) " CONFIRM
 if [[ "$CONFIRM" != "y" ]]; then
     error "Installation canceled."
     exit 1
@@ -69,7 +68,7 @@ if [ "$MACOS_DEFAULTS" = "true" ]; then
     log "Running macOS defaults setup..."
     source "$DOTFILES_DIR/scripts/macos.sh"
     # TODO: Tidy up macos.sh
-    setup_macos_defaults "$PROFILE"  # WARNING: This is probably going to fail
+    setup_macos_defaults
 fi
 
 # Install Homebrew
@@ -80,24 +79,31 @@ setup_homebrew "$PROFILE"
 # Install stow
 log "Setting up dotfiles with stow..."
 source "$DOTFILES_DIR/scripts/stow.sh"
-setup_stow "$PROFILE"
+setup_stow
+
+# use test_stow and exit if it returns 1
+if ! test_stow; then
+    error "Stow setup failed"
+    exit 1
+fi
 
 # Install LunarVim
-if [ "$INSTALL_LVIM" = "true" ]; then
-    log "Installing LunarVim..."
-    source "$DOTFILES_DIR/scripts/lunarvim.sh"
-    install_lunarvim
-fi
+log "Installing LunarVim..."
+source "$DOTFILES_DIR/scripts/lunarvim.sh"
+install_lunarvim
 
 # Install tmux
 log "Setting up tmux..."
 source "$DOTFILES_DIR/scripts/tmux.sh"
 setup_tmux
+setup_tmuxifier
 
 # Install sketchybar
 source "$DOTFILES_DIR/scripts/sketchybar.sh"
+setup_sketchybar
 
 # Install AeroSpace
 source "$DOTFILES_DIR/scripts/aerospace.sh"
+setup_aerospace
 
 log "Setup completed successfully!"

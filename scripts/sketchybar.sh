@@ -27,7 +27,7 @@ setup_sketchybar() {
 
   # Ensure sketchybar is installed
   if ! command -v sketchybar &> /dev/null; then
-    error "sketchybar is not installed"
+    error "sketchybar is not installed. Please install sketchybar first using brew."
     exit 1
   fi
 
@@ -62,4 +62,15 @@ setup_sketchybar() {
   fi
 }
 
-setup_sketchybar
+# Main execution
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    if [[ "$1" == "-y" ]]; then
+        setup_sketchybar
+    else
+        read -p "This script will setup sketchybar. Do you want to continue? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            setup_sketchybar
+        fi
+    fi
+fi

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export DOTFILES_DIR
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -25,4 +28,19 @@ execute() {
 # Function to check if command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
+}
+
+test_stow() {
+    log "Testing stow setup..."
+
+    # Ensure stow is installed
+    if ! command_exists "stow"; then
+        return 1
+    fi
+
+    if [ -L "$HOME/.zshenv" ] && [ "$(readlink $HOME/.zshenv)" = "$DOTFILES_DIR/.zshenv" ]; then
+        return 0
+    else
+        return 1
+    fi
 }
