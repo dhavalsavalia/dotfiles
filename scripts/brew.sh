@@ -35,9 +35,9 @@ setup_shell_env() {
     # Add brew to PATH only if it's not already there
     if ! grep -q "brew shellenv" "$zprofile"; then
         log "Adding Homebrew to PATH in .zprofile"
-        echo >> "$zprofile"
-        echo '# Homebrew PATH' >> "$zprofile"
-        echo "$brew_env" >> "$zprofile"
+        echo >>"$zprofile"
+        echo '# Homebrew PATH' >>"$zprofile"
+        echo "$brew_env" >>"$zprofile"
     fi
 
     # Run brew shellenv so it's available in current session
@@ -59,10 +59,7 @@ generate_combined_brewfile() {
         fi
         # Use only the minimal Brewfile
         log "Using minimal Brewfile..."
-        execute "cat > '$combined_file' << EOF
-# Generated minimal Brewfile
-$(cat "$profile_file")
-EOF"
+        execute "cat '$profile_file' > '$combined_file'"
     else
         if [ ! -f "$common_file" ] || [ ! -f "$profile_file" ]; then
             error "Missing Brewfile(s): $common_file or $profile_file"
@@ -70,17 +67,8 @@ EOF"
         fi
         # Generate combined Brewfile
         log "Generating combined Brewfile..."
-        execute "cat > '$combined_file' << EOF
-# Generated combined Brewfile
-# Common packages
-$(cat "$common_file")
-
-# Profile-specific packages ($profile)
-$(cat "$profile_file")
-EOF"
+        execute "cat '$common_file' '$profile_file' > '$combined_file'"
     fi
-
-    echo "$combined_file"
 }
 
 install_packages() {
@@ -131,10 +119,12 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Parse command line arguments
     while getopts "p:d" opt; do
         case $opt in
-            p) PROFILE="$OPTARG";;
-            d) DRY_RUN="true";;
-            *) echo "Usage: $0 [-p profile] [-d]" >&2
-               exit 1;;
+        p) PROFILE="$OPTARG" ;;
+        d) DRY_RUN="true" ;;
+        *)
+            echo "Usage: $0 [-p profile] [-d]" >&2
+            exit 1
+            ;;
         esac
     done
 
