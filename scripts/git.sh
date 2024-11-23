@@ -21,19 +21,19 @@ setup_git_author() {
       exit 1
   fi
 
-  # Check if $DOTFILES_DIR/.config/git/gitconfig.d/ exists
-  if [ ! -d "$DOTFILES_DIR/.config/git/gitconfig.d" ]; then
+  # Check if $DOTFILES_DIR/git/.config/git/gitconfig.d/ exists
+  if [ ! -d "$DOTFILES_DIR/git/.config/git/gitconfig.d" ]; then
     error "Git config directory does not exist. Please check your dotfiles setup."
     exit 1
   fi
 
-  # use GITAUTHORNAME and GITAUTHOREMAIL in $DOTFILES_DIR/.config/git/gitconfig.d/user.conf
-  echo "[user]" > "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"
-  echo "  name = $name" >> "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"
-  echo "  email = $email" >> "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"
+  # use GITAUTHORNAME and GITAUTHOREMAIL in $DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf
+  echo "[user]" > "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+  echo "  name = $name" >> "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+  echo "  email = $email" >> "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
 
   # Check if this worked
-  if ! grep -q "$name" "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"; then
+  if ! grep -q "$name" "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"; then
     error "Failed to set git author name"
     exit 1
   fi
