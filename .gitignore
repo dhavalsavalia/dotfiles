@@ -13,3 +13,4 @@ thefuck/
 .zsh_sessions/
 .zsh_history
 Brewfile.combined
+.config/git/gitconfig.d/user.conf
