@@ -5,7 +5,11 @@ source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export DOTFILES_DIR
 
+# Define the default packages variable
+DEFAULT_PACKAGES="aerospace alacritty fzf-git.sh git kitty lazygit linearmouse lvim sketchybar starship tmux zsh"
+
 setup_stow() {
+    local packages=("$@")
     log "Setting up stow symlinks..."
 
     # Ensure stow is installed
@@ -14,17 +18,20 @@ setup_stow() {
         exit 1
     fi
 
-    # Stow everything from the dotfiles directory
-    # TODO: Make this take args for packages to stow
-    for package in aerospace alacritty fzf-git.sh git kitty lazygit linearmouse lvim sketchybar starship tmux zsh; do
+    # Use default packages if no arguments are provided
+    if [ ${#packages[@]} -eq 0 ]; then
+        packages=($DEFAULT_PACKAGES)
+    fi
+
+    # Stow the specified packages
+    for package in "${packages[@]}"; do
         if [ -d "$DOTFILES_DIR/$package" ]; then
             execute "cd $DOTFILES_DIR && stow -D $package" # Unstow first to ensure idempotency
-            execute "cd $DOTFILES_DIR && stow -t $HOME $package"
+            execute "cd $DOTFILES_DIR && stow -t $HOME $package" --adopt
         else
             warning "$package directory does not exist in $DOTFILES_DIR"
         fi
     done
-
 
     execute 'source $HOME/.zprofile'
     execute 'source $HOME/.zshenv'
@@ -40,5 +47,5 @@ setup_stow() {
 
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    setup_stow
+    setup_stow "$@"
 fi
