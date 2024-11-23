@@ -31,7 +31,7 @@ brew "fzf"  # Fuzzy finder
 brew "ripgrep"  # Search tool like grep and The Silver Searcher
 cask "linearmouse"
 brew "stow" # Manage symlinks in one place (dotfiles)
-brew "starship" # prompt
+brew "powerlevel10k" # prompt
 brew "tree"
 brew "wget"
 brew "tmux"
