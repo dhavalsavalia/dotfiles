@@ -16,14 +16,14 @@ DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
 
 # Prompt for GITAUTHORNAME if not set
 if [ -z "$GITAUTHORNAME" ]; then
-  read -p "Enter your Git author name [${DEFAULT_NAME}]: " input_name
-  GITAUTHORNAME=${input_name:-$DEFAULT_NAME}
+  read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
+  GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
 fi
 
 # Prompt for GITAUTHOREMAIL if not set
 if [ -z "$GITAUTHOREMAIL" ]; then
-  read -p "Enter your Git author email [${DEFAULT_EMAIL}]: " input_email
-  GITAUTHOREMAIL=${input_email:-$DEFAULT_EMAIL}
+  read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
+  GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
 fi
 
 
