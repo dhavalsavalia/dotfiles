@@ -32,8 +32,22 @@ vim.o.linebreak = true
 vim.o.wrap = false
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-lvim.builtin.telescope.defaults.path_display = {
-  shorten = 4,
+lvim.builtin.telescope = {
+  defaults = {
+    path_display = {
+      shorten = 4,
+    },
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
+    }
+  }
 }
 
 lvim.builtin.nvimtree.setup.view = {
@@ -46,3 +60,6 @@ lvim.builtin.nvimtree.setup.view = {
 
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 lvim.builtin.nvimtree.setup.filters.custom = {}
+
+-- enable relative numbers
+vim.wo.relativenumber = true
