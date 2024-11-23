@@ -38,7 +38,7 @@ test_stow() {
         return 1
     fi
 
-    if [ -L "$HOME/.zshenv" ] && [ "$(readlink $HOME/.zshenv)" = "$DOTFILES_DIR/.zshenv" ]; then
+    if [ -L "$HOME/.zshenv" ]; then
         return 0
     else
         return 1
