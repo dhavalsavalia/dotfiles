@@ -17,23 +17,28 @@ setup_git_author() {
 
   # Check stow is installed and symlinked
   if ! test_stow; then
-      error "Stow is not installed or symlinked. Please install Stow first using brew."
-      exit 1
+    error "Stow is not installed or symlinked. Please install Stow first using brew."
+    exit 1
   fi
 
-  # Check if $DOTFILES_DIR/.config/git/gitconfig.d/ exists
-  if [ ! -d "$DOTFILES_DIR/.config/git/gitconfig.d" ]; then
+  # Check if $DOTFILES_DIR/git/.config/git/gitconfig.d/ exists
+  if [ ! -d "$DOTFILES_DIR/git/.config/git/gitconfig.d" ]; then
     error "Git config directory does not exist. Please check your dotfiles setup."
     exit 1
   fi
 
-  # use GITAUTHORNAME and GITAUTHOREMAIL in $DOTFILES_DIR/.config/git/gitconfig.d/user.conf
-  echo "[user]" > "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"
-  echo "  name = $name" >> "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"
-  echo "  email = $email" >> "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"
+  # use GITAUTHORNAME and GITAUTHOREMAIL in $DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf
+  echo "[user]" >"$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+  echo "  name = $name" >>"$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+  echo "  email = $email" >>"$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+
+  # Set path = gitconfig.d/user.conf in $DOTFILES_DIR/git/.config/git/.gitconfig if not already set
+  if ! grep -q "path = gitconfig.d/user.conf" "$DOTFILES_DIR/git/.config/git/.gitconfig"; then
+    echo "  path = gitconfig.d/user.conf" >>"$DOTFILES_DIR/git/.config/git/.gitconfig"
+  fi
 
   # Check if this worked
-  if ! grep -q "$name" "$DOTFILES_DIR/.config/git/gitconfig.d/user.conf"; then
+  if [ ! grep -q "$name" "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf" ] && [ ! grep -q "path = gitconfig.d/user.conf" "$DOTFILES_DIR/git/.config/git/.gitconfig" ]; then
     error "Failed to set git author name"
     exit 1
   fi
@@ -47,9 +52,12 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   # if yes, set as variables
   while getopts "n:e:" opt; do
     case $opt in
-      n) NAME="$OPTARG";;
-      e) EMAIL="$OPTARG";;
-      *) echo "Usage: $0 -n [name] -e [email]" >&2; exit 1;;
+    n) NAME="$OPTARG" ;;
+    e) EMAIL="$OPTARG" ;;
+    *)
+      echo "Usage: $0 -n [name] -e [email]" >&2
+      exit 1
+      ;;
     esac
   done
 
