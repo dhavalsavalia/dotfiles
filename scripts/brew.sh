@@ -46,7 +46,7 @@ setup_shell_env() {
 
 generate_combined_brewfile() {
     local profile="$1"
-    local brew_dir="$DOTFILES_DIR/.data/homebrew"
+    local brew_dir="$DOTFILES_DIR/homebrew"
     local common_file="$brew_dir/Brewfile.macos.common"
     local profile_file="$brew_dir/Brewfile.macos.$profile"
     local combined_file="$brew_dir/Brewfile.combined"
@@ -76,7 +76,7 @@ install_packages() {
     local combined_file
     generate_combined_brewfile "$profile"
 
-    local brew_dir="$DOTFILES_DIR/.data/homebrew"
+    local brew_dir="$DOTFILES_DIR/homebrew"
     combined_file="$brew_dir/Brewfile.combined"
 
     log "Installing Homebrew packages for profile: $profile"
@@ -93,7 +93,7 @@ cleanup_packages() {
     local combined_file
     generate_combined_brewfile "$profile"
 
-    local brew_dir="$DOTFILES_DIR/.data/homebrew"
+    local brew_dir="$DOTFILES_DIR/homebrew"
     combined_file="$brew_dir/Brewfile.combined"
 
     log "Cleaning up unused Homebrew packages..."
