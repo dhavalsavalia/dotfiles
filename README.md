@@ -87,3 +87,4 @@ MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hid
 * make sure everything works on Corne keyboard
 * complete git setup with ssh and gpg
 * check and work on code TODOs
+* per app stowing

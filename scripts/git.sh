@@ -38,7 +38,7 @@ setup_git_author() {
   fi
 
   # Check if this worked
-  if [ ! grep -q "$name" "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"] && [ ! grep -q "path = gitconfig.d/user.conf" "$DOTFILES_DIR/git/.config/git/.gitconfig" ]; then
+  if [ ! grep -q "$name" "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf" ] && [ ! grep -q "path = gitconfig.d/user.conf" "$DOTFILES_DIR/git/.config/git/.gitconfig" ]; then
     error "Failed to set git author name"
     exit 1
   fi
