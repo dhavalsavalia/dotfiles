@@ -14,11 +14,11 @@ Usage: $0 [options]
 
 Options:
     -p <profile>    Specify profile (home or garda or minimal)
-    -n <name>       Git author name
-    -e <email>      Git author email
-    -d             Dry run mode
-    -m             Run macOS defaults setup
-    -h             Show this help message
+    -n <name>       Git author name (optional, precedence given to git config)
+    -e <email>      Git author email (optional, precedence given to git config)
+    -d              Dry run mode
+    -m              Run macOS defaults setup
+    -h              Show this help message
 
 Example:
     $0 -p home -n "Your Name" -e "your.email@example.com"  # Regular install for home profile
@@ -31,8 +31,8 @@ EOF
 while getopts "p:n:e:dmlh" opt; do
     case $opt in
     p) PROFILE="$OPTARG" ;;
-    n) GITAUTHORNAME="$OPTARG" ;;
-    e) GITAUTHOREMAIL="$OPTARG" ;;
+    n) PROVIDED_GITAUTHORNAME="$OPTARG" ;;
+    e) PROVIDED_GITAUTHOREMAIL="$OPTARG" ;;
     d) export DRY_RUN="true" ;;
     m) MACOS_DEFAULTS="true" ;;
     h)
@@ -56,6 +56,35 @@ fi
 if [ "$PROFILE" != "home" ] && [ "$PROFILE" != "garda" ] && [ "$PROFILE" != "minimal" ]; then
     error "Profile must be either 'home', 'garda', or 'minimal'"
     exit 1
+fi
+
+# TODO: Give precedence to provided git author name and email
+# Get Git author name from git config if available
+DEFAULT_GITAUTHORNAME="Dhaval Savalia"
+GITAUTHORNAME=$(git config --global user.name || echo "")
+
+# If GITAUTHORNAME is not set from git config, use provided environment variable or prompt the user
+if [ -z "$GITAUTHORNAME" ]; then
+  if [ -z "$PROVIDED_GITAUTHORNAME" ]; then
+    read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
+    GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
+  else
+    GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
+  fi
+fi
+
+# Get Git author email from git config if available
+DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
+GITAUTHOREMAIL=$(git config --global user.email || echo "")
+
+# If GITAUTHOREMAIL is not set from git config, use provided environment variable or prompt the user
+if [ -z "$GITAUTHOREMAIL" ]; then
+  if [ -z "$PROVIDED_GITAUTHOREMAIL" ]; then
+    read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
+    GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
+  else
+    GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
+  fi
 fi
 
 # Confirm settings

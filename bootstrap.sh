@@ -9,21 +9,6 @@ DOTFILES_DIR="$HOME/dotfiles"
 PROFILE="${DOTFILES_PROFILE:-minimal}"
 BRANCH="${DOTFILES_BRANCH:-main}"
 
-DEFAULT_GITAUTHORNAME="Dhaval Savalia"
-DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
-
-# Prompt for GITAUTHORNAME if not set
-if [ -z "$GITAUTHORNAME" ]; then
-    read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
-    GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
-fi
-
-# Prompt for GITAUTHOREMAIL if not set
-if [ -z "$GITAUTHOREMAIL" ]; then
-    read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
-    GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
-fi
-
 # Clone the repository if it doesn't exist
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Cloning dotfiles repository..."
@@ -50,4 +35,8 @@ fi
 chmod +x "$DOTFILES_DIR"/scripts/*.sh
 
 # Run the install script
-"$DOTFILES_DIR/scripts/install.sh" -p "$PROFILE" -n "$GITAUTHORNAME" -e "$GITAUTHOREMAIL"
+if [ -n "$PROVIDED_GITAUTHORNAME" ] || [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
+    "$DOTFILES_DIR/scripts/install.sh" -p "$PROFILE" -n "$PROVIDED_GITAUTHORNAME" -e "$PROVIDED_GITAUTHOREMAIL"
+else
+    "$DOTFILES_DIR/scripts/install.sh" -p "$PROFILE"
+fi
