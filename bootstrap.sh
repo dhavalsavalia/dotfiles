@@ -8,6 +8,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 # Default values
 PROFILE="${DOTFILES_PROFILE:-minimal}"
 BRANCH="${DOTFILES_BRANCH:-main}"
+MACOS_DEFAULTS="${DOTFILES_MACOS_DEFAULTS:-true}"
 
 # Clone the repository if it doesn't exist
 if [ ! -d "$DOTFILES_DIR" ]; then
@@ -35,8 +36,18 @@ fi
 chmod +x "$DOTFILES_DIR"/scripts/*.sh
 
 # Run the install script
-if [ -n "$PROVIDED_GITAUTHORNAME" ] || [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
-    "$DOTFILES_DIR/scripts/install.sh" -p "$PROFILE" -n "$PROVIDED_GITAUTHORNAME" -e "$PROVIDED_GITAUTHOREMAIL"
-else
-    "$DOTFILES_DIR/scripts/install.sh" -p "$PROFILE"
+arguments=()
+if [ -n "$PROFILE" ]; then
+    arguments+=("-p" "$PROFILE")
 fi
+if [ -n "$PROVIDED_GITAUTHORNAME" ]; then
+    arguments+=("-n" "$PROVIDED_GITAUTHORNAME")
+fi
+if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
+    arguments+=("-e" "$PROVIDED_GITAUTHOREMAIL")
+fi
+if [ "$MACOS_DEFAULTS" = "true" ]; then
+    arguments+=("-m")
+fi
+
+"$DOTFILES_DIR"/scripts/install.sh "${arguments[@]}"
