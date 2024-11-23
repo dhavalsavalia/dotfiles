@@ -15,9 +15,16 @@ setup_stow() {
     fi
 
     # Stow everything from the dotfiles directory
-    # NOTE: Need to use --adopt to avoid conflicts with .zprofile since brew.sh also must have
-    #       created a .zprofile file. Using stow for uniformity.
-    execute "cd $DOTFILES_DIR && stow -v --target=$HOME --adopt ."
+    # TODO: Make this take args for packages to stow
+    for package in aerospace alacritty fzf-git.sh git kitty lazygit linearmouse lvim sketchybar starship tmux zsh; do
+        if [ -d "$DOTFILES_DIR/$package" ]; then
+            execute "cd $DOTFILES_DIR && stow -D $package" # Unstow first to ensure idempotency
+            execute "cd $DOTFILES_DIR && stow -t $HOME $package"
+        else
+            warning "$package directory does not exist in $DOTFILES_DIR"
+        fi
+    done
+
 
     execute 'source $HOME/.zprofile'
     execute 'source $HOME/.zshenv'
