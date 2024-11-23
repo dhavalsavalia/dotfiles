@@ -32,6 +32,8 @@ setup_sketchybar() {
   fi
 
   # Install sketchybar app fonts
+  # Not checking if the font is already installed since it's a small file and won't hurt to download again
+  # FWIW, this will keep the font up-to-date without too much overhead
   log "Installing sketchybar app fonts..."
   local font_url="https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v$LATEST_APP_FONT_VERSION/sketchybar-app-font.ttf"
   local font_dest="$HOME/Library/Fonts/sketchybar-app-font.ttf"
