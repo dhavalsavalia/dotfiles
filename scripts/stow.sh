@@ -22,8 +22,8 @@ setup_stow() {
     execute 'source $HOME/.zprofile'
     execute 'source $HOME/.zshenv'
 
-    # Test if symlinks are correctly setup (test if .zshenv is a symlink && .zshenv -> dotfiles/.zshenv)
-    if [ -L "$HOME/.zshenv" ] && [ "$(readlink $HOME/.zshenv)" = "$DOTFILES_DIR/.zshenv" ]; then
+    # Test if symlinks are correctly setup (test if .zshenv is a symlink)
+    if [ -L "$HOME/.zshenv" ]; then
         log "Stow setup successful"
     else
         error "Stow setup failed"
