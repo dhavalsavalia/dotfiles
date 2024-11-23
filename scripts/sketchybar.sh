@@ -27,11 +27,13 @@ setup_sketchybar() {
 
   # Ensure sketchybar is installed
   if ! command -v sketchybar &> /dev/null; then
-    error "sketchybar is not installed"
+    error "sketchybar is not installed. Please install sketchybar first using brew."
     exit 1
   fi
 
   # Install sketchybar app fonts
+  # Not checking if the font is already installed since it's a small file and won't hurt to download again
+  # FWIW, this will keep the font up-to-date without too much overhead
   log "Installing sketchybar app fonts..."
   local font_url="https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v$LATEST_APP_FONT_VERSION/sketchybar-app-font.ttf"
   local font_dest="$HOME/Library/Fonts/sketchybar-app-font.ttf"
@@ -62,4 +64,15 @@ setup_sketchybar() {
   fi
 }
 
-setup_sketchybar
+# Main execution
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    if [[ "$1" == "-y" ]]; then
+        setup_sketchybar
+    else
+        read -p "This script will setup sketchybar. Do you want to continue? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            setup_sketchybar
+        fi
+    fi
+fi

@@ -1,3 +1,5 @@
+# Credit: https://github.com/SixArm/gitconfig-settings
+
 [include]
   path = gitconfig.d/alias.conf
   path = gitconfig.d/apply.conf
@@ -8,3 +10,5 @@
   path = gitconfig.d/merge.conf
   path = gitconfig.d/push.conf
   path = gitconfig.d/rerere.conf
+  path = gitconfig.d/gpg.conf
+  path = gitconfig.d/commit.conf

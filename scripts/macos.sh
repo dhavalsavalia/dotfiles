@@ -6,13 +6,6 @@ set -e
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 setup_macos_defaults() {
-    local profile="$1"
-
-    if [ -z "$profile" ]; then
-        error "Profile not specified"
-        exit 1
-    fi
-
     log "Setting up macOS defaults"
 
     # Ask for sudo upfront
@@ -38,21 +31,6 @@ setup_macos_defaults() {
     # What is the human-readable codename for this macOS?
 
     case "$osx_product_version" in
-    "10.4"*) osx_codename="Mac OS X Tiger" ;;
-    "10.5"*) osx_codename="Mac OS X Leopard" ;;
-    "10.6"*) osx_codename="Mac OS X Snow Leopard" ;;
-    "10.7"*) osx_codename="Mac OS X Lion" ;;
-    "10.8"*) osx_codename="OS X Mountain Lion" ;;
-    "10.9"*) osx_codename="OS X Mavericks" ;;
-    "10.10"*) osx_codename="OS X Yosemite" ;;
-    "10.11"*) osx_codename="OS X El Capitan" ;;
-    "10.12"*) osx_codename="macOS Sierra" ;;
-    "10.13"*) osx_codename="macOS High Sierra" ;;
-    "10.14"*) osx_codename="macOS Mojave" ;;
-    "10.15"*) osx_codename="macOS Catalina" ;;
-    "11."*) osx_codename="macOS Big Sur" ;;
-    "12."*) osx_codename="macOS Monterey" ;;
-    "13."*) osx_codename="macOS Ventura" ;;
     "14."*) osx_codename="macOS Sonoma" ;;
     "15."*) osx_codename="macOS Sequoia" ;;
     *) osx_codename="macOS" ;;
@@ -65,34 +43,6 @@ setup_macos_defaults() {
     #================================================
     # *      TEST TERMINAL FOR FULL DISK ACCESS
     #================================================
-
-
-    # Test if Terminal has Full Disk Access, and if it doesn't, prompt user to set
-    # it and start over.
-    # ? A number of preferences now require Terminal.app to have Full
-    # ? Disk Access, in particular Safari.app.
-    # ? https://lapcatsoftware.com/articles/containers.html
-    # TODO: Wrap with $osx_product_version tests
-
-    printf "Testing for Full Disk Access:\n\n"
-    errstr=$( /bin/ls /Users/$(whoami)/Library/Containers/com.apple.Safari 3>&1 1>&2 2>&3 3>&- )
-    # ? Full disk access has only been in since Mojave, but which files were protected first?
-    # TODO: Research if there is an older file to test.
-
-    if [[ $errstr == *"Operation not permitted" ]]; then
-    printf "Terminal.app needs Full Disk Access permission\n"
-
-        # Prompt user to give Terminal Full Disk Access
-        # ! This worked earlier in VMware Montery, but failed on M1 MacBook Pro (14-inch 2021)
-        # TODO: Investigate
-
-        osascript   -e "tell application \"System Preferences\" to activate " \
-                    -e "tell application \"System Preferences\" to reveal anchor \"Privacy_AllFiles\" of pane id \"com.apple.preference.security\" " \
-                    -e "display dialog \"Before continuing:\n\nUnlock and check the box next to Terminal to give it full disk access.\n\nThen quit Terminal and run this script again.\" buttons {\"OK\"} default button 1 with icon caution "
-        exit # as we can't proceed until Terminal has been granted full Disk Access
-    else
-    printf "Terminal.app has permission to continue\n"
-    fi
 
     #================================================
     # *           CLOSE SYSTEM PREFERENCES
@@ -549,7 +499,6 @@ setup_macos_defaults() {
     killall "Dock"
     killall "Finder"
     killall "SystemUIServer"
-    killall "ActivityMonitor"
     killall "cfprefsd"
 
     log "macOS defaults have been set. Some changes require a logout/restart to take effect."
@@ -557,15 +506,13 @@ setup_macos_defaults() {
 
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    # Parse command line arguments
-    while getopts "p:d" opt; do
-        case $opt in
-            p) PROFILE="$OPTARG";;
-            d) DRY_RUN="true";;
-            *) echo "Usage: $0 [-p profile] [-d]" >&2
-               exit 1;;
-        esac
-    done
-
-    setup_macos_defaults "$PROFILE"
+    if [[ "$1" == "-y" ]]; then
+        setup_macos_defaults
+    else
+        read -p "This script will set macOS defaults. Do you want to continue? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            setup_macos_defaults
+        fi
+    fi
 fi

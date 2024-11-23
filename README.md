@@ -47,46 +47,43 @@ sudo softwareupdate --install-rosetta
 
 3. Full Disk Access to Terminal.app
 
-Note: The installation process will require sudo access at various points. You'll be prompted for your password when needed.
+Note: The installation process will require  sudo access at various points. You'll be prompted for your password when needed.
 
 ## Setup Instructions
-1. Clone the repository:
+1. Run following command in Terminal:
 ```bash
-git clone https://github.com/dhavalsavalia/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)"
 ```
 
-2. Give executable permissions to scripts
-```bash
-chmod +x scripts/*.sh
-```
+> Change `main` to branch name for alternate branch. This is mostly for testing.
 
-3. See help and install acordingly
+Example:
 ```bash
-./scripts/install.sh -h
+DOTFILES_BRANCH=bootstrap DOTFILES_PROFILE=minimal /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/bootstrap/bootstrap.sh)"
 ```
 
 ## App Specifics
 
 ### sketchybar
 
-MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hide "Always" from `System Settings` > `Control Center`.
+MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hide "Always" from `System Settings` > `Control Center` **BEFORE** running bootstrap script.
 
 ## 🐞 Known issues
 
-* MacOS defaults script is not working with `install.sh` so it need to be run individually:
-```bash
-./scripts/macos.sh -p [home|garda]
-```
-
 * Some defaults are not behaving properly
-* ~~kitty is not opening~~ UTM Does not support OpenGL 3.3 drivers, so I can't test kitty on UTM
-* ~~Custom taps are not working for brew.~~ Make sure Apple Clang version >16. (As of MacOS 15.1 Seqouia)
+* Sketchybar and AeroSpace are not playing nicely together
 * Report?
+
+## System Preference Settings
+
+* AeroSpace requires `Privacy & Security` > `Accessibility`.
+* Logi Options+ requires `Privacy & Security` > `Input Monitoring` & `Accessibility`.
+* Raycast requires `Privacy & Security` > `Accessibility`.
 
 ## 📝 TODO
 
-* Fix double calling functions
 * Add neofetch or something
 * Add ranger
 * make sure everything works on Corne keyboard
+* complete git setup with ssh and gpg
+* check and work on code TODOs
