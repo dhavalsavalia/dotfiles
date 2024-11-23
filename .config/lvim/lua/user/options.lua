@@ -63,3 +63,6 @@ lvim.builtin.nvimtree.setup.filters.custom = {}
 
 -- enable relative numbers
 vim.wo.relativenumber = true
+
+-- enable dap
+lvim.builtin.dap.active = true
