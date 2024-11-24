@@ -39,34 +39,8 @@ install_homebrew() {
     log "Installing Homebrew..."
     execute '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
-    # Setup shell environment
-    setup_shell_env
-
-    # Add Homebrew to current session
-    if [ -f "/opt/homebrew/bin/brew" ]; then
-        execute 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-    fi
-}
-
-setup_shell_env() {
-    local zprofile="$HOME/.zprofile"
-    local brew_env='eval "$(/opt/homebrew/bin/brew shellenv)"'
-
-    # Create .zprofile if it doesn't exist
-    if [ ! -f "$zprofile" ]; then
-        touch "$zprofile"
-    fi
-
-    # Add brew to PATH only if it's not already there
-    if ! grep -q "brew shellenv" "$zprofile"; then
-        log "Adding Homebrew to PATH in .zprofile"
-        echo >>"$zprofile"
-        echo '# Homebrew PATH' >>"$zprofile"
-        echo "$brew_env" >>"$zprofile"
-    fi
-
-    # Run brew shellenv so it's available in current session
-    execute "$brew_env"
+    # Add Homebrew to current session. Later to be added by stow to .zprofile
+    execute 'eval "$(/opt/homebrew/bin/brew shellenv)"'
 }
 
 generate_combined_brewfile() {
