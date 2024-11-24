@@ -32,9 +32,6 @@ if [ "$(git rev-parse --abbrev-ref HEAD)" != "$BRANCH" ]; then
     git checkout "$BRANCH"
 fi
 
-# Make scripts executable
-chmod +x "$DOTFILES_DIR"/scripts/*.sh
-
 # Run the install script
 arguments=()
 if [ -n "$PROFILE" ]; then

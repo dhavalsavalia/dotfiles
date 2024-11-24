@@ -152,8 +152,4 @@ setup_sketchybar
 source "$DOTFILES_DIR/scripts/aerospace.sh"
 setup_aerospace
 
-# Setup Local Scripts
-source "$DOTFILES_DIR/scripts/local_scripts.sh"
-setup_local_scripts
-
 log "Setup completed successfully!"
