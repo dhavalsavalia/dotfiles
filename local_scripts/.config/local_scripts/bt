@@ -1,116 +1,109 @@
 #!/bin/bash
 
-set -e
-
-get_mac_address() {
-    local device_name="$1"
-    BluetoothConnector --status | awk -v name="$device_name" '$NF == name {print $1}'
+# Function to get the JSON output from system_profiler
+get_bluetooth_data() {
+    system_profiler -json SPBluetoothDataType
 }
 
-AIRPODS_MAC=$(get_mac_address "AirPods Pro")
-BOSE_MAC=$(get_mac_address "Dhaval's Bose NC700")
+get_device_address() {
+    local json_data=$(system_profiler -json SPBluetoothDataType)  # JSON input as a string
+    local device_name="$1"  # Device name to search for
 
-# Helper function to display usage
-usage() {
-    echo "Usage: bt [command] [device]"
-    echo ""
-    echo "Commands:"
-    echo "  list             List available Bluetooth devices and their statuses"
-    echo "  connect          Connect to a specified device (airpods | bose)"
-    echo "  disconnect       Disconnect from a specified device (airpods | bose)"
-    echo "  toggle           Toggle connection status of a specified device (airpods | bose)"
-    echo ""
-    echo "Examples:"
-    echo "  bt list"
-    echo "  bt connect airpods"
-    echo "  bt disconnect bose"
-    echo "  bt toggle airpods"
+    # Use jq to extract the device address, remove colons, and convert to lowercase
+    local address=$(echo "$json_data" | jq -r --arg name "$device_name" '
+        .SPBluetoothDataType[].device_connected[]?, .SPBluetoothDataType[].device_not_connected[]? |
+        .[$name]?.device_address // empty' | tr -d ':' | tr '[:upper:]' '[:lower:]')
+
+    # Check if an address was found and return it
+    if [[ -n "$address" ]]; then
+        echo "$address"
+    else
+        echo "Device not found or no address available"
+    fi
 }
 
-# Function to list all Bluetooth devices and their statuses
-list_devices() {
-    BluetoothConnector --status
-}
-
-# Function to connect to a device
+# Function to connect to a device by name
 connect_device() {
-    local device_mac="$1"
-    BluetoothConnector --connect "$device_mac" --notify
+    local device_name="$1"
+
+    # Extract the device's MAC address
+    local mac_address=$(get_device_address "$device_name")
+
+    if [[ -n "$mac_address" ]]; then
+        # Use a placeholder command to connect (replace with actual connection logic)
+        echo "Connecting to $device_name ($mac_address)..."
+        BluetoothConnector --connect $mac_address --notify
+    else
+        echo "Device '$device_name' not found or already connected."
+    fi
 }
 
-# Function to disconnect from a device
+# Function to disconnect a device by name
 disconnect_device() {
-    local device_mac="$1"
-    BluetoothConnector --disconnect "$device_mac" --notify
+    local device_name="$1"
+
+    # Extract the device's MAC address
+    local mac_address=$(get_device_address "$device_name")
+
+    if [[ -n "$mac_address" ]]; then
+        # Use a placeholder command to disconnect (replace with actual disconnection logic)
+        echo "Disconnecting from $device_name ($mac_address)..."
+        BluetoothConnector --disconnect $mac_address --notify
+    else
+        echo "Device '$device_name' not found or already disconnected."
+    fi
 }
 
-# Function to toggle connection status of a device
-toggle_device() {
-    local device_mac="$1"
-    BluetoothConnector "$device_mac" --notify
-}
+# Function to check the status of a device by name and suggest an action
+status_device() {
+    local device_name="$1"
+    local json_data=$(get_bluetooth_data)
 
-# Main script logic
-if [[ $# -lt 1 ]]; then
-    usage
-    exit 1
-fi
+    # Check if the device is connected or disconnected
+    local status=$(echo "$json_data" | jq -r --arg name "$device_name" '
+        .SPBluetoothDataType[].device_connected[]? |
+        select(has($name)) |
+        "\("connected")"' || echo "disconnected")
 
-COMMAND="$1"
-DEVICE="$2"
-
-case "$COMMAND" in
-    list)
-        list_devices
-        ;;
-    connect)
-        case "$DEVICE" in
-            airpods)
-                connect_device "$AIRPODS_MAC"
-                ;;
-            bose)
-                connect_device "$BOSE_MAC"
-                ;;
-            *)
-                echo "Invalid device. Use 'airpods' or 'bose'."
-                usage
-                exit 1
-                ;;
+    if [[ "$status" == "connected" ]]; then
+        read -p "$device_name is connected. Do you want to disconnect it? [Y/n] " choice
+        case "$choice" in
+            n|N) echo "No action taken." ;;
+            *) disconnect_device "$device_name" ;;
         esac
+    else
+        read -p "$device_name is disconnected. Do you want to connect it? [Y/n] " choice
+        case "$choice" in
+            n|N) echo "No action taken." ;;
+            *) connect_device "$device_name" ;;
+        esac
+    fi
+}
+
+# Main CLI logic
+case "$1" in
+    connect)
+        if [[ -z "$2" ]]; then
+            echo "Usage: $0 connect \"Device Name\""
+            exit 1
+        fi
+        connect_device "$2"
         ;;
     disconnect)
-        case "$DEVICE" in
-            airpods)
-                disconnect_device "$AIRPODS_MAC"
-                ;;
-            bose)
-                disconnect_device "$BOSE_MAC"
-                ;;
-            *)
-                echo "Invalid device. Use 'airpods' or 'bose'."
-                usage
-                exit 1
-                ;;
-        esac
+        if [[ -z "$2" ]]; then
+            echo "Usage: $0 disconnect \"Device Name\""
+            exit 1
+        fi
+        disconnect_device "$2"
         ;;
-    toggle)
-        case "$DEVICE" in
-            airpods)
-                toggle_device "$AIRPODS_MAC"
-                ;;
-            bose)
-                toggle_device "$BOSE_MAC"
-                ;;
-            *)
-                echo "Invalid device. Use 'airpods' or 'bose'."
-                usage
-                exit 1
-                ;;
-        esac
+    status)
+        if [[ -z "$2" ]]; then
+            echo "Usage: $0 status \"Device Name\""
+            exit 1
+        fi
+        status_device "$2"
         ;;
     *)
-        echo "Invalid command."
-        usage
+        echo "Usage: $0 {connect|disconnect|status} [Device Name]"
         exit 1
-        ;;
 esac

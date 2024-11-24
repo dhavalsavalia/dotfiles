@@ -18,3 +18,5 @@ alias rm="rm -ri"
 alias mv="mv -i"
 
 # 󰂯 Bluetooth goodies
+alias bta="bt status 'AirPods Pro'"
+alias btb="bt status 'Dhaval's Bose NC700'"
