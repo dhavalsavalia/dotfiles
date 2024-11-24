@@ -34,7 +34,6 @@ fi
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR"/scripts/*.sh
-chmod +x "$DOTFILES_DIR"/local_scripts/.config/local_scripts/*
 
 # Run the install script
 arguments=()
