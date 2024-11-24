@@ -12,3 +12,4 @@
   path = gitconfig.d/rerere.conf
   path = gitconfig.d/gpg.conf
   path = gitconfig.d/commit.conf
+  path = gitconfig.d/user.conf
