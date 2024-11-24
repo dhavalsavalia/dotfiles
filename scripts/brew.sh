@@ -37,7 +37,7 @@ install_homebrew() {
     fi
 
     log "Installing Homebrew..."
-    execute '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    execute 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
     # Add Homebrew to current session. Later to be added by stow to .zprofile
     execute 'eval "$(/opt/homebrew/bin/brew shellenv)"'
