@@ -14,3 +14,4 @@ thefuck/
 .zsh_history
 Brewfile.combined
 .config/git/gitconfig.d/user.conf
+.zcompdump
