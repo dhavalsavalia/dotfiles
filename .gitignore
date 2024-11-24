@@ -9,9 +9,9 @@ __pycache__/
 # Post Install Directories and Files
 github-copilot/
 thefuck/
-.config/tmux/plugins/
+tmux/.config/tmux/plugins/
 .zsh_sessions/
 .zsh_history
 Brewfile.combined
-.config/git/gitconfig.d/user.conf
+git/.config/git/gitconfig.d/user.conf
 .zcompdump
