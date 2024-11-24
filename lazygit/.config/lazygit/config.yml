@@ -1,12 +1,39 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
 gui:
   nerdFontsVersion: "3"
   scrollOffMargin: 10
+  scrollHeight: 10 # how many lines you scroll by
   mainPanelSplitMode: "horizontal"
+  showDivergenceFromBaseBranch: "arrowAndNumber"
+  filterMode: "fuzzy"
   theme:
     selectedLineBgColor:
       - bold
       - underline
     searchingActiveBorderColor:
       - reverse
+  branchColors:
+    "feature": "#7bd88f"
+    "develop": "#fd9353"
+    "release": "#5ad4e6"
+    "main": "#948ae3"
+git:
+  paging:
+    colorArg: always
+    pager: delta --paging=never --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' {{branchName}} --"
+  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --date=relative --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+  parseEmoji: true
 os:
   editPreset: "lvim"
+disableStartupPopups: true
+notARepository: "skip"
+
+# customCommands:
+#   - key: "C"
+#     command: "git cz"
+#     description: "commit with commitizen"
+#     context: "files"
+#     loadingText: "opening commitizen commit tool"
+#     subprocess: true
