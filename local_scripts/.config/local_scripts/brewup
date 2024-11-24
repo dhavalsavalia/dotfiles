@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This script runs $HOME/dotfiles/scripts/brew.sh
+
+# Check if Homebrew is installed, exit if not
+if ! command -v brew &> /dev/null; then
+    echo "Homebrew is not installed. Exiting..."
+    exit 1
+fi
+
+# TODO: Add add_packge like function to add packages to appropriate profile Brewfile
+
+# Run the brew.sh script
+$HOME/dotfiles/scripts/brew.sh
