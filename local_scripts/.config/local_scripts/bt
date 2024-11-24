@@ -1,0 +1,116 @@
+#!/bin/bash
+
+set -e
+
+get_mac_address() {
+    local device_name="$1"
+    BluetoothConnector --status | awk -v name="$device_name" '$NF == name {print $1}'
+}
+
+AIRPODS_MAC=$(get_mac_address "AirPods Pro")
+BOSE_MAC=$(get_mac_address "Dhaval's Bose NC700")
+
+# Helper function to display usage
+usage() {
+    echo "Usage: bt [command] [device]"
+    echo ""
+    echo "Commands:"
+    echo "  list             List available Bluetooth devices and their statuses"
+    echo "  connect          Connect to a specified device (airpods | bose)"
+    echo "  disconnect       Disconnect from a specified device (airpods | bose)"
+    echo "  toggle           Toggle connection status of a specified device (airpods | bose)"
+    echo ""
+    echo "Examples:"
+    echo "  bt list"
+    echo "  bt connect airpods"
+    echo "  bt disconnect bose"
+    echo "  bt toggle airpods"
+}
+
+# Function to list all Bluetooth devices and their statuses
+list_devices() {
+    BluetoothConnector --status
+}
+
+# Function to connect to a device
+connect_device() {
+    local device_mac="$1"
+    BluetoothConnector --connect "$device_mac" --notify
+}
+
+# Function to disconnect from a device
+disconnect_device() {
+    local device_mac="$1"
+    BluetoothConnector --disconnect "$device_mac" --notify
+}
+
+# Function to toggle connection status of a device
+toggle_device() {
+    local device_mac="$1"
+    BluetoothConnector "$device_mac" --notify
+}
+
+# Main script logic
+if [[ $# -lt 1 ]]; then
+    usage
+    exit 1
+fi
+
+COMMAND="$1"
+DEVICE="$2"
+
+case "$COMMAND" in
+    list)
+        list_devices
+        ;;
+    connect)
+        case "$DEVICE" in
+            airpods)
+                connect_device "$AIRPODS_MAC"
+                ;;
+            bose)
+                connect_device "$BOSE_MAC"
+                ;;
+            *)
+                echo "Invalid device. Use 'airpods' or 'bose'."
+                usage
+                exit 1
+                ;;
+        esac
+        ;;
+    disconnect)
+        case "$DEVICE" in
+            airpods)
+                disconnect_device "$AIRPODS_MAC"
+                ;;
+            bose)
+                disconnect_device "$BOSE_MAC"
+                ;;
+            *)
+                echo "Invalid device. Use 'airpods' or 'bose'."
+                usage
+                exit 1
+                ;;
+        esac
+        ;;
+    toggle)
+        case "$DEVICE" in
+            airpods)
+                toggle_device "$AIRPODS_MAC"
+                ;;
+            bose)
+                toggle_device "$BOSE_MAC"
+                ;;
+            *)
+                echo "Invalid device. Use 'airpods' or 'bose'."
+                usage
+                exit 1
+                ;;
+        esac
+        ;;
+    *)
+        echo "Invalid command."
+        usage
+        exit 1
+        ;;
+esac

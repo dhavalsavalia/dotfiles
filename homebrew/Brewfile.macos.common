@@ -41,6 +41,7 @@ brew "zsh-syntax-highlighting"
 brew "tlrc"  # TLDR Rust Client
 brew "thefuck"
 cask "nikitabobko/tap/aerospace"
+brew "bluetoothconnector"
 
 # Programming Languages
 brew "go"

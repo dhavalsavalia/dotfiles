@@ -16,3 +16,5 @@ alias .....="cd ../../../.."
 #   Safety Commands
 alias rm="rm -ri"
 alias mv="mv -i"
+
+# 󰂯 Bluetooth goodies
