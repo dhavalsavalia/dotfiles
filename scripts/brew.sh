@@ -5,6 +5,31 @@ set -e
 # Source utils if not already sourced
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
+get_or_create_brewprofile() {
+    local brewprofile_path="${XDG_CONFIG_HOME:-$HOME/.config}/.brewprofile"
+
+    # Check if .brewprofile exists
+    if [ ! -f "$brewprofile_path" ]; then
+        log ".brewprofile not found at $brewprofile_path"
+        read -rp "Enter profile (home/garda/minimal): " user_profile
+
+        # Validate input
+        while [[ "$user_profile" != "home" && "$user_profile" != "garda" && "$user_profile" != "minimal" ]]; do
+            echo "Invalid profile. Please enter 'home', 'garda', or 'minimal'."
+            read -rp "Enter profile: " user_profile
+        done
+
+        # Create .brewprofile and save the profile
+        mkdir -p "$(dirname "$brewprofile_path")"
+        echo "$user_profile" >"$brewprofile_path"
+        log "Profile saved to $brewprofile_path"
+    fi
+
+    # Read and return the profile from .brewprofile
+    cat "$brewprofile_path"
+}
+
+
 install_homebrew() {
     if command_exists "brew"; then
         log "Homebrew is already installed"
@@ -100,23 +125,41 @@ cleanup_packages() {
     execute "brew bundle cleanup --file='$combined_file' --force"
 }
 
+perform_brew_maintenance() {
+    log "Running Homebrew maintenance tasks..."
+
+    # Check system health
+    # execute "brew doctor"  # TODO: `brew doctor` doesn't work on MacOS Sequoia for now. Come back later.
+    execute "brew missing"
+
+    # Upgrade installed packages
+    execute "brew upgrade"
+    execute "brew upgrade --cask"
+
+    # Cleanup outdated versions
+    execute "brew cleanup"
+}
+
 setup_homebrew() {
     local profile="$1"
 
     # Validate profile
     if [ "$profile" != "home" ] && [ "$profile" != "garda" ] && [ "$profile" != "minimal" ]; then
+        # NOTE: Yeah, I know this fails the first time you run the script.
+        # Don't worry, it's just a one-time thing. Just run the script again.
         error "Profile must be either 'home', 'garda', or 'minimal'"
         return 1
     fi
 
     install_homebrew
+
     install_packages "$profile"
-    cleanup_packages "$profile"
+    perform_brew_maintenance
 }
 
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    # Parse command line arguments
+
     while getopts "p:d" opt; do
         case $opt in
         p) PROFILE="$OPTARG" ;;
@@ -130,6 +173,11 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 
     # Set DOTFILES_DIR if running directly
     DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+    # If no profile is supplied, check or create .brewprofile
+    if [ -z "$PROFILE" ]; then
+        PROFILE=$(get_or_create_brewprofile)
+    fi
 
     setup_homebrew "$PROFILE"
 fi
