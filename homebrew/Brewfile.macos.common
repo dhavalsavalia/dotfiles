@@ -42,6 +42,7 @@ brew "tlrc"  # TLDR Rust Client
 brew "thefuck"
 cask "nikitabobko/tap/aerospace"
 brew "bluetoothconnector"
+cask "monitorcontrol"
 
 # Programming Languages
 brew "go"
