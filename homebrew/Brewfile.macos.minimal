@@ -5,6 +5,7 @@ tap "oven-sh/bun"
 tap "jesseduffield/lazygit"
 tap "FelixKratz/formulae"
 tap "nikitabobko/tap"
+tap "joshmedeski/sesh"
 
 # Core Development Tools
 brew "git"
@@ -29,9 +30,11 @@ brew "fzf"  # Fuzzy finder
 brew "ripgrep"  # Search tool like grep and The Silver Searcher
 brew "stow" # Manage symlinks in one place (dotfiles)
 brew "starship" # prompt
+brew "gum"
 brew "tree"
 brew "wget"
 brew "tmux"
+brew "joshmedeski/sesh/sesh"
 brew "zoxide" # A faster way to navigate your filesystem
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
