@@ -105,27 +105,30 @@ alt-shift-5 = 'resize width 2292'
 alt-shift-6 = 'resize width 2580'
 
 # Service mode
-alt-shift-semicolon = 'mode service'
+alt-shift-semicolon = [
+  'mode service',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=service'
+]
 
 
 [mode.service.binding]
-esc = ['reload-config', 'mode main']
+esc = ['reload-config', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
 
 # Use this if you mess the hell up with tree structure
-r = ['flatten-workspace-tree', 'mode main']
+r = ['flatten-workspace-tree', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
 
 # Use this to toggle between floating and tiling layout for focused window
-f = ['layout floating tiling', 'mode main']
+f = ['layout floating tiling', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
 
 # Window joining
 # Workflow and usecase so far:
 # 1. Select a window
 # 2. Press alt+shift+h to join it with the window to the left [in service mode]
 # 3. join-with command will toggle between vertical and horizontal orientations
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+alt-shift-h = ['join-with left', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
+alt-shift-j = ['join-with down', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
+alt-shift-k = ['join-with up', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
+alt-shift-l = ['join-with right', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
 
 # Auto-assignment of applications to workspaces
 [[on-window-detected]]
