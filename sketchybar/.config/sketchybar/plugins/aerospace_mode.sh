@@ -4,6 +4,7 @@
 get_mode_icon() {
     case "$1" in
     main) echo " " ;;
+    layout) echo "" ;;
     service) echo "" ;;
     *) echo " " ;; # Fallback icon for unknown modes
     esac
@@ -13,8 +14,9 @@ get_mode_icon() {
 get_mode_label() {
     case "$1" in
     main) echo "Main" ;;
+    layout) echo "Layout" ;;
     service) echo "Service" ;;
-    *) echo "$1 mode" ;; # Fallback label for unknown modes
+    *) echo "Unknown mode" ;; # Fallback label for unknown modes
     esac
 }
 
