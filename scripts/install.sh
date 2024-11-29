@@ -59,32 +59,34 @@ if [ "$PROFILE" != "home" ] && [ "$PROFILE" != "garda" ] && [ "$PROFILE" != "min
 fi
 
 # TODO: Give precedence to provided git author name and email
-# Get Git author name from git config if available
+# First check user.conf, then use provided values, finally prompt if neither exists
+USER_CONF="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
 DEFAULT_GITAUTHORNAME="Dhaval Savalia"
-GITAUTHORNAME=$(git config --global user.name || echo "")
+DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
 
-# If GITAUTHORNAME is not set from git config, use provided environment variable or prompt the user
-if [ -z "$GITAUTHORNAME" ]; then
-  if [ -z "$PROVIDED_GITAUTHORNAME" ]; then
-    read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
-    GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
-  else
-    GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
-  fi
+if [ -f "$USER_CONF" ]; then
+  EXISTING_NAME=$(grep "name = " "$USER_CONF" 2>/dev/null | sed 's/.*name = //')
+  EXISTING_EMAIL=$(grep "email = " "$USER_CONF" 2>/dev/null | sed 's/.*email = //')
 fi
 
-# Get Git author email from git config if available
-DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
-GITAUTHOREMAIL=$(git config --global user.email || echo "")
+# Set git author name based on precedence
+if [ -n "$PROVIDED_GITAUTHORNAME" ]; then
+  GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
+elif [ -n "$EXISTING_NAME" ]; then
+  GITAUTHORNAME="$EXISTING_NAME"
+else
+  read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
+  GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
+fi
 
-# If GITAUTHOREMAIL is not set from git config, use provided environment variable or prompt the user
-if [ -z "$GITAUTHOREMAIL" ]; then
-  if [ -z "$PROVIDED_GITAUTHOREMAIL" ]; then
-    read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
-    GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
-  else
-    GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
-  fi
+# Set git author email based on precedence
+if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
+  GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
+elif [ -n "$EXISTING_EMAIL" ]; then
+  GITAUTHOREMAIL="$EXISTING_EMAIL"
+else
+  read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
+  GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
 fi
 
 # Confirm settings

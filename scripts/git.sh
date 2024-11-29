@@ -8,6 +8,8 @@ export DOTFILES_DIR
 setup_git_author() {
   local name="$1"
   local email="$2"
+  local user_conf="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+  local git_config="$DOTFILES_DIR/git/.config/git/.gitconfig"
 
   # Check if git is installed
   if ! command_exists "git"; then
@@ -27,29 +29,31 @@ setup_git_author() {
     exit 1
   fi
 
-  # use GITAUTHORNAME and GITAUTHOREMAIL in $DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf
-  echo "[user]" >"$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
-  echo "  name = $name" >>"$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
-  echo "  email = $email" >>"$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+  # Write to user.conf
+  echo "[user]" > "$user_conf"
+  echo "  name = $name" >> "$user_conf"
+  echo "  email = $email" >> "$user_conf"
 
-  # Set path = gitconfig.d/user.conf in $DOTFILES_DIR/git/.config/git/.gitconfig if not already set
-  if ! grep -q "path = gitconfig.d/user.conf" "$DOTFILES_DIR/git/.config/git/.gitconfig"; then
-    echo "  path = gitconfig.d/user.conf" >>"$DOTFILES_DIR/git/.config/git/.gitconfig"
+  # Ensure include path is set in .gitconfig
+  if ! grep -q "path = gitconfig.d/user.conf" "$git_config" 2>/dev/null; then
+    echo "  path = gitconfig.d/user.conf" >> "$git_config"
   fi
 
-  # Check if this worked
-  if [ ! grep -q "$name" "$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf" ] && [ ! grep -q "path = gitconfig.d/user.conf" "$DOTFILES_DIR/git/.config/git/.gitconfig" ]; then
+  # Verify the configuration
+  if ! grep -q "name = $name" "$user_conf" 2>/dev/null; then
     error "Failed to set git author name"
     exit 1
   fi
 
+  log "Git configuration updated successfully:"
+  log "  Name: $name"
+  log "  Email: $email"
   warn "Please setup your signing key in gitconfig.d/user.conf"
 }
 
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   # check if -n [name] and -e [email] are passed as arguments
-  # if yes, set as variables
   while getopts "n:e:" opt; do
     case $opt in
     n) NAME="$OPTARG" ;;
