@@ -66,6 +66,16 @@ Quick layout adjustments and window resizing.
   - Two-thirds: `5` (2292px)
   - Three-quarters: `6` (2580px)
 
+### App Launcher Moder (`alt + space`)
+Quick mnemonics based app launcher and switcher.
+
+- `t`: Terminal (Alacritty)
+- `b`: Browser (Arc)
+- `m`: Meeting (MS Teams)
+- `o`: Outlook
+- `p`: Postman
+- `d`: Database (MongoDB Compass)
+
 ### Service Mode (`alt + shift + ;`)
 System management commands.
 
@@ -168,7 +178,7 @@ The setup includes a dynamic BSP (Binary Space Partitioning) tiling script that 
    pkill -f "aerospace"
    pkill -f "bsp_tiling"
    pkill -f "center_floats"
-   
+
    # Restart aerospace
    ~/.config/aerospace/scripts/restart_aerospace.sh
    ```
@@ -177,7 +187,7 @@ The setup includes a dynamic BSP (Binary Space Partitioning) tiling script that 
    ```bash
    # Backup current config
    cp ~/.config/aerospace/aerospace.toml ~/.config/aerospace/aerospace.toml.bak
-   
+
    # Reset to default config
    cp /usr/local/etc/aerospace/aerospace.toml ~/.config/aerospace/
    ```

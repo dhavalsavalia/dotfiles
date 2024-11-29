@@ -59,6 +59,10 @@ alt-shift-semicolon = [
   'mode service',
   'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=service',
 ]
+alt-space = [
+  'mode app-launcher',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=app-launcher',
+]
 
 # Workspace Navigation
 alt-b = 'workspace B' # Browser
@@ -177,6 +181,48 @@ equal = 'resize smart +150'
 6 = 'resize width 2580'
 
 
+#############################################
+### App Launcher
+#############################################
+[mode.app-launcher.binding]
+esc = 'mode main'
+
+# Quick app launching with mnemonics
+t = [
+  'exec-and-forget ~/.config/aerospace/scripts/app_launcher.sh t',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'
+]  # Terminal (alacritty)
+b = [
+  'exec-and-forget ~/.config/aerospace/scripts/app_launcher.sh b',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'
+]  # Browser (arc)
+m = [
+  'exec-and-forget ~/.config/aerospace/scripts/app_launcher.sh m',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'
+]  # Meeting (teams)
+o = [
+  'exec-and-forget ~/.config/aerospace/scripts/app_launcher.sh o',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'
+]  # Outlook
+p = [
+  'exec-and-forget ~/.config/aerospace/scripts/app_launcher.sh p',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'
+]  # Postman
+d = [
+  'exec-and-forget ~/.config/aerospace/scripts/app_launcher.sh d',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'
+]  # Database (mongodb compass)
+
+
+#############################################
+### Service Mode
+#############################################
 [mode.service.binding]
 esc = [
   'mode main',
