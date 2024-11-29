@@ -14,7 +14,7 @@ get_mode_label() {
     case "$1" in
     main) echo "Main" ;;
     service) echo "Service" ;;
-    *) echo "Unknown mode" ;; # Fallback label for unknown modes
+    *) echo "$1 mode" ;; # Fallback label for unknown modes
     esac
 }
 
