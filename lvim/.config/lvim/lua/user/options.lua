@@ -1,5 +1,5 @@
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
@@ -26,10 +26,9 @@ lvim.builtin.project.patterns = {
 }
 
 vim.opt.shell = "/bin/zsh"
-lvim.format_on_save = true
 
 vim.o.linebreak = true
-vim.o.wrap = false
+vim.o.wrap = true
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 lvim.builtin.telescope = {
