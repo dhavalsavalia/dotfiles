@@ -43,6 +43,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "tlrc"  # TLDR Rust Client
 brew "thefuck"
+brew "terminal-notifier"
 cask "nikitabobko/tap/aerospace"
 brew "bluetoothconnector"
 cask "monitorcontrol"
@@ -80,6 +81,7 @@ cask "font-symbols-only-nerd-font"
 
 # Ricing
 brew "FelixKratz/formulae/sketchybar"
+brew "FelixKratz/formulae/borders"
 
 # Applications
 cask "arc"
