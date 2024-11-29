@@ -4,10 +4,11 @@ start-at-login = true
 
 # Run sketchybar after startup
 # Don't worry about running it twice, sketchybar devs are smarter than me.
+# TODO: use $XDG_CONFIG_HOME
 after-startup-command = [
   'exec-and-forget borders',
   'exec-and-forget sketchybar',
-  'exec-and-forget $XDG_CONFIG_HOME/aerospace/scripts/bsp_tiling.sh',
+  'exec-and-forget ~/.config/aerospace/scripts/bsp_tiling.sh',
 ]
 
 # Notify Sketchybar about aerospace change
@@ -201,6 +202,13 @@ a = [
 # reload jankyborders
 b = [
   'exec-and-forget brew services restart felixkratz/formulae/borders',
+  'mode main',
+  'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
+]
+
+# reload sketchybar
+s = [
+  'exec-and-forget sketchybar --reload',
   'mode main',
   'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
 ]
