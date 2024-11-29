@@ -104,7 +104,6 @@ alt-shift-s = 'split opposite'
 alt-tab = 'workspace-back-and-forth'
 alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
 alt-shift-left = 'move-node-to-monitor --wrap-around --focus-follows-window next'
-alt-right = 'move-node-to-monitor --wrap-around --focus-follows-window next'
 
 #############################################
 ### Layout Mode
