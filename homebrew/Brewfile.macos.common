@@ -47,6 +47,7 @@ brew "terminal-notifier"
 cask "nikitabobko/tap/aerospace"
 brew "bluetoothconnector"
 cask "monitorcontrol"
+cask "homerow"
 
 # Programming Languages
 brew "go"
@@ -66,7 +67,6 @@ cask "github"
 cask "postman"
 cask "visual-studio-code"
 brew "gh"
-
 
 # Productivity
 cask "raycast"
@@ -103,4 +103,3 @@ cask "qlvideo" # Preview most types of video files
 cask "gpg-suite"
 cask "docker"
 brew "docker-compose"
-cask "logi-options+"

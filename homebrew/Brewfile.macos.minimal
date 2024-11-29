@@ -44,6 +44,7 @@ brew "terminal-notifier"
 cask "nikitabobko/tap/aerospace"
 brew "bluetoothconnector"
 cask "monitorcontrol"
+cask "homerow"
 
 # Programming Languages
 brew "go"
