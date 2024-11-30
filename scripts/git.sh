@@ -29,7 +29,23 @@ setup_git_author() {
     exit 1
   fi
 
-  # Write to user.conf
+  # Update git remote URL to SSH
+  if [ "$(git remote get-url origin)" != "git@github\.com:dhavalsavalia/dotfiles\.git" ]; then
+    execute "git remote set-url origin git@github.com:dhavalsavalia/dotfiles.git"
+  fi
+
+  # Check if user.conf already exists
+  if [ -f "$user_conf" ]; then
+    warn "Existing user.conf found, skipping git user configuration..."
+    local current_name=$(git config --global user.name)
+    local current_email=$(git config --global user.email)
+    log "Current git configuration:"
+    log "  Name: $current_name"
+    log "  Email: $current_email"
+    return 0
+  fi
+
+  # Write to user.conf only if it doesn't exist
   echo "[user]" > "$user_conf"
   echo "  name = $name" >> "$user_conf"
   echo "  email = $email" >> "$user_conf"

@@ -69,24 +69,32 @@ if [ -f "$USER_CONF" ]; then
   EXISTING_EMAIL=$(grep "email = " "$USER_CONF" 2>/dev/null | sed 's/.*email = //')
 fi
 
-# Set git author name based on precedence
-if [ -n "$PROVIDED_GITAUTHORNAME" ]; then
-  GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
-elif [ -n "$EXISTING_NAME" ]; then
-  GITAUTHORNAME="$EXISTING_NAME"
+# Check if user.conf already exists
+USER_CONF_PATH="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+if [ -f "$USER_CONF_PATH" ]; then
+    warn "Existing user.conf found, skipping git user configuration..."
+    GITAUTHORNAME=$(git config --global user.name || echo "$DEFAULT_GITAUTHORNAME")
+    GITAUTHOREMAIL=$(git config --global user.email || echo "$DEFAULT_GITAUTHOREMAIL")
 else
-  read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
-  GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
-fi
+    # Set git author name based on precedence
+    if [ -n "$PROVIDED_GITAUTHORNAME" ]; then
+        GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
+    elif [ -n "$EXISTING_NAME" ]; then
+        GITAUTHORNAME="$EXISTING_NAME"
+    else
+        read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
+        GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
+    fi
 
-# Set git author email based on precedence
-if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
-  GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
-elif [ -n "$EXISTING_EMAIL" ]; then
-  GITAUTHOREMAIL="$EXISTING_EMAIL"
-else
-  read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
-  GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
+    # Set git author email based on precedence
+    if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
+        GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
+    elif [ -n "$EXISTING_EMAIL" ]; then
+        GITAUTHOREMAIL="$EXISTING_EMAIL"
+    else
+        read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
+        GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
+    fi
 fi
 
 # Confirm settings
