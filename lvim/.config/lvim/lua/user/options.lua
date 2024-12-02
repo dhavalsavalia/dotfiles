@@ -45,6 +45,13 @@ lvim.builtin.telescope = {
       width = 0.87,
       height = 0.80,
       preview_cutoff = 120,
+    },
+    file_ignore_patterns = { ".git/" },
+    respect_gitignore = false
+  },
+  pickers = {
+    find_files = {
+      hidden = true
     }
   }
 }

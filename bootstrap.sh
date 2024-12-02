@@ -3,12 +3,17 @@
 set -e
 
 REPO_URL="https://github.com/dhavalsavalia/dotfiles.git"
+SSH_REPO_URL="git@github.com:dhavalsavalia/dotfiles"
 DOTFILES_DIR="$HOME/dotfiles"
 
 # Default values
 PROFILE="${DOTFILES_PROFILE:-minimal}"
 BRANCH="${DOTFILES_BRANCH:-main}"
 MACOS_DEFAULTS="${DOTFILES_MACOS_DEFAULTS:-true}"
+NO_GIT="${DOTFILES_NO_GIT:-false}"
+if [ "$USE_SSH" = "true"]; then
+  REPO_URL="$SSH_REPO_URL"
+fi
 
 # Clone the repository if it doesn't exist
 if [ ! -d "$DOTFILES_DIR" ]; then
@@ -45,6 +50,9 @@ if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
 fi
 if [ "$MACOS_DEFAULTS" = "true" ]; then
     arguments+=("-m")
+fi
+if [ "$NO_GIT" = "true" ]; then
+    arguments+=("-g")
 fi
 
 "$DOTFILES_DIR"/scripts/install.sh "${arguments[@]}"

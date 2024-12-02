@@ -27,4 +27,4 @@ alias btb="bt status 'Dhaval's Bose NC700'"
 #  Tmux + Tmuxifier + Sesh | # NOTE: While works, these could actually be local scripts. I dunno. Integrate tmuxifier into sesh?
 alias tks='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | gum choose --header "Pick a session to kill: " --header.foreground="114" --selected.foreground="204" --cursor.foreground="204" --item.foreground="231" --select-if-one)'
 alias tfls='tmuxifier load-session $(tmuxifier list-sessions | gum filter --placeholder "Pick a session layout: ")'
-alias sc='sesh connect $(sesh list -i -t | gum filter --placeholder "Pick a session to connect: ")'
+alias sc='sesh connect $(sesh list -i | gum filter --placeholder "Pick a session to connect: ")'

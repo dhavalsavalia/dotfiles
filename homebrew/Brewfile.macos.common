@@ -4,6 +4,7 @@ tap "homebrew/services"
 tap "azure/functions"
 tap "oven-sh/bun"
 tap "jesseduffield/lazygit"
+tap "jesseduffield/lazydocker"
 tap "FelixKratz/formulae"
 tap "nikitabobko/tap"
 tap "joshmedeski/sesh"
@@ -48,6 +49,7 @@ cask "nikitabobko/tap/aerospace"
 brew "bluetoothconnector"
 cask "monitorcontrol"
 cask "homerow"
+brew "pre-commit"
 
 # Programming Languages
 brew "go"
@@ -59,6 +61,7 @@ brew "pipenv"
 
 # Development Tools
 brew "jesseduffield/lazygit/lazygit"
+brew "jesseduffield/lazydocker/lazydocker"
 brew "neovim"
 brew "pipenv"
 cask "mongodb-compass"

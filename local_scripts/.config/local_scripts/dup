@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Default values
+DOTFILES_NO_GIT="false"
+USE_SSH="false"
+
+# Parse arguments
+while getopts "gs" opt; do
+    case $opt in
+    g) DOTFILES_NO_GIT="true" ;;
+    s) USE_SSH="true" ;;
+    *) echo "Usage: $0 [-g] [-s]"; exit 1 ;;
+    esac
+done
+
+# Run bootstrap.sh with the set environment variables
+DOTFILES_NO_GIT="$DOTFILES_NO_GIT" USE_SSH="$USE_SSH" $HOME/dotfiles/bootstrap.sh

@@ -18,6 +18,7 @@ Options:
     -e <email>      Git author email (optional, precedence given to git config)
     -d              Dry run mode
     -m              Run macOS defaults setup
+    -g              Ignore git related settings
     -h              Show this help message
 
 Example:
@@ -28,13 +29,14 @@ EOF
 }
 
 # Parse arguments
-while getopts "p:n:e:dmlh" opt; do
+while getopts "p:n:e:dmgh" opt; do
     case $opt in
     p) PROFILE="$OPTARG" ;;
     n) PROVIDED_GITAUTHORNAME="$OPTARG" ;;
     e) PROVIDED_GITAUTHOREMAIL="$OPTARG" ;;
     d) export DRY_RUN="true" ;;
     m) MACOS_DEFAULTS="true" ;;
+    g) NO_GIT="true" ;;
     h)
         print_usage
         exit 0
@@ -58,42 +60,44 @@ if [ "$PROFILE" != "home" ] && [ "$PROFILE" != "garda" ] && [ "$PROFILE" != "min
     exit 1
 fi
 
-# TODO: Give precedence to provided git author name and email
-# First check user.conf, then use provided values, finally prompt if neither exists
-USER_CONF="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
-DEFAULT_GITAUTHORNAME="Dhaval Savalia"
-DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
+if [ "$NO_GIT" != "true" ]; then
+    # TODO: Give precedence to provided git author name and email
+    # First check user.conf, then use provided values, finally prompt if neither exists
+    USER_CONF="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+    DEFAULT_GITAUTHORNAME="Dhaval Savalia"
+    DEFAULT_GITAUTHOREMAIL="hello@dhavalsavalia.com"
 
-if [ -f "$USER_CONF" ]; then
-  EXISTING_NAME=$(grep "name = " "$USER_CONF" 2>/dev/null | sed 's/.*name = //')
-  EXISTING_EMAIL=$(grep "email = " "$USER_CONF" 2>/dev/null | sed 's/.*email = //')
-fi
-
-# Check if user.conf already exists
-USER_CONF_PATH="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
-if [ -f "$USER_CONF_PATH" ]; then
-    warn "Existing user.conf found, skipping git user configuration..."
-    GITAUTHORNAME=$(git config --global user.name || echo "$DEFAULT_GITAUTHORNAME")
-    GITAUTHOREMAIL=$(git config --global user.email || echo "$DEFAULT_GITAUTHOREMAIL")
-else
-    # Set git author name based on precedence
-    if [ -n "$PROVIDED_GITAUTHORNAME" ]; then
-        GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
-    elif [ -n "$EXISTING_NAME" ]; then
-        GITAUTHORNAME="$EXISTING_NAME"
-    else
-        read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
-        GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
+    if [ -f "$USER_CONF" ]; then
+      EXISTING_NAME=$(grep "name = " "$USER_CONF" 2>/dev/null | sed 's/.*name = //')
+      EXISTING_EMAIL=$(grep "email = " "$USER_CONF" 2>/dev/null | sed 's/.*email = //')
     fi
 
-    # Set git author email based on precedence
-    if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
-        GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
-    elif [ -n "$EXISTING_EMAIL" ]; then
-        GITAUTHOREMAIL="$EXISTING_EMAIL"
+    # Check if user.conf already exists
+    USER_CONF_PATH="$DOTFILES_DIR/git/.config/git/gitconfig.d/user.conf"
+    if [ -f "$USER_CONF_PATH" ]; then
+        warn "Existing user.conf found, skipping git user configuration..."
+        GITAUTHORNAME=$(git config --global user.name || echo "$DEFAULT_GITAUTHORNAME")
+        GITAUTHOREMAIL=$(git config --global user.email || echo "$DEFAULT_GITAUTHOREMAIL")
     else
-        read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
-        GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
+        # Set git author name based on precedence
+        if [ -n "$PROVIDED_GITAUTHORNAME" ]; then
+            GITAUTHORNAME="$PROVIDED_GITAUTHORNAME"
+        elif [ -n "$EXISTING_NAME" ]; then
+            GITAUTHORNAME="$EXISTING_NAME"
+        else
+            read -p "Enter your Git author name [${DEFAULT_GITAUTHORNAME}]: " input_name
+            GITAUTHORNAME=${input_name:-$DEFAULT_GITAUTHORNAME}
+        fi
+
+        # Set git author email based on precedence
+        if [ -n "$PROVIDED_GITAUTHOREMAIL" ]; then
+            GITAUTHOREMAIL="$PROVIDED_GITAUTHOREMAIL"
+        elif [ -n "$EXISTING_EMAIL" ]; then
+            GITAUTHOREMAIL="$EXISTING_EMAIL"
+        else
+            read -p "Enter your Git author email [${DEFAULT_GITAUTHOREMAIL}]: " input_email
+            GITAUTHOREMAIL=${input_email:-$DEFAULT_GITAUTHOREMAIL}
+        fi
     fi
 fi
 
@@ -102,8 +106,10 @@ warn "Configuration:"
 warn "  Profile: $PROFILE"
 warn "  Dry Run: ${DRY_RUN:-false}"
 warn "  macOS Defaults: ${MACOS_DEFAULTS:-false}"
-warn "  Git Author Name: $GITAUTHORNAME"
-warn "  Git Author Email: $GITAUTHOREMAIL"
+if [ "$NO_GIT" != "true" ]; then
+    warn "  Git Author Name: $GITAUTHORNAME"
+    warn "  Git Author Email: $GITAUTHOREMAIL"
+fi
 
 read -p "Proceed with these settings? (y/N) " CONFIRM
 if [[ "$CONFIRM" != "y" ]]; then
@@ -138,10 +144,12 @@ if ! test_stow; then
     exit 1
 fi
 
-# Setup name and email for git
-log "Setting up git author name and email..."
-source "$DOTFILES_DIR/scripts/git.sh"
-setup_git_author "$GITAUTHORNAME" "$GITAUTHOREMAIL"
+if [ "$NO_GIT" != "true" ]; then
+  # Setup name and email for git
+  log "Setting up git author name and email..."
+  source "$DOTFILES_DIR/scripts/git.sh"
+  setup_git_author "$GITAUTHORNAME" "$GITAUTHOREMAIL"
+fi
 
 # Install LunarVim
 log "Installing LunarVim..."

@@ -12,6 +12,7 @@ cask "apparency" # Check the integrity of your apps
 cask "setapp"
 cask "whatsapp"
 cask "windscribe"
+cask "obsidian"
 
 # Games
 cask "steam"

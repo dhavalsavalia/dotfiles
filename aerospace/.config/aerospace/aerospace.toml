@@ -55,7 +55,7 @@ cmd-alt-ctrl-shift-l = [
   'mode layout',
   'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=layout',
 ]
-alt-shift-semicolon = [
+cmd-alt-ctrl-shift-semicolon = [
   'mode service',
   'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=service',
 ]
