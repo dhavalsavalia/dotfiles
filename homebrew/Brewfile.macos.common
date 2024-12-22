@@ -50,6 +50,7 @@ brew "bluetoothconnector"
 cask "monitorcontrol"
 cask "homerow"
 brew "pre-commit"
+brew "zsh-you-should-use"
 
 # Programming Languages
 brew "go"
@@ -91,6 +92,7 @@ cask "arc"
 cask "google-chrome"
 cask "iina"
 cask "spotify"
+cask "microsoft-teams"
 
 # Quick Look Plugins
 cask "qlcolorcode" # Preview source code files with syntax highlighting
