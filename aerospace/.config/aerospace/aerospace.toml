@@ -8,7 +8,6 @@ start-at-login = true
 after-startup-command = [
   'exec-and-forget borders',
   'exec-and-forget sketchybar',
-  'exec-and-forget ~/.config/aerospace/scripts/bsp_tiling.sh',
 ]
 
 # Notify Sketchybar about aerospace change
