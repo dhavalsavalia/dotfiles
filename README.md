@@ -14,7 +14,6 @@ This script will configure the following tools:
 * **Tmux**: Sets up tmux with plugins and themes. Also installs tmuxifier for session management.
 * **LunarVim**: Configures the LunarVim editor.
 * **Lazygit**: My git client of choice with a beautiful TUI.
-* **Sketchybar**: Configures the macOS menu bar.
 * **AeroSpace**: Tiling Window Manager. Similar to i3.
 * **macOS Defaults**: Sets macOS sane defaults.
 
@@ -64,14 +63,9 @@ DOTFILES_BRANCH=bootstrap DOTFILES_PROFILE=minimal /bin/bash -c "$(curl -fsSL ht
 
 ## App Specifics
 
-### sketchybar
-
-MacOS Menu Bar is not getting hidden using defaults. Manually Set it to auto hide "Always" from `System Settings` > `Control Center` **BEFORE** running bootstrap script.
-
 ## 🐞 Known issues
 
 * Some defaults are not behaving properly
-* Sketchybar and AeroSpace are not playing nicely together
 * Report?
 
 ## System Preference Settings

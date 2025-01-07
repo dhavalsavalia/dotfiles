@@ -162,10 +162,6 @@ source "$DOTFILES_DIR/scripts/tmux.sh"
 setup_tmux
 setup_tmuxifier
 
-# Install sketchybar
-source "$DOTFILES_DIR/scripts/sketchybar.sh"
-setup_sketchybar
-
 # Install AeroSpace
 source "$DOTFILES_DIR/scripts/aerospace.sh"
 setup_aerospace

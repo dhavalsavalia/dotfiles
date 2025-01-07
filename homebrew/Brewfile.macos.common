@@ -84,7 +84,6 @@ cask "font-jetbrains-mono"
 cask "font-symbols-only-nerd-font"
 
 # Ricing
-brew "FelixKratz/formulae/sketchybar"
 brew "FelixKratz/formulae/borders"
 
 # Applications
