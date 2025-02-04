@@ -56,6 +56,14 @@ lvim.builtin.telescope = {
   }
 }
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "ts", "mts", "json" },
+  callback = function()
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+  end
+})
+
 lvim.builtin.nvimtree.setup.view = {
   side = "right",
   width = 50,

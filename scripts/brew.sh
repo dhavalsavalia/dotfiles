@@ -128,6 +128,7 @@ setup_homebrew() {
     install_homebrew
 
     install_packages "$profile"
+    cleanup_packages "$profile"
     perform_brew_maintenance
 }
 
