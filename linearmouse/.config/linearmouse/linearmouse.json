@@ -1,56 +1,71 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
   "schemes" : [
     {
-      "pointer" : {
-        "acceleration" : 7.1276,
-        "speed" : 0.111,
-        "disableAcceleration" : false
+      "if" : {
+        "device" : {
+          "productName" : "USB Receiver",
+          "productID" : "0xc52b",
+          "category" : "mouse",
+          "vendorID" : "0x46d"
+        }
       },
       "scrolling" : {
-        "speed" : {
-          "vertical" : 5.43,
-          "horizontal" : 0
-        },
-        "reverse" : {
-          "vertical" : true
-        },
         "distance" : {
           "horizontal" : "51.2px"
         },
         "acceleration" : {
           "vertical" : 2.75,
           "horizontal" : 1
+        },
+        "reverse" : {
+          "vertical" : true
+        },
+        "speed" : {
+          "vertical" : 5.43,
+          "horizontal" : 0
         }
       },
-      "if" : {
-        "device" : {
-          "vendorID" : "0x46d",
-          "productID" : "0xc52b",
-          "productName" : "USB Receiver",
-          "category" : "mouse"
-        }
+      "pointer" : {
+        "speed" : 0.111,
+        "disableAcceleration" : false,
+        "acceleration" : 7.1276
       }
     },
     {
+      "if" : {
+        "device" : {
+          "category" : "trackpad",
+          "productID" : "0x0",
+          "vendorID" : "0x0",
+          "productName" : "Apple Internal Keyboard \/ Trackpad"
+        }
+      },
       "scrolling" : {
         "acceleration" : {
           "vertical" : 2.46,
           "horizontal" : 1
         }
       },
-      "if" : {
-        "device" : {
-          "vendorID" : "0x0",
-          "productName" : "Apple Internal Keyboard \/ Trackpad",
-          "category" : "trackpad",
-          "productID" : "0x0"
-        }
-      },
       "pointer" : {
         "disableAcceleration" : true,
         "acceleration" : 1.5
       }
+    },
+    {
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        }
+      },
+      "if" : {
+        "device" : {
+          "productID" : "0x342",
+          "category" : "trackpad",
+          "vendorID" : "0x5ac",
+          "productName" : "Apple Internal Keyboard \/ Trackpad"
+        }
+      }
     }
-  ]
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
 }
