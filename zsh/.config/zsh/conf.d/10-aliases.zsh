@@ -1,6 +1,6 @@
-alias vim="lvim"
-alias vi="lvim"
-alias v="lvim"
+alias vim="nvim"
+alias vi="nvim"
+alias v="nvim"
 alias lg="lazygit"
 
 alias rz="source ~/.config/zsh/.zshrc"

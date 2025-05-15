@@ -6,14 +6,19 @@ cask "chromedriver"
 cask "1password"
 cask "1password-cli"
 cask "enpass"
-cask "discord"
+cask "legcord"
 cask "telegram"
 cask "apparency" # Check the integrity of your apps
 cask "setapp"
 cask "whatsapp"
 cask "windscribe"
 cask "obsidian"
+cask "anydesk"
 
 # Games
 cask "steam"
 cask "minecraft"
+
+# Codecrafters
+tap "codecrafters-io/tap"
+brew "codecrafters-io/tap/codecrafters"

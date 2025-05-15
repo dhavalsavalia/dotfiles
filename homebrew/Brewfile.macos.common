@@ -53,25 +53,24 @@ brew "pre-commit"
 brew "zsh-you-should-use"
 
 # Programming Languages
-brew "go"
 brew "node"
 brew "oven-sh/bun/bun"
 brew "python"
-brew "pyenv"
-brew "pipenv"
 
 # Development Tools
 brew "jesseduffield/lazygit/lazygit"
 brew "jesseduffield/lazydocker/lazydocker"
 brew "neovim"
-brew "pipenv"
-brew "poetry"
 cask "mongodb-compass"
 brew "azure/functions/azure-functions-core-tools@4"
 cask "github"
 cask "postman"
 cask "visual-studio-code"
 brew "gh"
+brew "pipenv"
+brew "poetry"
+brew "pyenv"
+brew "uv"
 
 # Productivity
 cask "raycast"
