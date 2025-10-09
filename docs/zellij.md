@@ -4,14 +4,21 @@
 
 ### Starting Sessions
 ```bash
-zellij                      # default layout
-zellij --layout seditor     # shell + editor split
-zellij --layout sgit        # shell + lazygit split
-zellij --layout dev         # full dev workspace
+# Auto-named by directory (recommended)
+z                           # Creates/attaches session named after current dir
+zj                          # Same as above
+zj myname                   # Override with custom name
 
-zellij --session myproject  # named session
-zellij attach myproject     # reattach
+# Manual commands
+zellij                      # Random session name
+zellij --layout seditor     # Shell + editor split
+zellij --layout sgit        # Shell + lazygit split
+zellij --layout dev         # Full dev workspace
+zellij --session myproject  # Named session
+zellij attach myproject     # Reattach
 ```
+
+**Tip**: Use `z` or `zj` in project directories - sessions are auto-named and persist.
 
 ### Essential Keybinds
 ```
