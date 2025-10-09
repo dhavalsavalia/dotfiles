@@ -88,8 +88,19 @@ keybinds {
 
     // Session mode enhancements
     session {
-        bind "w" { SwitchToMode "Normal"; LaunchOrFocusPlugin "session-manager" { floating true }; }
-        bind "r" { SwitchToMode "Normal"; LaunchOrFocusPlugin "session-manager" { floating true; move_to_focused_tab true }; }
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "r" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
     }
 }
 
