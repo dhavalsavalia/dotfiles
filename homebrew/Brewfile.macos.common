@@ -3,7 +3,6 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "azure/functions"
 tap "oven-sh/bun"
-tap "jesseduffield/lazygit"
 tap "jesseduffield/lazydocker"
 tap "FelixKratz/formulae"
 tap "nikitabobko/tap"
@@ -38,6 +37,7 @@ brew "gum"
 brew "tree"
 brew "wget"
 brew "tmux"
+brew "zellij"
 brew "joshmedeski/sesh/sesh"
 brew "zoxide" # A faster way to navigate your filesystem
 brew "zsh-autosuggestions"
@@ -58,7 +58,7 @@ brew "oven-sh/bun/bun"
 brew "python"
 
 # Development Tools
-brew "jesseduffield/lazygit/lazygit"
+brew "lazygit"
 brew "jesseduffield/lazydocker/lazydocker"
 brew "neovim"
 cask "mongodb-compass"
@@ -105,5 +105,5 @@ cask "qlvideo" # Preview most types of video files
 
 # su required packages
 cask "gpg-suite"
-cask "docker"
+cask "docker-desktop"
 brew "docker-compose"
