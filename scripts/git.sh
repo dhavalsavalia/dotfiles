@@ -30,8 +30,9 @@ setup_git_author() {
   fi
 
   # Update git remote URL to SSH
-  if [ "$(git remote get-url origin)" != "git@github\.com:dhavalsavalia/dotfiles\.git" ]; then
-    execute "git remote set-url origin git@github.com:dhavalsavalia/dotfiles.git"
+  current_url="$(git -C "$DOTFILES_DIR" remote get-url origin 2>/dev/null || echo "")"
+  if [ "$current_url" != "git@github.com:dhavalsavalia/dotfiles.git" ]; then
+    execute "git -C \"$DOTFILES_DIR\" remote set-url origin git@github.com:dhavalsavalia/dotfiles.git"
   fi
 
   # Check if user.conf already exists

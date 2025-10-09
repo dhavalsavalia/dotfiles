@@ -108,7 +108,7 @@ test_profile_packages() {
         for package in "${home_packages[@]}"; do
             check_brew_package "$package" || ((failed++))
         done
-    elif [ "$profile" = "1" ]; then
+    elif [ "$profile" = "garda" ]; then
         for package in "${work_packages[@]}"; do
             check_brew_package "$package" || ((failed++))
         done
@@ -126,8 +126,8 @@ main() {
     local total_failed=0
 
     # Validate profile
-    if [ "$profile" != "home" ] && [ "$profile" != "1" ]; then
-        error "Profile must be either 'home' or '1'"
+    if [ "$profile" != "home" ] && [ "$profile" != "garda" ]; then
+        error "Profile must be either 'home' or 'garda'"
         exit 1
     fi
 

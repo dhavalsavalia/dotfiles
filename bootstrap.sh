@@ -11,7 +11,7 @@ PROFILE="${DOTFILES_PROFILE:-minimal}"
 BRANCH="${DOTFILES_BRANCH:-main}"
 MACOS_DEFAULTS="${DOTFILES_MACOS_DEFAULTS:-true}"
 NO_GIT="${DOTFILES_NO_GIT:-false}"
-if [ "$USE_SSH" = "true"]; then
+if [ "$USE_SSH" = "true" ]; then
   REPO_URL="$SSH_REPO_URL"
 fi
 
