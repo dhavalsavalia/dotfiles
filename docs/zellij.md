@@ -17,6 +17,7 @@ zellij attach myproject     # reattach
 ```
 Alt+s       → Session picker (switch/resurrect)
 Alt+t       → New tab
+Alt+1-9     → Jump to tab by number
 Alt+n/p     → Next/previous tab
 Alt+h/j/k/l → Navigate panes (vim-style)
 Alt+f       → File picker (browse & open files)
