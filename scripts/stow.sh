@@ -27,7 +27,7 @@ setup_stow() {
     for package in "${packages[@]}"; do
         if [ -d "$DOTFILES_DIR/$package" ]; then
             execute "cd $DOTFILES_DIR && stow -D $package" # Unstow first to ensure idempotency
-            execute "cd $DOTFILES_DIR && stow -t $HOME $package" --adopt
+            execute "cd $DOTFILES_DIR && stow -t $HOME --adopt $package"
         else
             warning "$package directory does not exist in $DOTFILES_DIR"
         fi
