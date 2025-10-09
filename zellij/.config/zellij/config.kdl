@@ -46,6 +46,7 @@ keybinds {
         bind "Alt n" { GoToNextTab; }
         bind "Alt p" { GoToPreviousTab; }
         bind "Alt w" { CloseTab; }
+        bind "Alt o" { ToggleTab; }  // Toggle between last two tabs
 
         // Quick tab switching (like browser tabs)
         bind "Alt 1" { GoToTab 1; }
