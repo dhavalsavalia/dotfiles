@@ -210,11 +210,15 @@ add_to_brewfile() {
 main() {
     DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 
-    # First check for out-of-sync casks
+    # First check for out-of-sync casks (interactive mode if gum available)
     log "Checking for out-of-sync cask installations..."
     if [ -f "$DOTFILES_DIR/scripts/brew-check-sync.sh" ]; then
         source "$DOTFILES_DIR/scripts/brew-check-sync.sh"
-        check_cask_sync || true  # Don't fail if out of sync
+        if command_exists gum; then
+            INTERACTIVE=true check_cask_sync || true
+        else
+            check_cask_sync || true
+        fi
     fi
 
     echo ""

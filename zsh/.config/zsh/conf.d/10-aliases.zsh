@@ -7,6 +7,8 @@ alias rz="source ~/.config/zsh/.zshrc"
 
 #   Package Management
 alias brew-sync="$HOME/dotfiles/scripts/brew-capture.sh"
+alias brew-fix-sync="$HOME/dotfiles/scripts/brew-check-sync.sh --interactive"
+alias brew-fix-all="$HOME/dotfiles/scripts/brew-check-sync.sh --auto-fix"
 
 # 󱩷  Basic Commands
 alias c="clear"

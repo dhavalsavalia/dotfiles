@@ -32,6 +32,17 @@ DOTFILES_BRANCH=main DOTFILES_PROFILE=home /bin/bash -c "$(curl -fsSL https://ra
 
 # Dry run mode
 ./scripts/brew.sh -p home -d
+
+# Sync ad-hoc installs to Brewfile (interactive with gum)
+./scripts/brew-capture.sh
+brew-sync  # alias
+
+# Check for out-of-sync casks (manually updated outside brew)
+./scripts/brew-check-sync.sh                # Report only
+./scripts/brew-check-sync.sh --interactive  # Fix with gum selection
+./scripts/brew-check-sync.sh --auto-fix     # Reinstall all
+brew-fix-sync  # alias for --interactive
+brew-fix-all   # alias for --auto-fix
 ```
 
 ### Stow Symlink Management
