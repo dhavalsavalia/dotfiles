@@ -103,6 +103,12 @@ cleanup_packages() {
 perform_brew_maintenance() {
     log "Running Homebrew maintenance tasks..."
 
+    # Check for out-of-sync cask installations
+    if [ -f "$DOTFILES_DIR/scripts/brew-check-sync.sh" ]; then
+        source "$DOTFILES_DIR/scripts/brew-check-sync.sh"
+        check_cask_sync || warning "Some casks are out of sync with Homebrew database"
+    fi
+
     # Check system health
     # execute "brew doctor"  # TODO: `brew doctor` doesn't work on MacOS Sequoia for now. Come back later.
     execute "brew missing"
