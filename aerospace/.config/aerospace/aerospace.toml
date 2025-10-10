@@ -15,7 +15,8 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 ### Layout Settings
 accordion-padding = 20
 default-root-container-layout = 'tiles'
-default-root-container-orientation = 'horizontal'
+# Auto orientation: horizontal for wide monitors, vertical for tall monitors
+default-root-container-orientation = 'auto'
 
 # I just wanted to remind myself
 # to use cmh+h more often and cmd+tab my way through getting it back.
@@ -26,12 +27,33 @@ automatically-unhide-macos-hidden-apps = false
 preset = 'qwerty'
 
 [gaps]
-inner.horizontal = 0
-inner.vertical = 0
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+# Per-monitor gap configuration
+# Built-in displays: minimal gaps for space efficiency
+# External/ultrawide: comfortable gaps for visual breathing room
+inner.horizontal = [
+  { monitor.built-in = 0 },
+  8  # Default for external monitors
+]
+inner.vertical = [
+  { monitor.built-in = 0 },
+  8  # Default for external monitors
+]
+outer.left = [
+  { monitor.built-in = 0 },
+  4  # Default for external monitors
+]
+outer.right = [
+  { monitor.built-in = 0 },
+  4  # Default for external monitors
+]
+outer.top = [
+  { monitor.built-in = 0 },
+  4  # Default for external monitors
+]
+outer.bottom = [
+  { monitor.built-in = 0 },
+  4  # Default for external monitors
+]
 
 [mode.main.binding]
 
@@ -144,16 +166,6 @@ minus = 'resize smart -149'
 equal = 'resize smart +150'
 0 = 'balance-sizes'
 
-# Thirds, and quarters, and more
-# Only plays nice with my LG Ultrawide at 3440px width
-# TODO: Figure out per-monitor configuration
-# I can do like different mode for "different" monitors but meh its ugly as fuck
-# I am only using ultrawide so this is fine for now.
-3 = 'resize width 1146'
-4 = 'resize width 860'
-5 = 'resize width 2292'
-6 = 'resize width 2580'
-
 
 #############################################
 ### App Launcher
@@ -242,5 +254,5 @@ if.app-name-regex-substring = 'Spotify'
 run = ['layout floating', 'move-node-to-workspace M']
 
 [[on-window-detected]]
-if.app-name-regex-substring = '(Finder|Cisco Secure Client|Preview|1Password)'
+if.app-name-regex-substring = '(Finder|Cisco Secure Client|Preview|1Password|Keeper)'
 run = 'layout floating'
