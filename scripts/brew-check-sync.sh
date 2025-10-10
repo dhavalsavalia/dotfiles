@@ -43,8 +43,12 @@ check_cask_sync() {
         # Get actual version from app bundle
         local actual_version=$(defaults read "$full_app_path/Contents/Info.plist" CFBundleShortVersionString 2>/dev/null || echo "")
 
-        # Compare versions
-        if [ -n "$actual_version" ] && [ "$brew_version" != "$actual_version" ]; then
+        # Normalize versions for comparison (strip build numbers after comma)
+        local brew_version_normalized=$(echo "$brew_version" | cut -d',' -f1)
+        local actual_version_normalized="$actual_version"
+
+        # Compare normalized versions
+        if [ -n "$actual_version" ] && [ "$brew_version_normalized" != "$actual_version_normalized" ]; then
             out_of_sync+=("$cask_name: brew=$brew_version, actual=$actual_version")
         fi
     done < <(echo "$all_casks_json" | jq -c '.casks[]?')
