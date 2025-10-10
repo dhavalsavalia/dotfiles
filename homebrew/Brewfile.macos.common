@@ -23,7 +23,6 @@ brew "jq"
 brew "mas"
 brew "unar"
 cask "iterm2"
-cask "kitty"
 cask "alacritty"
 brew "gnupg"
 brew "pinentry-mac"
@@ -107,3 +106,5 @@ cask "qlvideo" # Preview most types of video files
 cask "gpg-suite"
 cask "docker-desktop"
 brew "docker-compose"
+brew "python@3.14" # Interpreted, interactive, object-oriented programming langua
+brew "diff-so-fancy" # Good-lookin' diffs with diff-highlight and more
