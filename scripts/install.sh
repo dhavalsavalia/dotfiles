@@ -166,4 +166,8 @@ setup_tmuxifier
 source "$DOTFILES_DIR/scripts/aerospace.sh"
 setup_aerospace
 
+# Setup VSCode
+log "Setting up VSCode..."
+source "$DOTFILES_DIR/scripts/vscode.sh"
+
 log "Setup completed successfully!"

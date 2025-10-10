@@ -1,0 +1,5 @@
+# Personal-specific extensions (home profile)
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
+ms-vscode.remote-explorer
+tonybaloney.vscode-pets

@@ -37,7 +37,14 @@
       "Bash(~/.config/aerospace/scripts/workspace_overview.sh:*)",
       "Bash(python3:*)",
       "Bash(bash --version)",
-      "Bash(/opt/homebrew/bin/bash:*)"
+      "Bash(/opt/homebrew/bin/bash:*)",
+      "Read(//Users/dhavalsavalia/Library/**)",
+      "Bash(code --version)",
+      "Bash(code:*)",
+      "Bash(mkdir:*)",
+      "Bash(DRY_RUN=true ./scripts/vscode.sh -p home)",
+      "Bash(./scripts/vscode.sh:*)",
+      "Bash(/dev/null)"
     ],
     "deny": [],
     "ask": []
