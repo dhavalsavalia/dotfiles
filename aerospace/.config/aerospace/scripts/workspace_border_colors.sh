@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# JankyBorders workspace color switcher
+# JankyBorders workspace color switcher with animations
 # Matches Monokai Pro Spectrum theme from Zellij config
 # Called by AeroSpace exec-on-workspace-change callback
 
@@ -37,5 +37,13 @@ case $WORKSPACE in
         ;;
 esac
 
-# Update borders color (updates running instance)
-/opt/homebrew/bin/borders active_color=$COLOR 2>/dev/null
+# Workspace switch animation: flash white then target color
+# Quick visual feedback for ADHD context switching
+/opt/homebrew/bin/borders active_color=0xffffffff width=7.0 2>/dev/null &
+FLASH_PID=$!
+
+sleep 0.08
+
+# Kill flash and set target color
+kill $FLASH_PID 2>/dev/null
+/opt/homebrew/bin/borders active_color=$COLOR width=5.0 2>/dev/null

@@ -114,6 +114,9 @@ alt-tab = 'workspace-back-and-forth'
 alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window prev'
 alt-shift-left = 'move-node-to-monitor --wrap-around --focus-follows-window next'
 
+# Workspace overview (Exposé-style)
+alt-backtick = 'exec-and-forget ~/.config/aerospace/scripts/workspace_overview.sh'
+
 #############################################
 ### Layout Mode
 #############################################
