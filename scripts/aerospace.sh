@@ -7,13 +7,19 @@ setup_aerospace() {
 
   # Check if Aerospace CLI is installed
   if ! command_exists "aerospace"; then
-    error "Aerospace CLI is not installed. Please install Aerospace CLI first using brew."
-    exit 1
+    # Fallback to app binary if CLI not in PATH
+    if [ -f "/Applications/AeroSpace.app/Contents/MacOS/AeroSpace" ]; then
+      warning "Aerospace CLI not found in PATH. App is installed but CLI is missing."
+      warning "Recommend: brew reinstall aerospace to get CLI tools and latest version"
+    else
+      error "Aerospace is not installed. Please install Aerospace using brew."
+      exit 1
+    fi
   fi
 
-  # if aerospace cli is present and aerospace config directory is present with a config file
+  # if aerospace config directory is present with a config file
   if [ -d "$aerospace_config_dir" ] && [ -f "$aerospace_config_dir/aerospace.toml" ]; then
-    log "Aerospace is already installed and configured"
+    log "Aerospace is already configured"
     log "Attempting to open Aerospace..."
     open -a "AeroSpace"
     return 0
