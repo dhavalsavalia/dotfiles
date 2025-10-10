@@ -30,6 +30,7 @@ check_cask_sync() {
 
         local cask_name=$(echo "$cask_json" | jq -r '.token')
         local brew_version=$(echo "$cask_json" | jq -r '.installed // empty')
+        local available_version=$(echo "$cask_json" | jq -r '.version // empty')
         local app_path=$(echo "$cask_json" | jq -r '.artifacts[]? | select(.app != null) | .app[0] // empty' | head -n1)
 
         # Skip if no installed version or no app path
@@ -45,11 +46,19 @@ check_cask_sync() {
 
         # Normalize versions for comparison (strip build numbers after comma)
         local brew_version_normalized=$(echo "$brew_version" | cut -d',' -f1)
+        local available_version_normalized=$(echo "$available_version" | cut -d',' -f1)
         local actual_version_normalized="$actual_version"
 
-        # Compare normalized versions
+        # Only report if app is ahead of what Homebrew has available
+        # (Skip if app auto-updated but brew hasn't released new version yet)
         if [ -n "$actual_version" ] && [ "$brew_version_normalized" != "$actual_version_normalized" ]; then
-            out_of_sync+=("$cask_name: brew=$brew_version, actual=$actual_version")
+            # Check if the app version is actually newer than what brew has
+            if [ "$actual_version_normalized" = "$available_version_normalized" ]; then
+                # App matches available version, brew DB just needs updating
+                out_of_sync+=("$cask_name: brew=$brew_version, actual=$actual_version")
+            fi
+            # If actual > available, app auto-updated before brew release (ignore)
+            # If actual < available, this shouldn't happen but ignore as well
         fi
     done < <(echo "$all_casks_json" | jq -c '.casks[]?')
 
