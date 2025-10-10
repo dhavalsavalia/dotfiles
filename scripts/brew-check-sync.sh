@@ -4,6 +4,9 @@ set -e
 
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
+AUTO_FIX=${AUTO_FIX:-false}
+INTERACTIVE=${INTERACTIVE:-false}
+
 check_cask_sync() {
     log "Checking for out-of-sync cask installations..."
 
@@ -49,20 +52,102 @@ check_cask_sync() {
     # Report findings
     if [ ${#out_of_sync[@]} -gt 0 ]; then
         warn "Found ${#out_of_sync[@]} out-of-sync cask(s):"
+
+        # Extract just the cask names for reinstall
+        local cask_names=()
         for item in "${out_of_sync[@]}"; do
             echo "  - $item"
+            local cask_name=$(echo "$item" | cut -d: -f1)
+            cask_names+=("$cask_name")
         done
         echo ""
-        log "These apps may have been manually updated outside of Homebrew."
-        log "Run 'brew reinstall <cask>' to sync Homebrew's database and get latest version."
-        return 1
+
+        # Handle auto-fix or interactive mode
+        if [ "$AUTO_FIX" = true ]; then
+            log "Auto-fixing all out-of-sync casks..."
+            for cask in "${cask_names[@]}"; do
+                log "Reinstalling $cask..."
+                execute "brew reinstall --cask $cask"
+            done
+            log "✓ All casks reinstalled and synced"
+            return 0
+        elif [ "$INTERACTIVE" = true ] && command_exists gum; then
+            log "Select casks to reinstall and sync:"
+            local selected=$(printf '%s\n' "${cask_names[@]}" | \
+                gum choose --no-limit --header "Select casks to reinstall (space to select, enter to confirm):")
+
+            if [ -n "$selected" ]; then
+                local selected_array=()
+                while IFS= read -r line; do
+                    selected_array+=("$line")
+                done <<< "$selected"
+
+                log "Reinstalling ${#selected_array[@]} cask(s)..."
+                for cask in "${selected_array[@]}"; do
+                    log "Reinstalling $cask..."
+                    execute "brew reinstall --cask $cask"
+                done
+                log "✓ Selected casks reinstalled and synced"
+                return 0
+            else
+                log "No casks selected. Skipping."
+                return 1
+            fi
+        else
+            log "These apps may have been manually updated outside of Homebrew."
+            log "Run 'brew reinstall --cask <cask>' to sync Homebrew's database."
+            log "Or run with --auto-fix to reinstall all, or --interactive for selection."
+            return 1
+        fi
     else
         log "All casks are in sync ✓"
         return 0
     fi
 }
 
+fix_all_out_of_sync() {
+    AUTO_FIX=true check_cask_sync
+}
+
+fix_interactive() {
+    INTERACTIVE=true check_cask_sync
+}
+
 # Main execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -a|--auto-fix)
+                AUTO_FIX=true
+                shift
+                ;;
+            -i|--interactive)
+                INTERACTIVE=true
+                shift
+                ;;
+            -h|--help)
+                echo "Usage: $0 [OPTIONS]"
+                echo ""
+                echo "Check for out-of-sync cask installations (manually updated outside brew)"
+                echo ""
+                echo "Options:"
+                echo "  -a, --auto-fix      Automatically reinstall all out-of-sync casks"
+                echo "  -i, --interactive   Interactive selection with gum"
+                echo "  -h, --help          Show this help message"
+                echo ""
+                echo "Examples:"
+                echo "  $0                   # Check only (report issues)"
+                echo "  $0 --interactive     # Select casks to fix with gum"
+                echo "  $0 --auto-fix        # Reinstall all out-of-sync casks"
+                exit 0
+                ;;
+            *)
+                error "Unknown option: $1"
+                exit 1
+                ;;
+        esac
+    done
+
     check_cask_sync
 fi

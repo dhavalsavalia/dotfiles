@@ -24,7 +24,13 @@
       "Bash(cat:*)",
       "Bash(brew:*)",
       "Bash(comm:*)",
-      "Bash(./scripts/brew-capture.sh:*)"
+      "Bash(./scripts/brew-capture.sh:*)",
+      "Read(//Applications/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(/Applications/AeroSpace.app/Contents/MacOS/AeroSpace:*)",
+      "Read(//opt/homebrew/Caskroom/aerospace/**)",
+      "Bash(./scripts/brew-check-sync.sh:*)",
+      "Bash(time:*)"
     ],
     "deny": [],
     "ask": []
