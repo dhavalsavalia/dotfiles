@@ -30,7 +30,8 @@
       "Bash(/Applications/AeroSpace.app/Contents/MacOS/AeroSpace:*)",
       "Read(//opt/homebrew/Caskroom/aerospace/**)",
       "Bash(./scripts/brew-check-sync.sh:*)",
-      "Bash(time:*)"
+      "Bash(time:*)",
+      "Bash(defaults read:*)"
     ],
     "deny": [],
     "ask": []

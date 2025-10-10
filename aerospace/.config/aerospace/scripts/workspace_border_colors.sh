@@ -38,4 +38,4 @@ case $WORKSPACE in
 esac
 
 # Update borders color (updates running instance)
-/opt/homebrew/bin/borders active_color=$COLOR 2>/dev/null &
+/opt/homebrew/bin/borders active_color=$COLOR 2>/dev/null

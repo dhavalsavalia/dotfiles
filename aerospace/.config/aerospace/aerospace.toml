@@ -7,9 +7,7 @@ after-startup-command = [
 ]
 
 # Change border color based on workspace (Monokai Pro Spectrum theme)
-exec-on-workspace-change = ['/bin/bash', '-c',
-  '~/.config/aerospace/scripts/workspace_border_colors.sh $AEROSPACE_FOCUSED_WORKSPACE'
-]
+exec-on-workspace-change = ['/bin/bash', '$HOME/.config/aerospace/scripts/workspace_border_colors.sh', '$AEROSPACE_FOCUSED_WORKSPACE']
 
 
 ### Normalization Settings
