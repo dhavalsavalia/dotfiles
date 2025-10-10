@@ -96,7 +96,8 @@ cleanup_packages() {
     combined_file="$brew_dir/Brewfile.combined"
 
     log "Cleaning up unused Homebrew packages..."
-    execute "brew bundle cleanup --file='$combined_file' --force"
+    log "NOTE: Use 'brew-capture.sh' to add ad-hoc installs to your Brewfile before cleanup"
+    execute "brew bundle cleanup --file='$combined_file'"
 }
 
 perform_brew_maintenance() {

@@ -5,6 +5,9 @@ alias lg="lazygit"
 
 alias rz="source ~/.config/zsh/.zshrc"
 
+#   Package Management
+alias brew-sync="$HOME/dotfiles/scripts/brew-capture.sh"
+
 # 󱩷  Basic Commands
 alias c="clear"
 
