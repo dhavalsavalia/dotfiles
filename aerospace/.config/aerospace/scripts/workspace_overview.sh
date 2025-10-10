@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Workspace Overview - Exposé-style workspace switcher
 # Shows thumbnails of all workspaces in a grid with labels
@@ -7,28 +7,35 @@
 TEMP_DIR="/tmp/aerospace-overview"
 mkdir -p "$TEMP_DIR"
 
-# Monokai Pro Spectrum colors for workspace labels
-declare -A WORKSPACE_COLORS=(
-    ["B"]="#5ad4e6"  # Browser - Cyan
-    ["C"]="#fc618d"  # Teams - Red
-    ["D"]="#7bd88f"  # Dev - Green
-    ["T"]="#fd9353"  # Terminal - Orange
-    ["A"]="#948ae3"  # API - Magenta
-    ["O"]="#fce566"  # Outlook - Yellow
-    ["M"]="#f7f1ff"  # More Dev - White
-    ["X"]="#f7f1ff"  # Extra - White
-)
+# Monokai Pro Spectrum colors and labels for workspaces
+# Functions instead of associative arrays (bash 3.2 compatible)
+get_workspace_color() {
+    case "$1" in
+        B) echo "#5ad4e6" ;;  # Browser - Cyan
+        C) echo "#fc618d" ;;  # Teams - Red
+        D) echo "#7bd88f" ;;  # Dev - Green
+        T) echo "#fd9353" ;;  # Terminal - Orange
+        A) echo "#948ae3" ;;  # API - Magenta
+        O) echo "#fce566" ;;  # Outlook - Yellow
+        M) echo "#f7f1ff" ;;  # More Dev - White
+        X) echo "#f7f1ff" ;;  # Extra - White
+        *) echo "#f7f1ff" ;;  # Default - White
+    esac
+}
 
-declare -A WORKSPACE_LABELS=(
-    ["B"]="Browser"
-    ["C"]="Teams"
-    ["D"]="Dev"
-    ["T"]="Terminal"
-    ["A"]="API"
-    ["O"]="Outlook"
-    ["M"]="More Dev"
-    ["X"]="Extra"
-)
+get_workspace_label() {
+    case "$1" in
+        B) echo "Browser" ;;
+        C) echo "Teams" ;;
+        D) echo "Dev" ;;
+        T) echo "Terminal" ;;
+        A) echo "API" ;;
+        O) echo "Outlook" ;;
+        M) echo "More Dev" ;;
+        X) echo "Extra" ;;
+        *) echo "Workspace $1" ;;
+    esac
+}
 
 # Get current focused workspace to restore later
 CURRENT_WORKSPACE=$(aerospace list-workspaces --focused)
@@ -39,12 +46,15 @@ for ws in "${WORKSPACES[@]}"; do
     # Switch to workspace
     aerospace workspace "$ws" 2>/dev/null
 
-    # Small delay for workspace switch to complete
-    sleep 0.3
+    # Reduced delay - just enough for switch (was 0.3s)
+    sleep 0.1
 
-    # Capture screenshot
-    screencapture -x "$TEMP_DIR/${ws}.png" 2>/dev/null
+    # Capture screenshot in background for speed
+    screencapture -x "$TEMP_DIR/${ws}.png" 2>/dev/null &
 done
+
+# Wait for all background screenshots to finish
+wait
 
 # Return to original workspace
 aerospace workspace "$CURRENT_WORKSPACE" 2>/dev/null
@@ -133,8 +143,8 @@ EOF
 
 # Add workspace divs
 for ws in "${WORKSPACES[@]}"; do
-    color="${WORKSPACE_COLORS[$ws]}"
-    label="${WORKSPACE_LABELS[$ws]}"
+    color=$(get_workspace_color "$ws")
+    label=$(get_workspace_label "$ws")
     current_class=""
     if [ "$ws" = "$CURRENT_WORKSPACE" ]; then
         current_class=" current"

@@ -32,7 +32,12 @@
       "Bash(./scripts/brew-check-sync.sh:*)",
       "Bash(time:*)",
       "Bash(defaults read:*)",
-      "Bash(/opt/homebrew/bin/borders style=round width=5.0 hidpi=on active_color=0xfff7f1ff inactive_color=0xff363537)"
+      "Bash(/opt/homebrew/bin/borders style=round width=5.0 hidpi=on active_color=0xfff7f1ff inactive_color=0xff363537)",
+      "Read(//private/tmp/aerospace-overview/**)",
+      "Bash(~/.config/aerospace/scripts/workspace_overview.sh:*)",
+      "Bash(python3:*)",
+      "Bash(bash --version)",
+      "Bash(/opt/homebrew/bin/bash:*)"
     ],
     "deny": [],
     "ask": []
