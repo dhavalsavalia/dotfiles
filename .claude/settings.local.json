@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(git:*)",
+      "WebSearch",
+      "WebFetch(domain:zellij.dev)",
+      "Bash(gh pr:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl:*)",
+      "WebFetch(domain:kristianfreeman.com)",
+      "Read(//Users/dhavalsavalia/.ssh/**)",
+      "Bash(aerospace:*)",
+      "Bash(system_profiler:*)",
+      "WebFetch(domain:nikitabobko.github.io)",
+      "Bash(pkill:*)",
+      "Bash(open:*)",
+      "Bash(pgrep:*)",
+      "Read(//Users/dhavalsavalia/.config/**)",
+      "Bash(brew services:*)",
+      "Bash(chmod:*)",
+      "Bash(~/.config/aerospace/scripts/workspace_border_colors.sh:*)",
+      "Bash(borders:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

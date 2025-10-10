@@ -3,7 +3,12 @@ after-login-command = []
 start-at-login = true
 
 after-startup-command = [
-  'exec-and-forget borders',
+  'exec-and-forget /opt/homebrew/bin/borders style=round width=5.0 hidpi=on active_color=0xfff7f1ff inactive_color=0xff363537',
+]
+
+# Change border color based on workspace (Monokai Pro Spectrum theme)
+exec-on-workspace-change = ['/bin/bash', '-c',
+  '~/.config/aerospace/scripts/workspace_border_colors.sh $AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
 
