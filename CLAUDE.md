@@ -71,7 +71,7 @@ Each top-level directory (except `scripts`, `homebrew`, `docs`) is a stow packag
 - `tmux/`: Tmux config and layouts (tmuxifier)
 - `git/`: Git config with gitconfig.d includes
 - `nvim/`, `lvim/`: Editor configurations
-- `alacritty/`, `kitty/`: Terminal emulator configs
+- `alacritty/`: Terminal emulator config
 - `aerospace/`: Window manager configuration
 - `starship/`: Prompt configuration
 - `lazygit/`: Git TUI configuration
@@ -130,7 +130,7 @@ Git config uses includes in `.config/git/config`:
 ## Configured Tools
 
 - **Shell**: Zsh with zoxide, eza, starship prompt
-- **Terminal**: Alacritty (minimal), Kitty
+- **Terminal**: Alacritty
 - **Multiplexers**: Tmux (primary) + Zellij (trial/evaluation)
 - **Editors**: LunarVim, Neovim
 - **Git**: Lazygit TUI, custom aliases

@@ -22,7 +22,6 @@ brew "jq"
 # System Utilities
 brew "mas"
 brew "unar"
-cask "kitty"
 cask "alacritty"
 brew "gnupg"
 brew "pinentry-mac"

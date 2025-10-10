@@ -6,7 +6,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export DOTFILES_DIR
 
 # Define the default packages variable
-DEFAULT_PACKAGES="aerospace alacritty fzf-git.sh git kitty lazygit linearmouse local_scripts lvim nvim ripgrep starship tmux zellij zsh"
+DEFAULT_PACKAGES="aerospace alacritty fzf-git.sh git lazygit linearmouse local_scripts lvim nvim ripgrep starship tmux zellij zsh"
 
 setup_stow() {
     local packages=("$@")

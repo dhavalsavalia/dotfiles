@@ -20,7 +20,11 @@
       "Bash(brew services:*)",
       "Bash(chmod:*)",
       "Bash(~/.config/aerospace/scripts/workspace_border_colors.sh:*)",
-      "Bash(borders:*)"
+      "Bash(borders:*)",
+      "Bash(cat:*)",
+      "Bash(brew:*)",
+      "Bash(comm:*)",
+      "Bash(./scripts/brew-capture.sh:*)"
     ],
     "deny": [],
     "ask": []
