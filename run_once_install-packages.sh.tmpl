@@ -14,7 +14,7 @@ fi
 # Install from Brewfile
 if [ -f "$HOME/Brewfile" ]; then
     echo "Installing packages from Brewfile..."
-    brew bundle --file="$HOME/Brewfile" --no-lock
+    brew bundle --file="$HOME/Brewfile"
     brew bundle cleanup --file="$HOME/Brewfile" --force
     echo "Homebrew packages installed!"
 else

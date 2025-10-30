@@ -1,0 +1,15 @@
+# Credit: https://github.com/SixArm/gitconfig-settings
+
+[include]
+  path = ~/.config/git/gitconfig.d/alias.conf
+  path = ~/.config/git/gitconfig.d/apply.conf
+  path = ~/.config/git/gitconfig.d/branch.conf
+  path = ~/.config/git/gitconfig.d/color.conf
+  path = ~/.config/git/gitconfig.d/core.conf
+  path = ~/.config/git/gitconfig.d/diff.conf
+  path = ~/.config/git/gitconfig.d/merge.conf
+  path = ~/.config/git/gitconfig.d/push.conf
+  path = ~/.config/git/gitconfig.d/rerere.conf
+  path = ~/.config/git/gitconfig.d/gpg.conf
+  path = ~/.config/git/gitconfig.d/commit.conf
+  path = ~/.config/git/gitconfig.d/user.conf
