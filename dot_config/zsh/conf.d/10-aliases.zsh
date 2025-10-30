@@ -6,9 +6,8 @@ alias lg="lazygit"
 alias rz="source ~/.config/zsh/.zshrc"
 
 #   Package Management
-alias brew-sync="$HOME/dotfiles/scripts/brew-capture.sh"
-alias brew-fix-sync="$HOME/dotfiles/scripts/brew-check-sync.sh --interactive"
-alias brew-fix-all="$HOME/dotfiles/scripts/brew-check-sync.sh --auto-fix"
+alias brewup="brew bundle --file=~/Brewfile && brew bundle cleanup --file=~/Brewfile --force"
+alias brewdump="brew bundle dump --file=~/Brewfile --force"  # Capture current state
 
 # 󱩷  Basic Commands
 alias c="clear"
