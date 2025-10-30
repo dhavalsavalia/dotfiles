@@ -1,6 +1,14 @@
-{{- $profile := promptString "profile (home/garda)" "home" -}}
-{{- $name := promptString "git name" "Dhaval Savalia" -}}
-{{- $email := promptString "git email" "hello@dhavalsavalia.com" -}}
+{{- $profile := promptString "profile (home/garda)" -}}
+{{- $name := "" -}}
+{{- $email := "" -}}
+
+{{- if eq $profile "home" -}}
+{{-   $name = promptString "git name" "Dhaval Savalia" -}}
+{{-   $email = promptString "git email" "hello@dhavalsavalia.com" -}}
+{{- else if eq $profile "garda" -}}
+{{-   $name = promptString "git name (work)" -}}
+{{-   $email = promptString "git email (work)" -}}
+{{- end -}}
 
 [data]
     profile = {{ $profile | quote }}
