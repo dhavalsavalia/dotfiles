@@ -1,9 +1,0 @@
-.git
-.gitignore
-.data
-.github
-README.md
-Makefile
-.DS_Store
-scripts
-bootstrap.sh
