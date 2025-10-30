@@ -1,0 +1,8 @@
+{{- $profile := promptString "profile (home/garda)" "home" -}}
+{{- $name := promptString "git name" "Dhaval Savalia" -}}
+{{- $email := promptString "git email" "hello@dhavalsavalia.com" -}}
+
+[data]
+    profile = {{ $profile | quote }}
+    git_name = {{ $name | quote }}
+    git_email = {{ $email | quote }}

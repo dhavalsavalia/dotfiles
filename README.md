@@ -1,84 +1,209 @@
-# 🚀 Dhaval's Dotfiles
+# Dotfiles (Chezmoi)
 
-## 📄 Description
-This repository contains my configuration files and scripts for setting up my development environment.
+Minimal macOS dotfiles managed with [chezmoi](https://chezmoi.io).
 
-## 🛠️ Tools Configured
-This script will configure the following tools:
+## Features
 
-* **Homebrew**: Installs and manages packages through bundle.
-* **GNU Stow**: Manages symlinks seamlessly for painless dotfiles setup.
-* **Git**: Configures git aliases and settings.
-* **Zsh**: Sets up zsh with plugins like zoxide, eza, starship prompt, and its configurations.
-* **Alacritty**: Configures the alacritty terminal emulator for a minimal look.
-* **Tmux**: Sets up tmux with plugins and themes. Also installs tmuxifier for session management.
-* **LunarVim**: Configures the LunarVim editor.
-* **Lazygit**: My git client of choice with a beautiful TUI.
-* **AeroSpace**: Tiling Window Manager. Similar to i3.
-* **macOS Defaults**: Sets macOS sane defaults.
+- **Profile-based**: Separate configs for home and work (garda) machines
+- **Template-driven**: One Brewfile with conditional sections per profile
+- **Simple**: No complex scripts, chezmoi handles everything
+- **Fast**: One-command setup on new machines
 
-## 🎨 Personal Choices
+## Quick Start
 
-* **Colortheme**: Monokai Pro (Spectrum Filter).
-* **Fonts**: JetBrainsMono Nerd Fonts with VictorMono Nerd Fonts for cursive.
-
-## 🛠️ Prerequisites
-
-1. Install Command Line Tools:
-```bash
-# Remove existing Command Line Tools (if outdated)
-sudo rm -rf /Library/Developer/CommandLineTools
-
-# Install Command Line Tools
-sudo xcode-select --install
-```
-
-Make sure `Apple Clang` version is >16. If not, run above steps again to fix.
+### Fresh Machine Setup
 
 ```bash
-clang --version
+# Install chezmoi and apply dotfiles in one command
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply dhavalsavalia
+
+# Or if you want to review changes first
+chezmoi init dhavalsavalia
+chezmoi diff
+chezmoi apply
 ```
 
-2. Install Rosetta 2 (required for some packages on Apple Silicon):
+During init, you'll be prompted for:
+- **profile**: `home` or `garda`
+- **git name**: Your name for git commits
+- **git email**: Your email for git commits
+
+### Existing Machine Update
+
 ```bash
-sudo softwareupdate --install-rosetta
+# Pull latest changes and apply
+chezmoi update
+
+# Or step by step
+chezmoi git pull
+chezmoi diff
+chezmoi apply
 ```
 
-3. Full Disk Access to Terminal.app
+## What's Included
 
-Note: The installation process will require  sudo access at various points. You'll be prompted for your password when needed.
+### Core Tools
+- **Shell**: Zsh with starship prompt, zoxide, eza
+- **Terminal**: Alacritty
+- **Multiplexer**: Zellij (primary), Tmux (legacy)
+- **Editor**: Neovim/LunarVim
+- **Git**: Lazygit TUI
+- **Window Manager**: AeroSpace (i3-like tiling)
+- **Theme**: Monokai Pro Spectrum
 
-## Setup Instructions
-1. Run following command in Terminal:
+### Configuration Files
+All configs live in `~/.config/`:
+- `zsh/` - Shell configuration
+- `git/` - Git config with includes
+- `alacritty/` - Terminal emulator
+- `zellij/` - Terminal workspace
+- `nvim/` - Neovim config
+- `lazygit/` - Git TUI
+- `aerospace/` - Window manager
+- `starship.toml` - Shell prompt
+- `ripgrep/` - Search config
+
+### Profile-Specific Packages
+
+**Home Profile:**
+- 1Password, Enpass, Setapp
+- Discord, Telegram, WhatsApp
+- Obsidian, Windscribe
+- Steam, Minecraft, Codecrafters
+
+**Garda Profile (Work):**
+- JetBrains Toolbox
+- Keeper Password Manager
+- OneDrive
+
+## Common Tasks
+
+### Add New Config File
+
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)"
+# Add file to chezmoi
+chezmoi add ~/.config/newapp/config.toml
+
+# Edit in chezmoi
+chezmoi edit ~/.config/newapp/config.toml
+
+# Apply changes
+chezmoi apply
 ```
 
-> Change `main` to branch name for alternate branch. This is mostly for testing.
+### Make Config Profile-Specific
 
-Example:
+Add template conditionals:
+
+```toml
+{{- if eq .profile "home" }}
+# Home-only config
+{{- else if eq .profile "garda" }}
+# Work-only config
+{{- end }}
+```
+
+### Update Brewfile
+
 ```bash
-DOTFILES_BRANCH=bootstrap DOTFILES_PROFILE=minimal /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/bootstrap/bootstrap.sh)"
+# Edit Brewfile
+chezmoi edit ~/Brewfile
+
+# Apply and install
+chezmoi apply
+brew bundle --file=~/Brewfile
 ```
 
-## App Specifics
+### View Chezmoi State
 
-## 🐞 Known issues
+```bash
+chezmoi status              # Show changed files
+chezmoi diff                # Show diff of changes
+chezmoi managed             # List all managed files
+chezmoi doctor              # Check for issues
+```
 
-* Some defaults are not behaving properly
-* Report?
+### Reset a File
 
-## System Preference Settings
+```bash
+# Re-apply from source (discard local changes)
+chezmoi apply --force ~/.config/zsh/conf.d/10-aliases.zsh
+```
 
-* AeroSpace requires `Privacy & Security` > `Accessibility`.
-* Logi Options+ requires `Privacy & Security` > `Input Monitoring` & `Accessibility`.
-* Raycast requires `Privacy & Security` > `Accessibility`.
+## Directory Structure
 
-## 📝 TODO
+```
+~/.local/share/chezmoi/     # Chezmoi source directory (git repo)
+├── .chezmoi.toml.tmpl      # Config template (prompts for profile/git)
+├── Brewfile.tmpl           # Homebrew packages (templated)
+├── README.md               # This file
+├── dot_config/             # Maps to ~/.config/
+│   ├── zsh/
+│   ├── git/
+│   ├── alacritty/
+│   ├── zellij/
+│   ├── nvim/
+│   └── ...
+├── dot_zshenv              # Maps to ~/.zshenv
+└── run_once_*.sh           # Setup scripts (run once)
+```
 
-* Add neofetch or something
-* Add ranger
-* make sure everything works on Corne keyboard
-* complete git setup with ssh and gpg
-* check and work on code TODOs
-* per app stowing
+## Chezmoi Concepts
+
+- **`dot_`**: Translates to `.` (dot_config → .config)
+- **`.tmpl`**: Template file, processed on apply
+- **`run_once_`**: Script runs once (tracked in chezmoi state)
+- **`run_onchange_`**: Script runs when file changes
+- **`private_`**: Sets file to 0600 permissions
+- **`executable_`**: Makes file executable
+
+## Migration from Old Dotfiles
+
+This replaces the previous stow-based setup with:
+- ✅ Simpler: No custom bash scripts
+- ✅ Cleaner: Profile logic in templates, not shell code
+- ✅ Faster: One-command bootstrap
+- ✅ Safer: Dry-run with `chezmoi diff` before apply
+
+Old complexity:
+- 13 bash scripts (~2000 lines)
+- Stow + custom profile system
+- Multiple Brewfiles to manage
+
+New simplicity:
+- Chezmoi handles everything
+- One templated Brewfile
+- No custom scripts needed
+
+## Troubleshooting
+
+### Chezmoi not applying changes
+
+```bash
+chezmoi apply -v    # Verbose output
+chezmoi doctor      # Check for issues
+```
+
+### Reset everything
+
+```bash
+chezmoi purge       # Remove all managed files
+chezmoi init --apply dhavalsavalia  # Start fresh
+```
+
+### Profile not detected
+
+Check `~/.config/chezmoi/chezmoi.toml`:
+
+```toml
+[data]
+    profile = "home"
+    git_name = "Your Name"
+    git_email = "your@email.com"
+```
+
+## Resources
+
+- [Chezmoi Documentation](https://chezmoi.io)
+- [Template Syntax](https://chezmoi.io/user-guide/templating/)
+- [Best Practices](https://chezmoi.io/user-guide/best-practices/)

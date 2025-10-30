@@ -1,0 +1,42 @@
+[env]
+TERM = "alacritty"
+
+[window]
+padding = { x = 10, y = 10 }
+startup_mode = "Maximized"
+decorations = "Buttonless"
+option_as_alt = "Both"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "ExtraLight" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+italic = { family = "VictorMono Nerd Font", style = "Italic" }
+size = 16
+
+# Monokai Pro (Spectrum Filter)
+[colors.primary]
+background = "0x222222"
+foreground = "0xf7f1ff"
+
+[colors.normal]
+black = "0xbab6c0"
+red = "0xfc618d"
+green = "0x7bd88f"
+yellow = "0xfce566"
+blue = "0xfd9353"
+magenta = "0x948ae3"
+cyan = "0x5ad4e6"
+white = "0xf7f1ff"
+
+[keyboard]
+bindings = [
+  { key = "Left", mods = "Alt", chars = "\u001BB" },  # Alt + Left (Move back one word)
+  { key = "Right", mods = "Alt", chars = "\u001BF" },  # Alt + Right (Move forward one word)
+  { key = "D", mods = "Alt", chars = "\u001BD" },  # Alt + D (Delete the word after the cursor)
+  { key = "Backspace", mods = "Alt", chars = "\u001B\u007F" },  # Alt + Backspace (Delete word before cursor)
+  { key = "N", mods = "Alt", chars = "\u001BN" },  # Alt + N (Search forward through history)
+  { key = "P", mods = "Alt", chars = "\u001BP" },  # Alt + P (Search backward through history)
+  { key = "Backspace", mods = "Command", chars = "\u0015" },  # Cmd + Delete (Delete whole line
+  { key = "Left", mods = "Command", chars = "\u0001" },  # Cmd + Left (Move to the beginning of the line)
+  { key = "Right", mods = "Command", chars = "\u0005" },  # Cmd + Right (Move to the end of the line)
+]

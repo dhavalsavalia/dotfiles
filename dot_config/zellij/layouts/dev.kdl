@@ -1,0 +1,34 @@
+// Full development layout with editor, git, and shell
+// Optimized for typical dev workflow
+
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+
+    tab name="editor" {
+        pane split_direction="vertical" {
+            pane size="70%" {
+                command "lvim"
+            }
+            pane size="30%" split_direction="horizontal" {
+                pane
+                pane
+            }
+        }
+    }
+
+    tab name="git" {
+        pane {
+            command "lazygit"
+        }
+    }
+
+    tab name="terminal"
+}

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+echo "Installing Homebrew packages..."
+
+# Install Homebrew if not present
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Install from Brewfile
+if [ -f "$HOME/Brewfile" ]; then
+    echo "Installing packages from Brewfile..."
+    brew bundle --file="$HOME/Brewfile" --no-lock
+    brew bundle cleanup --file="$HOME/Brewfile" --force
+    echo "Homebrew packages installed!"
+else
+    echo "Warning: Brewfile not found at $HOME/Brewfile"
+fi

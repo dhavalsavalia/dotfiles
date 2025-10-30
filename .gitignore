@@ -1,17 +1,23 @@
-.DS_Store
-*.log
-*.lock.json
-.idea/
-.vscode/
-lazy-lock.json
-__pycache__/
+# Neovim is managed separately
+dot_config/nvim/
 
-# Post Install Directories and Files
-github-copilot/
-thefuck/
-tmux/.config/tmux/plugins/
-.zsh_sessions/
-.zsh_history
-Brewfile.combined
-git/.config/git/gitconfig.d/user.conf
-.zcompdump
+# Ignore session and cache files
+**/.zsh_sessions/
+**/plugins/
+
+# Old stow packages (archived, kept for reference during migration)
+aerospace/
+alacritty/
+fzf-git.sh/
+git/
+lazygit/
+linearmouse/
+local_scripts/
+lvim/
+nvim/
+ripgrep/
+starship/
+tmux/
+vscode/
+zellij/
+zsh/

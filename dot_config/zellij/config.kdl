@@ -1,0 +1,159 @@
+// Zellij Configuration
+// Theme: Monokai Pro Spectrum (matching your tmux theme)
+
+// Enable mouse support
+mouse_mode true
+
+// Copy on selection (like tmux)
+copy_on_select true
+
+// Set copy command for macOS
+copy_command "pbcopy"
+
+// Simplified UI
+simplified_ui false
+
+// Pane frames
+pane_frames true
+
+// Default shell
+// default_shell "zsh"
+
+// Default layout
+default_layout "default"
+
+// Session serialization (like tmux-resurrect)
+session_serialization true
+
+// Auto layout
+auto_layout true
+
+// Scrollback buffer
+scrollback_editor "lvim"
+
+// Theme
+theme "monokai-pro-spectrum"
+
+// Keybindings optimized for your workflow
+keybinds {
+    // Use 'shared' for keys that work across all modes
+    shared_except "locked" {
+        // Quick session access (like your M-s in tmux)
+        bind "Alt s" { SwitchToMode "Session"; }
+
+        // Tab management (matching your tmux Alt+t/n/p)
+        bind "Alt t" { NewTab; }
+        bind "Alt n" { GoToNextTab; }
+        bind "Alt p" { GoToPreviousTab; }
+        bind "Alt w" { CloseTab; }
+        bind "Alt o" { ToggleTab; }  // Toggle between last two tabs
+
+        // Quick tab switching (like browser tabs)
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+
+        // Pane navigation with hjkl (matching your tmux setup)
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+
+        // File picker (replaces fzf for files)
+        bind "Alt f" {
+            LaunchPlugin "filepicker" {
+                close_on_selection true
+            };
+        }
+
+        // Quick pane actions
+        bind "Alt x" { CloseFocus; }
+        bind "Alt z" { ToggleFocusFullscreen; }
+
+        // Splits (using | and - like your tmux)
+        bind "Alt |" { NewPane "Right"; }
+        bind "Alt _" { NewPane "Down"; }
+    }
+
+    // Normal mode (default)
+    normal {
+        // Pane resizing (matching your tmux <, >, +, -)
+        bind "<" { Resize "Increase Left"; }
+        bind ">" { Resize "Increase Right"; }
+        bind "+" { Resize "Increase Up"; }
+        bind "-" { Resize "Increase Down"; }
+
+        // Lock mode for when using in Neovim
+        bind "Ctrl g" { SwitchToMode "Locked"; }
+    }
+
+    // Locked mode - disables all Zellij keys (for Neovim)
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+    }
+
+    // Session mode enhancements
+    session {
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "r" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+    }
+}
+
+// Plugins configuration
+plugins {
+    // Tab bar at top (like your tmux status-position top)
+    tab-bar location="zellij:tab-bar"
+
+    // Status bar (we'll use zjstatus plugin for customization)
+    status-bar location="zellij:status-bar"
+
+    // Compact bar (alternative to status-bar)
+    compact-bar location="zellij:compact-bar"
+
+    // Strider (file picker)
+    filepicker location="zellij:strider"
+
+    // Session manager
+    session-manager location="zellij:session-manager"
+}
+
+// UI configuration
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}
+
+// Themes
+themes {
+    monokai-pro-spectrum {
+        fg "#fcfcfa"
+        bg "#222222"
+        black "#363537"
+        red "#fc618d"
+        green "#7bd88f"
+        yellow "#fce566"
+        blue "#fd9353"
+        magenta "#948ae3"
+        cyan "#5ad4e6"
+        white "#f7f1ff"
+        orange "#fd9353"
+    }
+}
