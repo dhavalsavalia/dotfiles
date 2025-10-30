@@ -2,9 +2,6 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-export DOTFILES_DIR
-
 # Define the default packages variable
 DEFAULT_PACKAGES="aerospace alacritty fzf-git.sh git lazygit linearmouse local_scripts lvim nvim ripgrep starship tmux zellij zsh"
 
@@ -26,8 +23,7 @@ setup_stow() {
     # Stow the specified packages
     for package in "${packages[@]}"; do
         if [ -d "$DOTFILES_DIR/$package" ]; then
-            execute "cd $DOTFILES_DIR && stow -D $package" # Unstow first to ensure idempotency
-            execute "cd $DOTFILES_DIR && stow -t $HOME --adopt $package"
+            execute "cd $DOTFILES_DIR && stow -R -t $HOME --adopt $package"
         else
             warning "$package directory does not exist in $DOTFILES_DIR"
         fi

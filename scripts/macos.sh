@@ -154,9 +154,6 @@ setup_macos_defaults() {
     # Disable Window animations and Get Info animations (default: false)
     defaults write com.apple.finder DisableAllAnimations -bool true
 
-    # File extension change warning
-    # defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-
     # Writing of .DS_Store files on network or USB volumes
     defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
@@ -182,14 +179,6 @@ setup_macos_defaults() {
     #================================================
     # *               FINDER WINDOWS
     #================================================
-
-    # Visibility of hidden files (default: false)
-    # I lately use `⌘-.` to switch between showing hidden files manually
-    # defaults write com.apple.finder AppleShowAllFiles -bool true
-
-    # Filename extensions (default: false)
-    # See my applescript for showing and hiding extensions
-    # defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
     # Status bar (default: false)
     defaults write com.apple.finder ShowStatusBar -bool true
@@ -232,30 +221,6 @@ setup_macos_defaults() {
     # to ensure settings are applied for every directory
     find . -name '.DS_Store' -type f -delete
 
-    # Keep folders on top when sorting by name
-    # defaults write com.apple.finder _FXSortFoldersFirst -bool true
-
-    # View Options
-    # ! This no longer works in Monterey 12.0.1
-    # ColumnShowIcons    : Show preview column
-    # ShowPreview        : Show icons
-    # ShowIconThumbnails : Show icon preview
-    # ArrangeBy          : Sort by
-    #   dnam : Name
-    #   kipl : Kind
-    #   ludt : Date Last Opened
-    #   pAdd : Date Added
-    #   modd : Date Modified
-    #   ascd : Date Created
-    #   logs : Size
-    #   labl : Tags
-    # /usr/libexec/PlistBuddy \
-    #     -c "Set :StandardViewOptions:ColumnViewOptions:ColumnShowIcons bool    false" \
-    #     -c "Set :StandardViewOptions:ColumnViewOptions:FontSize        integer 11"    \
-    #     -c "Set :StandardViewOptions:ColumnViewOptions:ShowPreview     bool    true"  \
-    #     -c "Set :StandardViewOptions:ColumnViewOptions:ArrangeBy       string  dnam"  \
-    #     ~/Library/Preferences/com.apple.finder.plist
-
     # New window target
     # Computer     : `PfCm`
     # Volume       : `PfVo`
@@ -265,7 +230,6 @@ setup_macos_defaults() {
     # All My Files : `PfAF`
     # Other…       : `PfLo`
     defaults write com.apple.finder NewWindowTarget -string 'PfHm'
-    #defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
     # Expand the following File Info panes:
     # “General”, “Open with”, and “Sharing & Permissions”
@@ -305,9 +269,6 @@ setup_macos_defaults() {
 
     # Desktop Enabled
     defaults write com.apple.finder CreateDesktop -bool true
-
-    # Quitting via ⌘ + Q; doing so will also hide desktop icons
-    # defaults write com.apple.finder QuitMenuItem -bool true
 
     # Icons for hard drives, servers, and removable media on the desktop (default: false)
     defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true

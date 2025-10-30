@@ -48,16 +48,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Get current profile
-get_current_profile() {
-    local brewprofile_path="${XDG_CONFIG_HOME:-$HOME/.config}/.brewprofile"
-    if [ -f "$brewprofile_path" ]; then
-        cat "$brewprofile_path"
-    else
-        echo "home"  # default
-    fi
-}
-
 # Normalize package name (remove tap prefix for comparison)
 normalize_package_name() {
     local pkg="$1"
@@ -68,7 +58,8 @@ normalize_package_name() {
 # Get packages from Brewfiles
 get_brewfile_packages() {
     local brew_dir="$DOTFILES_DIR/homebrew"
-    local profile="${TARGET_PROFILE:-$(get_current_profile)}"
+    local profile="${TARGET_PROFILE:-$(get_profile)}"
+    [ -z "$profile" ] && profile="home"  # default
 
     local files=""
     if [ "$profile" = "minimal" ]; then
@@ -167,7 +158,8 @@ format_package_line() {
 # Add packages to Brewfile
 add_to_brewfile() {
     local packages=("$@")
-    local profile="${TARGET_PROFILE:-$(get_current_profile)}"
+    local profile="${TARGET_PROFILE:-$(get_profile)}"
+    [ -z "$profile" ] && profile="home"  # default
     local brew_dir="$DOTFILES_DIR/homebrew"
 
     # Determine target file
@@ -208,8 +200,6 @@ add_to_brewfile() {
 
 # Main execution
 main() {
-    DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-
     # First check for out-of-sync casks (interactive mode if gum available)
     log "Checking for out-of-sync cask installations..."
     if [ -f "$DOTFILES_DIR/scripts/brew-check-sync.sh" ]; then

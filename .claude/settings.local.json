@@ -44,9 +44,26 @@
       "Bash(mkdir:*)",
       "Bash(DRY_RUN=true ./scripts/vscode.sh -p home)",
       "Bash(./scripts/vscode.sh:*)",
-      "Bash(/dev/null)"
+      "Bash(/dev/null)",
+      "Bash(source:*)",
+      "Bash(echo:*)",
+      "Bash(bash -c 'source utils.sh && echo \"\"DOTFILES_DIR: $DOTFILES_DIR\"\"')",
+      "Bash(bash -c 'source utils.sh && profile=$(get_profile) && echo \"\"Current profile: ${profile:-none}\"\"')",
+      "Bash(bash -c 'source scripts/utils.sh && profile=$(get_profile) && echo \"\"Current profile: ${profile:-none}\"\"')",
+      "Bash(bash -c 'source scripts/git.sh && result=$(get_git_author \"\"\"\" \"\"\"\") && echo \"\"Git author: $result\"\"')",
+      "Bash(DRY_RUN=true bash scripts/brew.sh -p home -d)",
+      "Read(//private/tmp/**)",
+      "Bash(DRY_RUN=true bash scripts/install.sh -p home -d)",
+      "Bash(DRY_RUN=true bash scripts/install.sh -p minimal -d -g)",
+      "Bash(DRY_RUN=true bash scripts/vscode.sh -p home -d)",
+      "Bash(bash scripts/brew-capture.sh:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"Checking $script...\")",
+      "Bash(bash:*)",
+      "Bash(done)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "bypassPermissions"
   }
 }

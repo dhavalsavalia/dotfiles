@@ -3,13 +3,11 @@
 # VSCode configuration and extension management script
 
 # Source utilities
-DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-source "${DOTFILES_DIR}/scripts/utils.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 # Configuration
 VSCODE_CONFIG_DIR="${HOME}/Library/Application Support/Code/User"
 DOTFILES_VSCODE_DIR="${DOTFILES_DIR}/vscode/.config/vscode"
-PROFILE_FILE="${HOME}/.config/.brewprofile"
 
 # Parse arguments
 DRY_RUN="${DRY_RUN:-false}"
@@ -24,8 +22,8 @@ while getopts "p:d" opt; do
 done
 
 # Determine profile
-if [ -z "$PROFILE" ] && [ -f "$PROFILE_FILE" ]; then
-  PROFILE=$(cat "$PROFILE_FILE")
+if [ -z "$PROFILE" ]; then
+  PROFILE=$(get_profile)
 fi
 
 PROFILE="${PROFILE:-minimal}"

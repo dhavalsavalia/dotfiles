@@ -1,7 +1,10 @@
 #!/bin/bash
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-export DOTFILES_DIR
+# Set DOTFILES_DIR if not already set
+if [ -z "$DOTFILES_DIR" ]; then
+    DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    export DOTFILES_DIR
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -44,4 +47,40 @@ test_stow() {
     else
         return 1
     fi
+}
+
+# Get profile from .brewprofile or prompt user
+get_profile() {
+    local brewprofile_path="${XDG_CONFIG_HOME:-$HOME/.config}/.brewprofile"
+
+    if [ -f "$brewprofile_path" ]; then
+        cat "$brewprofile_path"
+    else
+        echo ""
+    fi
+}
+
+# Get or create profile (interactive)
+get_or_create_profile() {
+    local brewprofile_path="${XDG_CONFIG_HOME:-$HOME/.config}/.brewprofile"
+
+    # Check if .brewprofile exists
+    if [ ! -f "$brewprofile_path" ]; then
+        log ".brewprofile not found at $brewprofile_path"
+        read -rp "Enter profile (home/garda/minimal): " user_profile
+
+        # Validate input
+        while [[ "$user_profile" != "home" && "$user_profile" != "garda" && "$user_profile" != "minimal" ]]; do
+            echo "Invalid profile. Please enter 'home', 'garda', or 'minimal'."
+            read -rp "Enter profile: " user_profile
+        done
+
+        # Create .brewprofile and save the profile
+        mkdir -p "$(dirname "$brewprofile_path")"
+        echo "$user_profile" >"$brewprofile_path"
+        log "Profile saved to $brewprofile_path"
+    fi
+
+    # Read and return the profile from .brewprofile
+    cat "$brewprofile_path"
 }

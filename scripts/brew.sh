@@ -5,31 +5,6 @@ set -e
 # Source utils if not already sourced
 source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
-get_or_create_brewprofile() {
-    local brewprofile_path="${XDG_CONFIG_HOME:-$HOME/.config}/.brewprofile"
-
-    # Check if .brewprofile exists
-    if [ ! -f "$brewprofile_path" ]; then
-        log ".brewprofile not found at $brewprofile_path"
-        read -rp "Enter profile (home/garda/minimal): " user_profile
-
-        # Validate input
-        while [[ "$user_profile" != "home" && "$user_profile" != "garda" && "$user_profile" != "minimal" ]]; do
-            echo "Invalid profile. Please enter 'home', 'garda', or 'minimal'."
-            read -rp "Enter profile: " user_profile
-        done
-
-        # Create .brewprofile and save the profile
-        mkdir -p "$(dirname "$brewprofile_path")"
-        echo "$user_profile" >"$brewprofile_path"
-        log "Profile saved to $brewprofile_path"
-    fi
-
-    # Read and return the profile from .brewprofile
-    cat "$brewprofile_path"
-}
-
-
 install_homebrew() {
     if command_exists "brew"; then
         log "Homebrew is already installed"
@@ -48,35 +23,34 @@ generate_combined_brewfile() {
     local brew_dir="$DOTFILES_DIR/homebrew"
     local common_file="$brew_dir/Brewfile.macos.common"
     local profile_file="$brew_dir/Brewfile.macos.$profile"
-    local combined_file="$brew_dir/Brewfile.combined"
+    local combined_file="/tmp/Brewfile.combined.$$"
 
     # Check if required files exist
     if [ "$profile" = "minimal" ]; then
         if [ ! -f "$profile_file" ]; then
-            error "Missing Brewfile: $profile_file"
+            error "Missing Brewfile: $profile_file" >&2
             return 1
         fi
         # Use only the minimal Brewfile
-        log "Using minimal Brewfile..."
-        execute "cat '$profile_file' > '$combined_file'"
+        log "Using minimal Brewfile..." >&2
+        execute "cat '$profile_file' > '$combined_file'" >&2
     else
         if [ ! -f "$common_file" ] || [ ! -f "$profile_file" ]; then
-            error "Missing Brewfile(s): $common_file or $profile_file"
+            error "Missing Brewfile(s): $common_file or $profile_file" >&2
             return 1
         fi
-        # Generate combined Brewfile
-        log "Generating combined Brewfile..."
-        execute "cat '$common_file' '$profile_file' > '$combined_file'"
+        # Generate combined Brewfile in /tmp
+        log "Generating combined Brewfile..." >&2
+        execute "cat '$common_file' '$profile_file' > '$combined_file'" >&2
     fi
+
+    echo "$combined_file"
 }
 
 install_packages() {
     local profile="$1"
     local combined_file
-    generate_combined_brewfile "$profile"
-
-    local brew_dir="$DOTFILES_DIR/homebrew"
-    combined_file="$brew_dir/Brewfile.combined"
+    combined_file=$(generate_combined_brewfile "$profile")
 
     log "Installing Homebrew packages for profile: $profile"
 
@@ -85,19 +59,22 @@ install_packages() {
 
     # Install from Brewfile
     execute "brew bundle --file='$combined_file'"
+
+    # Clean up temp file
+    rm -f "$combined_file"
 }
 
 cleanup_packages() {
     local profile="$1"
     local combined_file
-    generate_combined_brewfile "$profile"
-
-    local brew_dir="$DOTFILES_DIR/homebrew"
-    combined_file="$brew_dir/Brewfile.combined"
+    combined_file=$(generate_combined_brewfile "$profile")
 
     log "Cleaning up unused Homebrew packages..."
     log "NOTE: Use 'brew-capture.sh' to add ad-hoc installs to your Brewfile before cleanup"
     execute "brew bundle cleanup --file='$combined_file'"
+
+    # Clean up temp file
+    rm -f "$combined_file"
 }
 
 perform_brew_maintenance() {
@@ -106,7 +83,7 @@ perform_brew_maintenance() {
     # Check for out-of-sync cask installations
     if [ -f "$DOTFILES_DIR/scripts/brew-check-sync.sh" ]; then
         source "$DOTFILES_DIR/scripts/brew-check-sync.sh"
-        check_cask_sync || warning "Some casks are out of sync with Homebrew database"
+        check_cask_sync || warn "Some casks are out of sync with Homebrew database"
     fi
 
     # Check system health
@@ -153,12 +130,9 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         esac
     done
 
-    # Set DOTFILES_DIR if running directly
-    DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
     # If no profile is supplied, check or create .brewprofile
     if [ -z "$PROFILE" ]; then
-        PROFILE=$(get_or_create_brewprofile)
+        PROFILE=$(get_or_create_profile)
     fi
 
     setup_homebrew "$PROFILE"
