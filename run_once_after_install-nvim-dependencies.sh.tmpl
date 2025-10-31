@@ -39,8 +39,19 @@ REQUIRED_VERSION="0.10"
 
 if ! awk -v ver="$NVIM_VERSION" -v req="$REQUIRED_VERSION" 'BEGIN{exit(!(ver>=req))}'; then
     error "Neovim $REQUIRED_VERSION or higher required (found $NVIM_VERSION)"
-    warn "Please upgrade: brew upgrade neovim"
-    exit 1
+    warn "Upgrading neovim now..."
+    brew upgrade neovim
+
+    # Check again after upgrade
+    NVIM_VERSION=$(nvim --version | head -n1 | grep -oE '[0-9]+\.[0-9]+' | head -n1)
+    if ! awk -v ver="$NVIM_VERSION" -v req="$REQUIRED_VERSION" 'BEGIN{exit(!(ver>=req))}'; then
+        error "Still on old version after upgrade. Try manually:"
+        echo "  brew uninstall neovim"
+        echo "  brew install neovim"
+        exit 1
+    else
+        log "Neovim upgraded successfully to $NVIM_VERSION!"
+    fi
 fi
 
 # Check if build tools are available (needed for some plugins)
