@@ -12,6 +12,11 @@ alias brewdump="brew bundle dump --file=~/Brewfile --force"  # Capture current s
 # 󱩷  Basic Commands
 alias c="clear"
 
+# Utilities
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
 # Work computer does not have iCloud Drive setup
 alias icloud="cd $HOME/Documents"  # Given iCloud is logged in and synced with Documents
 
@@ -24,9 +29,6 @@ alias .....="cd ../../../.."
 alias rm="rm -ri"
 alias mv="mv -i"
 
-# 󰂯 Bluetooth goodies
-alias bta="bt status 'AirPods Pro'"
-alias btb="bt status 'Dhaval's Bose NC700'"
 
 #  Tmux + Tmuxifier + Sesh | # NOTE: While works, these could actually be local scripts. I dunno. Integrate tmuxifier into sesh?
 alias tks='tmux kill-session -t $(tmux list-sessions -F "#{session_name}" | gum choose --header "Pick a session to kill: " --header.foreground="114" --selected.foreground="204" --cursor.foreground="204" --item.foreground="231" --select-if-one)'
