@@ -1,5 +1,26 @@
 # Quick Deployment Commands
 
+## 🚀 Fresh Installation (Easiest Method)
+
+On a **completely fresh Mac**, run this **ONE command**:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)
+```
+
+This will:
+1. ✅ Install Homebrew
+2. ✅ Install chezmoi
+3. ✅ Clone your dotfiles
+4. ✅ Prompt for profile (home/garda)
+5. ✅ Prompt for git credentials
+6. ✅ Install ALL packages (neovim, node, python, etc.)
+7. ✅ Configure everything automatically
+
+**Total time**: ~10-15 minutes (mostly Homebrew installing packages)
+
+---
+
 ## 📋 Commit Your Changes (Run on Home Laptop)
 
 ```bash
@@ -38,29 +59,28 @@ git push origin main
 
 ## 🚀 Deploy to Work Laptop (Garda)
 
-### Prerequisites
+### Method 1: Bootstrap (Recommended for Fresh Machines)
 
 ```bash
-# Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install chezmoi
-brew install chezmoi
+bash <(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)
 ```
 
-### One-Command Deployment
-
-```bash
-# Replace with your actual repo URL
-chezmoi init --apply https://github.com/dhavalsavalia/dotfiles.git
-```
-
-**You'll be prompted:**
+**When prompted:**
 1. Profile: `garda`
 2. Git name: `Your Work Name`
 3. Git email: `your.work@company.com`
 
-That's it! Everything will be configured automatically.
+### Method 2: Manual (If Homebrew Already Installed)
+
+```bash
+# Install chezmoi
+brew install chezmoi
+
+# Deploy dotfiles
+chezmoi init --apply https://github.com/dhavalsavalia/dotfiles.git
+```
+
+**Note**: Method 1 (bootstrap) handles everything including Homebrew installation.
 
 ---
 
@@ -166,10 +186,26 @@ git commit -m "feat: add nvim config"
 git push
 ```
 
-**Deploy on work laptop:**
+**Deploy on fresh machine (work laptop or new Mac):**
 ```bash
-chezmoi init --apply https://github.com/dhavalsavalia/dotfiles.git
-# Select: garda, work-name, work-email
+bash <(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)
+# Select: garda (or home), work-name, work-email
 ```
 
 **Done!** 🎉
+
+---
+
+## 🔄 Script Execution Order
+
+When you run bootstrap or `chezmoi init --apply`, this happens:
+
+1. **Bootstrap installs prerequisites** (Homebrew, chezmoi, git)
+2. **Chezmoi clones dotfiles** from GitHub
+3. **Chezmoi prompts for data** (profile, git name/email)
+4. **run_once_install-packages.sh** runs - Installs ALL Homebrew packages
+5. **Chezmoi applies dotfiles** - Symlinks configs to ~/.config/
+6. **run_once_after_install-nvim-dependencies.sh** runs - Validates nvim setup
+7. **Done!** Shell is configured, nvim is ready
+
+**Key point**: Packages (neovim, node, python) are installed in step 4, BEFORE the nvim dependency check in step 6. This ensures everything is available when needed.

@@ -33,44 +33,64 @@ Everything is ready! Your config is properly set up for multi-profile deployment
 
 ## 🚀 Deployment Steps for Garda Laptop
 
-### Prerequisites on Work Laptop
+### Option 1: Bootstrap Script (Recommended - One Command!)
+
+For a **completely fresh Mac**, run this single command:
 
 ```bash
-# 1. Install Homebrew (if not already installed)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# 2. Install chezmoi
-brew install chezmoi
-
-# 3. Verify git is available (should be pre-installed on macOS)
-git --version
+bash <(curl -fsSL https://raw.githubusercontent.com/dhavalsavalia/dotfiles/main/bootstrap.sh)
 ```
 
-### Deploy Dotfiles
+**When prompted:**
+- Profile: `garda`
+- Git name: Your Work Name
+- Git email: your.work@email.com
+
+**That's it!** The script will:
+1. Install Homebrew
+2. Install chezmoi and git
+3. Clone your dotfiles
+4. Install ALL packages (neovim, node, python, docker, etc.)
+5. Configure everything automatically
+6. Validate nvim setup
+
+**Total time**: ~10-15 minutes (mostly waiting for Homebrew)
+
+---
+
+### Option 2: Manual Deployment (If Homebrew Already Installed)
 
 ```bash
-# Option A: Fresh deployment from GitHub
-chezmoi init https://github.com/dhavalsavalia/dotfiles.git
-cd ~/.local/share/chezmoi
+# 1. Install chezmoi
+brew install chezmoi
 
-# OR Option B: If already cloned
-chezmoi init
+# 2. Deploy dotfiles
+chezmoi init --apply https://github.com/dhavalsavalia/dotfiles.git
 
-# Follow the prompts:
+# When prompted:
 # - Profile: garda
 # - Git name: Your Work Name
 # - Git email: your.work@email.com
 
-# Review changes before applying
-chezmoi diff
-
-# Apply the dotfiles
-chezmoi apply -v
-
-# Source the new shell config
+# 3. Reload shell
 source ~/.zshenv
 exec zsh
 ```
+
+---
+
+### Script Execution Order (What Happens Automatically)
+
+1. **Homebrew** installs (if needed)
+2. **chezmoi** and **git** install
+3. **Dotfiles clone** from GitHub
+4. **Prompts** for profile and git credentials
+5. **run_once_install-packages.sh** - Installs neovim, node, python, docker, all dev tools
+6. **Config files apply** - All dotfiles copied to ~/.config/
+7. **run_once_after_install-nvim-dependencies.sh** - Validates nvim is ready
+8. **Done!**
+
+**Important**: Packages are installed in step 5, BEFORE nvim validation in step 7. No more "neovim not found" or "nodejs not found" errors!
 
 ### What Happens During Deployment
 
