@@ -1,0 +1,99 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "3",
+        "type": "context-length",
+        "color": "brightBlack"
+      },
+      {
+        "id": "4",
+        "type": "separator"
+      },
+      {
+        "id": "5",
+        "type": "git-branch",
+        "color": "magenta"
+      },
+      {
+        "id": "6",
+        "type": "separator"
+      },
+      {
+        "id": "7",
+        "type": "git-changes",
+        "color": "yellow"
+      }
+    ],
+    [
+      {
+        "id": "14224d8f-2cf3-44bb-a868-e0c0bfa7e021",
+        "type": "tokens-input",
+        "color": "magenta"
+      },
+      {
+        "id": "d15553d5-1f4a-4081-b2db-e19b54160c95",
+        "type": "separator"
+      },
+      {
+        "id": "13c25ddd-f883-47f4-82ab-63e753642156",
+        "type": "tokens-output"
+      },
+      {
+        "id": "ae2af3fd-38be-4b72-a135-e41026e2c6c9",
+        "type": "separator"
+      },
+      {
+        "id": "0a905b76-bd2c-432d-a809-ea4230eb19f6",
+        "type": "tokens-total"
+      },
+      {
+        "id": "d6b144a0-eb8d-4f13-ab90-cfad5bcb851c",
+        "type": "separator"
+      },
+      {
+        "id": "d776193c-033f-45b7-9a5a-808d2120044b",
+        "type": "block-timer",
+        "metadata": {
+          "display": "time"
+        }
+      },
+      {
+        "id": "81dd20e6-a479-447f-bd71-78fef6fdfa7f",
+        "type": "separator"
+      },
+      {
+        "id": "6de8b8a4-57f1-4b88-8e17-4f8a53b0c34e",
+        "type": "session-clock"
+      }
+    ],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 3,
+  "inheritSeparatorColors": true,
+  "globalBold": true,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false
+  }
+}

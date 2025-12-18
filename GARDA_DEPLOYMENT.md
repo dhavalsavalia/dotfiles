@@ -9,8 +9,8 @@ Everything is ready! Your config is properly set up for multi-profile deployment
 **1. Profile-Aware Git Configuration** ✅
 - Location: `dot_config/git/gitconfig.d/user.conf.tmpl`
 - Uses chezmoi data: `{{ .git_name }}` and `{{ .git_email }}`
-- Prompts for work credentials on first run
-- Home profile has 1Password SSH signing (won't interfere with garda)
+- Prompts for work credentials during `chezmoi init`
+- Both profiles use 1Password SSH signing (configure signingkey separately after setup)
 
 **2. Profile-Specific Brewfile** ✅
 - Location: `Brewfile.tmpl`
